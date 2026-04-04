@@ -1,0 +1,13 @@
+{
+  "name": "Adapter_Lib",
+  "version": "0.1.0",
+  "description": "LoraP2P, LoraWAN and MQTT communication adapters for nodes and gateway",
+  "keywords": ["adapters"],
+  "authors": [
+    {
+      "name": "Mark Toth"
+    }
+  ],
+  "frameworks": "*",
+  "platforms": "*"
+}
