@@ -1,6 +1,6 @@
 # --- Backend Server Ignores ---
-backend-server/home-assistant/home-assistant_v2.db
-backend-server/home-assistant/home-assistant.log
+backend-server/home-assistant/home-assistant_v2.db*
+backend-server/home-assistant/home-assistant.log*
 backend-server/home-assistant/.storage/
 backend-server/home-assistant/secrets.yaml
 
