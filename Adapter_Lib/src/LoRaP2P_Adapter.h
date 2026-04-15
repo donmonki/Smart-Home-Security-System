@@ -7,26 +7,46 @@
 
 enum MessageType : uint8_t
 {
-    MSG_HEARTBEAT = 0x01,
-    MSG_MOTION_ALARM = 0x02,
-    MSG_RFID_SCANNED = 0x03,
-    MSG_SENSOR_UPDATE = 0x04
+    // Uplink (Node -> Gateway)
+    MSG_HEARTBEAT = 0x01,     // Sent by all nodes
+    MSG_MOTION_ALARM = 0x02,  // Sent by Motion sensor node
+    MSG_RFID_SCANNED = 0x03,  // Sent by RFID node
+    
+    // Downlink (Gateway -> Node)
+    MSG_COMMAND = 0x04
 };
 
-// The 16-byte Payload Struct
-struct __attribute__((packed)) LoRaPayload
+enum ActionType : uint8_t
 {
+    CMD_ALARM_ON = 0x01,
+    CMD_ALARM_OFF = 0x02,
+};
+// The 14-byte Payload Struct
+struct __attribute__((packed)) LoRaPayload {
+    // 2-Byte Header 
     uint8_t nodeId;
     uint8_t msgType;
-    bool motionDetected;
-    uint16_t lightLevel;
-    uint16_t soundLevel;
-    uint32_t rfidUid;
-    uint8_t batteryLevel;
-    uint32_t messageCounter;
 
-    LoRaPayload()
-    {
+    // 14-Byte Payload 
+    union {
+        // Used by Motion Node, RFID Node, and all Heartbeats
+        struct {
+            bool motionDetected;    // 1 byte
+            uint32_t rfidUid;       // 4 bytes
+            uint32_t messageCounter;// 4 bytes
+            uint8_t padding[5];     // Pad to be 14 bytes 
+        } sensorData;
+
+        // Used by Gateway to control the LED/Buzzer Node
+        struct {
+            uint8_t actionId;       // Trigger Alarm node
+            uint8_t parameter;      // Siren Duration time in seconds 
+            uint8_t padding[12];    // Pad to be 14 bytes
+        } commandData;
+
+    } data;
+
+    LoRaPayload() {
         memset(this, 0, sizeof(LoRaPayload));
     }
 };

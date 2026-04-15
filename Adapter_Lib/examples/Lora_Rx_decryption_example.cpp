@@ -72,12 +72,9 @@ void loop()
     Serial.println("\n--- Struct Values (USING DECRYPTION) ---");
     Serial.printf("Node ID: %d\n", decryptedData.nodeId);
     Serial.printf("Message Type: %d\n", decryptedData.msgType);
-    Serial.printf("Motion Detected: %d\n", decryptedData.motionDetected);
-    Serial.printf("Light Level: %d\n", decryptedData.lightLevel);
-    Serial.printf("Sound Level: %d\n", decryptedData.soundLevel);
-    Serial.printf("RFID UID: %u\n", decryptedData.rfidUid);
-    Serial.printf("Battery Level: %d\n", decryptedData.batteryLevel);
-    Serial.printf("Message Counter: %u\n", decryptedData.messageCounter);
+    Serial.printf("Motion Detected: %d\n", decryptedData.data.sensorData.motionDetected);
+    Serial.printf("RFID UID: %u\n", decryptedData.data.sensorData.rfidUid);
+    Serial.printf("Message Counter: %u\n", decryptedData.data.sensorData.messageCounter);
     Serial.println("------------------------------");
   }
 
