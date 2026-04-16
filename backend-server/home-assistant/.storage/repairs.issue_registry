@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "minor_version": 2,
+  "key": "repairs.issue_registry",
+  "data": {
+    "issues": [
+      {
+        "created": "2026-04-16T07:53:52.892847+00:00",
+        "dismissed_version": null,
+        "domain": "mqtt",
+        "is_persistent": false,
+        "issue_id": "0x75aacfd4133ca819"
+      }
+    ]
+  }
+}
