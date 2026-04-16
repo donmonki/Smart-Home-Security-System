@@ -6,6 +6,7 @@ backend-server/home-assistant/home-assistant.log*
 # Temporary/cache files
 backend-server/home-assistant/.cache/
 backend-server/home-assistant/.cloud/
+backend-server/home-assistant/.HA_VERSION
 backend-server/home-assistant/.ha_run.lock
 
 # Secrets (if you add passwords/API keys)

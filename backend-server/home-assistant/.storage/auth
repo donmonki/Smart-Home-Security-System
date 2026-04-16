@@ -25,6 +25,61 @@
         "name": "kristian",
         "system_generated": false,
         "local_only": false
+      },
+      {
+        "id": "41822dc52d604795bb3ab785a941f593",
+        "group_ids": [
+          "system-admin"
+        ],
+        "is_owner": false,
+        "is_active": true,
+        "name": "mairo",
+        "system_generated": false,
+        "local_only": false
+      },
+      {
+        "id": "ceea46277d2c4fc9b53fe284e68636c7",
+        "group_ids": [
+          "system-admin"
+        ],
+        "is_owner": false,
+        "is_active": true,
+        "name": "mark",
+        "system_generated": false,
+        "local_only": false
+      },
+      {
+        "id": "514b9860cf8d4547a22be30883a0fde9",
+        "group_ids": [
+          "system-admin"
+        ],
+        "is_owner": false,
+        "is_active": true,
+        "name": "lex",
+        "system_generated": false,
+        "local_only": false
+      },
+      {
+        "id": "9bb9626551ac4c55a83014aaf8dc28fb",
+        "group_ids": [
+          "system-admin"
+        ],
+        "is_owner": false,
+        "is_active": true,
+        "name": "zivota",
+        "system_generated": false,
+        "local_only": false
+      },
+      {
+        "id": "13d17a89889141c0b8890602cc5d5d83",
+        "group_ids": [
+          "system-admin"
+        ],
+        "is_owner": false,
+        "is_active": true,
+        "name": "pawas",
+        "system_generated": false,
+        "local_only": false
       }
     ],
     "groups": [
@@ -49,6 +104,51 @@
         "auth_provider_id": null,
         "data": {
           "username": "kristian"
+        }
+      },
+      {
+        "id": "f013d2a518f142e49cf446e1c36510d3",
+        "user_id": "41822dc52d604795bb3ab785a941f593",
+        "auth_provider_type": "homeassistant",
+        "auth_provider_id": null,
+        "data": {
+          "username": "mairo"
+        }
+      },
+      {
+        "id": "878c3b14cb4e464db5e16dd2a25e25db",
+        "user_id": "ceea46277d2c4fc9b53fe284e68636c7",
+        "auth_provider_type": "homeassistant",
+        "auth_provider_id": null,
+        "data": {
+          "username": "mark"
+        }
+      },
+      {
+        "id": "f2ba067eceaf405c987b2b9a80000764",
+        "user_id": "514b9860cf8d4547a22be30883a0fde9",
+        "auth_provider_type": "homeassistant",
+        "auth_provider_id": null,
+        "data": {
+          "username": "lex"
+        }
+      },
+      {
+        "id": "5cbb34b91ac645e79771d9e568ba589b",
+        "user_id": "9bb9626551ac4c55a83014aaf8dc28fb",
+        "auth_provider_type": "homeassistant",
+        "auth_provider_id": null,
+        "data": {
+          "username": "zivota"
+        }
+      },
+      {
+        "id": "875c113e34104c45af8e70797ead9193",
+        "user_id": "13d17a89889141c0b8890602cc5d5d83",
+        "auth_provider_type": "homeassistant",
+        "auth_provider_id": null,
+        "data": {
+          "username": "pawas"
         }
       }
     ],
