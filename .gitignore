@@ -3,6 +3,8 @@ backend-server/home-assistant/home-assistant_v2.db*
 backend-server/home-assistant/home-assistant.log*
 backend-server/home-assistant/.storage/
 backend-server/home-assistant/.cache/
+backend-server/home-assistant/.cloud/
+backend-server/home-assistant/.HA_VERSION
 backend-server/home-assistant/secrets.yaml
 backend-server/home-assistant/.ha_run.lock
 
