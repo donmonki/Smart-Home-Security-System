@@ -1,0 +1,50 @@
+{
+  "version": 2,
+  "minor_version": 1,
+  "key": "person",
+  "data": {
+    "items": [
+      {
+        "id": "kristian",
+        "name": "kristian",
+        "user_id": "421f0e91322c4038b38de397e203f7ea",
+        "device_trackers": []
+      },
+      {
+        "id": "mairo",
+        "name": "mairo",
+        "device_trackers": [],
+        "user_id": "41822dc52d604795bb3ab785a941f593",
+        "picture": null
+      },
+      {
+        "id": "mark",
+        "name": "mark",
+        "device_trackers": [],
+        "user_id": "ceea46277d2c4fc9b53fe284e68636c7",
+        "picture": null
+      },
+      {
+        "id": "lex",
+        "name": "lex",
+        "device_trackers": [],
+        "user_id": "514b9860cf8d4547a22be30883a0fde9",
+        "picture": null
+      },
+      {
+        "id": "zivota",
+        "name": "zivota",
+        "device_trackers": [],
+        "user_id": "9bb9626551ac4c55a83014aaf8dc28fb",
+        "picture": null
+      },
+      {
+        "id": "pawas",
+        "name": "pawas",
+        "device_trackers": [],
+        "user_id": "13d17a89889141c0b8890602cc5d5d83",
+        "picture": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+# --- Backend Server Ignores ---
+# Database files (runtime state - too large and changes constantly)
+backend-server/home-assistant/home-assistant_v2.db*
+backend-server/home-assistant/home-assistant.log*
+
+# Temporary/cache files
+backend-server/home-assistant/.cache/
+backend-server/home-assistant/.cloud/
+backend-server/home-assistant/.HA_VERSION
+backend-server/home-assistant/.ha_run.lock
+
+# Secrets (if you add passwords/API keys)
+backend-server/home-assistant/secrets.yaml
+
+# MQTT broker runtime data
+backend-server/mosquitto/data/
+backend-server/mosquitto/log/
+
+# NOTE: .storage/ is now SHARED for team collaboration
+# This includes user accounts and integration configs
