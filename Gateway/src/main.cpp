@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <LoRaP2P_Adapter.h>
+#include <MQTT_Adapter.h>
 
 // ----------------------------------------------------------------
 // Pin Definitions - adjust to match your gateway hardware wiring
@@ -9,10 +10,19 @@
 #define LORA_TX_PIN  19
 
 // ----------------------------------------------------------------
+// WiFi / MQTT Credentials — update before deployment
+// ----------------------------------------------------------------
+#define WIFI_SSID      "your-ssid"
+#define WIFI_PASSWORD  "your-password"
+#define MQTT_SERVER    "your-broker-ip"
+#define MQTT_PORT      1883
+#define MQTT_CLIENT_ID "gateway-1"
+
+// ----------------------------------------------------------------
 // Node Health Tracking
 // ----------------------------------------------------------------
-#define MAX_NODES            8
-#define HEARTBEAT_TIMEOUT_MS 30000  // 30s without heartbeat → node considered offline
+#define MAX_NODES                8
+#define HEARTBEAT_TIMEOUT_MS     30000  // 30s without heartbeat → node considered offline
 #define HEALTH_CHECK_INTERVAL_MS 5000
 
 struct NodeStatus
@@ -26,39 +36,24 @@ NodeStatus nodeRegistry[MAX_NODES];
 uint8_t    nodeCount = 0;
 
 // ----------------------------------------------------------------
-// LoRa Adapter Instance
+// Adapter Instances
 // ----------------------------------------------------------------
 HardwareSerial loraSerial(2);
-LoraP2P lora(LORA_RST_PIN, LORA_RX_PIN, LORA_TX_PIN, loraSerial);
+LoraP2P     lora(LORA_RST_PIN, LORA_RX_PIN, LORA_TX_PIN, loraSerial);
+MqttAdapter mqtt(WIFI_SSID, WIFI_PASSWORD, MQTT_SERVER, MQTT_PORT, MQTT_CLIENT_ID);
 
 // ----------------------------------------------------------------
-// MQTT Forwarding Stubs
-// These functions will be replaced once the MQTT adapter is ready.
-// See Adapter_Lib docs for the planned MQTT adapter interface.
+// MQTT Callback — called by PubSubClient on incoming backend messages
 // ----------------------------------------------------------------
-void mqttPublishMotionAlarm(const LoRaPayload &payload)
+void mqttCallback(char* topic, byte* payload, unsigned int length)
 {
-    // TODO: forward to backend topic home/security/alarm
-    Serial.printf("[MQTT] Motion alarm from node %d\n", payload.nodeId);
-}
-
-void mqttPublishRfidScanned(const LoRaPayload &payload)
-{
-    // TODO: forward to backend topic home/security/rfid
-    Serial.printf("[MQTT] RFID scan from node %d, UID: %u\n", payload.nodeId, payload.rfidUid);
-}
-
-void mqttPublishSensorUpdate(const LoRaPayload &payload)
-{
-    // TODO: forward to backend topic home/security/node/{id}/sensors
-    Serial.printf("[MQTT] Sensor update from node %d — light: %d, sound: %d, battery: %d%%\n",
-                  payload.nodeId, payload.lightLevel, payload.soundLevel, payload.batteryLevel);
-}
-
-void mqttPublishNodeOffline(uint8_t nodeId)
-{
-    // TODO: forward to backend topic home/security/node/{id}/status
-    Serial.printf("[MQTT] Node %d went offline\n", nodeId);
+    LoRaPayload command;
+    if (mqtt.processIncomingMessage(topic, payload, length, command))
+    {
+        Serial.printf("[Gateway] Forwarding command (action %d) to node %d\n",
+                      command.data.commandData.actionId, command.nodeId);
+        lora.transmitPayload(command);
+    }
 }
 
 // ----------------------------------------------------------------
@@ -96,7 +91,7 @@ void checkNodeHealth()
             (now - nodeRegistry[i].lastSeenMs) > HEARTBEAT_TIMEOUT_MS)
         {
             nodeRegistry[i].online = false;
-            mqttPublishNodeOffline(nodeRegistry[i].nodeId);
+            mqtt.publishNodeOffline(nodeRegistry[i].nodeId);
         }
     }
 }
@@ -111,23 +106,19 @@ void routePayload(const LoRaPayload &payload)
     switch (payload.msgType)
     {
         case MSG_HEARTBEAT:
-            Serial.printf("[Gateway] Heartbeat from node %d (battery: %d%%)\n",
-                          payload.nodeId, payload.batteryLevel);
+            Serial.printf("[Gateway] Heartbeat from node %d\n", payload.nodeId);
+            mqtt.publishNodeTelemetry(payload);
             break;
 
         case MSG_MOTION_ALARM:
             Serial.printf("[Gateway] Motion alarm from node %d\n", payload.nodeId);
-            mqttPublishMotionAlarm(payload);
+            mqtt.publishAlarm(payload);
             break;
 
         case MSG_RFID_SCANNED:
-            Serial.printf("[Gateway] RFID scan from node %d, UID: %u\n",
-                          payload.nodeId, payload.rfidUid);
-            mqttPublishRfidScanned(payload);
-            break;
-
-        case MSG_SENSOR_UPDATE:
-            mqttPublishSensorUpdate(payload);
+            Serial.printf("[Gateway] RFID scan from node %d, UID: %08X\n",
+                          payload.nodeId, payload.data.sensorData.rfidUid);
+            mqtt.publishAuthentication(payload);
             break;
 
         default:
@@ -155,11 +146,15 @@ void setup()
         // TODO: signal failure (e.g., blink onboard LED) and retry
     }
 
-    // TODO: Initialize MQTT adapter when available
+    mqtt.init(mqttCallback);
+    Serial.println("[Gateway] MQTT adapter initialized.");
 }
 
 void loop()
 {
+    // Keep MQTT connection alive and process incoming backend messages
+    mqtt.alive_loop();
+
     // Receive and route incoming LoRa messages from nodes
     LoRaPayload payload;
     if (lora.receivePayload(payload))
