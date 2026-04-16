@@ -1,10 +1,9 @@
-
 # Loads default set of integrations. Do not remove.
 default_config:
 
 # MQTT Configuration
 mqtt:
-  broker: mosquitto
+  broker: mqtt
   port: 1883
   discovery: true
   discovery_prefix: homeassistant
