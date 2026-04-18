@@ -1,1 +1,56 @@
-[]
+- id: '1776327465398'
+  alias: Start timer on motion detected
+  description: ''
+  triggers:
+  - trigger: mqtt
+    options:
+      payload: 'PLACEHOLDER: motion detected'
+      topic: 'PLACEHOLDER: motion'
+  conditions: []
+  actions:
+  - action: timer.start
+    metadata: {}
+    target:
+      entity_id: timer.disarmtimer
+    data: {}
+  mode: single
+- id: '1776329076297'
+  alias: Start alarm when timer finishes
+  description: ''
+  triggers:
+  - trigger: event
+    event_data:
+      entity_id: timer.disarmtimer
+    event_type: timer.finished
+  conditions: []
+  actions:
+  - action: script.start_alarm
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1776329076298'
+  alias: RFID Card Check
+  description: ''
+  triggers:
+  - trigger: mqtt
+    topic: 'PLACEHOLDER: rfid topic'
+  conditions: []
+  variables:
+    rfid_id: "{{ trigger.payload }}"
+    valid_ids:
+      - "PLACEHOLDER: valid rfid id"
+  actions:
+  - if:
+    - condition: template
+      value_template: "{{ rfid_id in valid_ids }}"
+    then:
+    - action: timer.cancel
+      metadata: {}
+      target:
+        entity_id: timer.disarmtimer
+      data: {}
+    else:
+    - action: script.start_alarm
+      metadata: {}
+      data: {}
+  mode: single
