@@ -27,14 +27,11 @@ void loop() {
     LoRaPayload myData;
     myData.nodeId = 1;             // Node ID 1 for this device
     myData.msgType = 2;            // MSG_MOTION_ALARM
-    myData.motionDetected = true;  // Motion detection triggered
-    myData.lightLevel = 450;
-    myData.soundLevel = 40;
-    myData.rfidUid = 0;            // No RFID card scanned
-    myData.batteryLevel = 98;      // 98% battery charge
+    myData.data.sensorData.motionDetected = true;  // Motion detection triggered
+    myData.data.sensorData.rfidUid = 0;            // No RFID card scanned
     
     // Increment the counter so the encrypted output changes every time
-    myData.messageCounter = ++msgCounter; 
+    myData.data.sensorData.messageCounter = ++msgCounter; 
 
     Serial.printf("\nTransmitting Packet #%d...\n", msgCounter);
 

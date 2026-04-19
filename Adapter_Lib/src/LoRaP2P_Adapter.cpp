@@ -23,7 +23,6 @@ bool decryptPayload(const unsigned char *inputBuffer16, LoRaPayload &outputData)
     mbedtls_aes_crypt_ecb(&aes, MBEDTLS_AES_DECRYPT, inputBuffer16, (unsigned char *)&outputData);
     mbedtls_aes_free(&aes);
 
-    // You could add basic validation here (e.g., checking if nodeId is valid)
     return true;
 }
 
