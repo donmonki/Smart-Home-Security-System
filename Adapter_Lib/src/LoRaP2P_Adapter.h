@@ -8,12 +8,12 @@
 enum MessageType : uint8_t
 {
     // Uplink (Node -> Gateway)
-    MSG_HEARTBEAT = 0x01,     // Sent by all nodes
-    MSG_MOTION_ALARM = 0x02,  // Sent by Motion sensor node
-    MSG_RFID_SCANNED = 0x03,  // Sent by RFID node
+    LORA_MSG_HEARTBEAT = 0x01,     // Sent by all nodes
+    LORA_MSG_MOTION_ALARM = 0x02,  // Sent by Motion sensor node
+    LORA_MSG_RFID_SCANNED = 0x03,  // Sent by RFID node
     
     // Downlink (Gateway -> Node)
-    MSG_COMMAND = 0x04
+    LORA_MSG_COMMAND = 0x04
 };
 
 enum ActionType : uint8_t

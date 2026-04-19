@@ -5,40 +5,54 @@
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include "LoRaP2P_Adapter.h"
+#include <time.h>
 
-class MqttAdapter {
+enum MqttDeviceStatus : uint8_t
+{
+    MQTT_DEVICE_OFFLINE = 0x0,
+    MQTT_DEVICE_ONLINE = 0x1,
+};
+
+enum MqttMessageType : uint8_t
+{
+    MQTT_MSG_UNKNOWN = 0x00,
+    MQTT_MSG_GATEWAY_TELEMETRY = 0x01,
+    MQTT_MSG_HEARTBEAT = 0x02,
+    MQTT_MSG_AUTHENTICATION = 0x03,
+    MQTT_MSG_MOTIONALARM = 0x04,
+};
+class MqttAdapter
+{
 private:
     WiFiClient _wifiClient;
     PubSubClient _mqttClient;
-    
-    const char* _ssid;
-    const char* _password;
-    const char* _mqttServer;
+
+    const char *_ssid;
+    const char *_password;
+    const char *_mqttServer;
     uint16_t _mqttPort;
-    const char* _clientId;
-    
-    LoRaPayload _pendingCommand; 
-    bool _hasPendingCommand;
+    const char *_clientId;
 
     void reconnect();
 
 public:
-    MqttAdapter(const char* ssid, const char* password, const char* mqttServer, uint16_t mqttPort, const char* clientId);
+    MqttAdapter(const char *ssid, const char *password, const char *mqttServer, uint16_t mqttPort, const char *clientId);
 
     // Initialize WiFi and MQTT connection
     void init(MQTT_CALLBACK_SIGNATURE);
 
-   // Maintaining connection 
+    // Maintaining connection
     void alive_loop();
 
     // Publish methods tailored to your payload types
-    bool publishNodeTelemetry(const LoRaPayload& payload);
+    bool publishNodeTelemetry(const LoRaPayload &payload);
     bool publishGatewayTelemetry(uint8_t gatewayBatteryLevel);
-    bool publishAlarm(const LoRaPayload& payload);
-    bool publishAuthentication(const LoRaPayload& payload);
+    bool publishAlarm(const LoRaPayload &payload);
+    bool publishAuthentication(const LoRaPayload &payload);
     bool publishNodeOffline(uint8_t nodeId);
-    void processIncomingMessage(char* topic, byte* payload, unsigned int length);
+    bool publishEvent(const LoRaPayload &payload);
+    void processIncomingMessage(char *topic, byte *payload, unsigned int length, LoRaPayload &outPayload);
     bool getPendingCommand(uint8_t requestingNodeId, LoRaPayload &outPayload);
 };
 
-#endif
+#endif // MQTT_ADAPTER_H
