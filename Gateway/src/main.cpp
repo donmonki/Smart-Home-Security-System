@@ -6,8 +6,8 @@
 // Pin Definitions - adjust to match your gateway hardware wiring
 // ----------------------------------------------------------------
 #define LORA_RST_PIN 23
-#define LORA_RX_PIN  18
-#define LORA_TX_PIN  19
+#define LORA_RX_PIN  19
+#define LORA_TX_PIN  18
 
 // ----------------------------------------------------------------
 // WiFi / MQTT Credentials — update before deployment
