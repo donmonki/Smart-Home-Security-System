@@ -4,45 +4,27 @@
   "key": "core.restore_state",
   "data": [
     {
-      "state": {"entity_id":"conversation.home_assistant","state":"unknown","attributes":{"friendly_name":"Home Assistant","supported_features":1},"last_changed":"2026-04-16T07:53:52.393591+00:00","last_reported":"2026-04-16T07:53:52.393591+00:00","last_updated":"2026-04-16T07:53:52.393591+00:00","context":{"id":"01KPAMGF093AMZ3WAZ627H56CQ","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"conversation.home_assistant","state":"unknown","attributes":{"friendly_name":"Home Assistant","supported_features":1},"last_changed":"2026-04-22T21:43:36.306642+00:00","last_reported":"2026-04-22T21:43:36.306642+00:00","last_updated":"2026-04-22T21:43:36.306642+00:00","context":{"id":"01KPVJC23JXYYKNBS5BRWSCN1N","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-16T07:53:53.569172+00:00"
+      "last_seen": "2026-04-23T08:14:41.133437+00:00"
     },
     {
-      "state": {"entity_id":"event.backup_automatic_backup","state":"unknown","attributes":{"event_types":["completed","failed","in_progress"],"event_type":null,"friendly_name":"Backup Automatic backup"},"last_changed":"2026-04-16T07:53:52.408702+00:00","last_reported":"2026-04-16T07:53:52.408702+00:00","last_updated":"2026-04-16T07:53:52.408702+00:00","context":{"id":"01KPAMGF0R78P4BPQYFM65JR5M","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"event.backup_automatic_backup","state":"unknown","attributes":{"event_types":["completed","failed","in_progress"],"event_type":null,"friendly_name":"Backup Automatic backup"},"last_changed":"2026-04-22T21:43:36.380898+00:00","last_reported":"2026-04-22T21:43:36.380898+00:00","last_updated":"2026-04-22T21:43:36.380898+00:00","context":{"id":"01KPVJC25WYN3BFM06Z3K71M0C","parent_id":null,"user_id":null}},
       "extra_data": {
         "last_event_type": null,
         "last_event_attributes": null
       },
-      "last_seen": "2026-04-16T07:53:53.569172+00:00"
+      "last_seen": "2026-04-23T08:14:41.133437+00:00"
     },
     {
-      "state": {"entity_id":"person.kristian","state":"unknown","attributes":{"editable":true,"id":"kristian","device_trackers":[],"source":"person.kristian","user_id":"421f0e91322c4038b38de397e203f7ea","friendly_name":"kristian"},"last_changed":"2026-04-16T07:53:52.514999+00:00","last_reported":"2026-04-16T07:53:52.514999+00:00","last_updated":"2026-04-16T07:53:52.514999+00:00","context":{"id":"01KPAMGF421ESMV2KNF7J7Y401","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.zivota","state":"unknown","attributes":{"editable":true,"id":"zivota","device_trackers":[],"user_id":"a86fc4102c3e4354835c9101706c7d07","friendly_name":"Zivota"},"last_changed":"2026-04-22T21:43:36.882026+00:00","last_reported":"2026-04-22T21:43:39.497777+00:00","last_updated":"2026-04-22T21:43:39.497777+00:00","context":{"id":"01KPVJC579RDQ5YN7WQ17J3N7B","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-16T07:53:53.569172+00:00"
+      "last_seen": "2026-04-23T08:14:41.133437+00:00"
     },
     {
-      "state": {"entity_id":"tts.google_translate_en_com","state":"unknown","attributes":{"friendly_name":"Google Translate en com"},"last_changed":"2026-04-16T07:53:52.875186+00:00","last_reported":"2026-04-16T07:53:52.875186+00:00","last_updated":"2026-04-16T07:53:52.875186+00:00","context":{"id":"01KPAMGFFBN4DSBPHM5Y9V4JE0","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"tts.google_translate_en_com","state":"unknown","attributes":{"friendly_name":"Google Translate en com"},"last_changed":"2026-04-22T21:43:39.194746+00:00","last_reported":"2026-04-22T21:43:39.194746+00:00","last_updated":"2026-04-22T21:43:39.194746+00:00","context":{"id":"01KPVJC4XTQ2PNZ21KQKTB46EK","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-16T07:53:53.569172+00:00"
-    },
-    {
-      "state": {"entity_id":"sensor.lora_signal_strength","state":"unknown","attributes":{"unit_of_measurement":"dBm","icon":"mdi:signal","friendly_name":"LoRa Signal Strength"},"last_changed":"2026-04-16T07:53:52.894194+00:00","last_reported":"2026-04-16T07:53:52.894194+00:00","last_updated":"2026-04-16T07:53:52.894194+00:00","context":{"id":"01KPAMGFFY9RMEX5Y7G6KPAP2A","parent_id":null,"user_id":null}},
-      "extra_data": {
-        "native_value": null,
-        "native_unit_of_measurement": "dBm"
-      },
-      "last_seen": "2026-04-16T07:53:53.569172+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.security_system_armed","state":"unknown","attributes":{"device_class":"safety","friendly_name":"Security System Armed"},"last_changed":"2026-04-16T07:53:52.894214+00:00","last_reported":"2026-04-16T07:53:52.894214+00:00","last_updated":"2026-04-16T07:53:52.894214+00:00","context":{"id":"01KPAMGFFY7SNA4GAWP5GJ5412","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-04-16T07:53:53.569172+00:00"
-    },
-    {
-      "state": {"entity_id":"switch.security_system_enable","state":"unknown","attributes":{"friendly_name":"Security System Enable"},"last_changed":"2026-04-16T07:53:52.894225+00:00","last_reported":"2026-04-16T07:53:52.894225+00:00","last_updated":"2026-04-16T07:53:52.894225+00:00","context":{"id":"01KPAMGFFYBG0XW2E65GFSM2QN","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-04-16T07:53:53.569172+00:00"
+      "last_seen": "2026-04-23T08:14:41.133437+00:00"
     }
   ]
 }
