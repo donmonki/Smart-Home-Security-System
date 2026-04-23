@@ -45,14 +45,11 @@ public:
     void alive_loop();
 
     // Publish methods tailored to your payload types
-    bool publishNodeTelemetry(const LoRaPayload &payload);
     bool publishGatewayTelemetry(uint8_t gatewayBatteryLevel);
-    bool publishAlarm(const LoRaPayload &payload);
-    bool publishAuthentication(const LoRaPayload &payload);
     bool publishNodeOffline(uint8_t nodeId);
     bool publishEvent(const LoRaPayload &payload);
     void processIncomingMessage(char *topic, byte *payload, unsigned int length, LoRaPayload &outPayload);
-    bool getPendingCommand(uint8_t requestingNodeId, LoRaPayload &outPayload);
+
 };
 
 #endif // MQTT_ADAPTER_H
