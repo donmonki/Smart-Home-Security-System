@@ -24,6 +24,9 @@
 #define MAX_NODES                8
 #define HEARTBEAT_TIMEOUT_MS     30000  // 30s without heartbeat → node considered offline
 #define HEALTH_CHECK_INTERVAL_MS 5000
+#define TELEMETRY_INTERVAL_MS    60000  // publish gateway telemetry every 60s
+
+#define GATEWAY_BATTERY_LEVEL    100    // TODO: replace with real ADC reading
 
 struct NodeStatus
 {
@@ -48,7 +51,8 @@ MqttAdapter mqtt(WIFI_SSID, WIFI_PASSWORD, MQTT_SERVER, MQTT_PORT, MQTT_CLIENT_I
 void mqttCallback(char* topic, byte* payload, unsigned int length)
 {
     LoRaPayload command;
-    if (mqtt.processIncomingMessage(topic, payload, length, command))
+    mqtt.processIncomingMessage(topic, payload, length, command);
+    if (command.msgType == LORA_MSG_COMMAND)
     {
         Serial.printf("[Gateway] Forwarding command (action %d) to node %d\n",
                       command.data.commandData.actionId, command.nodeId);
@@ -102,30 +106,8 @@ void checkNodeHealth()
 void routePayload(const LoRaPayload &payload)
 {
     updateNodeLastSeen(payload.nodeId);
-
-    switch (payload.msgType)
-    {
-        case MSG_HEARTBEAT:
-            Serial.printf("[Gateway] Heartbeat from node %d\n", payload.nodeId);
-            mqtt.publishNodeTelemetry(payload);
-            break;
-
-        case MSG_MOTION_ALARM:
-            Serial.printf("[Gateway] Motion alarm from node %d\n", payload.nodeId);
-            mqtt.publishAlarm(payload);
-            break;
-
-        case MSG_RFID_SCANNED:
-            Serial.printf("[Gateway] RFID scan from node %d, UID: %08X\n",
-                          payload.nodeId, payload.data.sensorData.rfidUid);
-            mqtt.publishAuthentication(payload);
-            break;
-
-        default:
-            Serial.printf("[Gateway] Unknown message type 0x%02X from node %d\n",
-                          payload.msgType, payload.nodeId);
-            break;
-    }
+    Serial.printf("[Gateway] Received msg type 0x%02X from node %d\n", payload.msgType, payload.nodeId);
+    mqtt.publishEvent(payload);
 }
 
 // ----------------------------------------------------------------
@@ -168,6 +150,14 @@ void loop()
     {
         checkNodeHealth();
         lastHealthCheck = millis();
+    }
+
+    // Periodically publish gateway telemetry to the backend
+    static uint32_t lastTelemetry = 0;
+    if (millis() - lastTelemetry >= TELEMETRY_INTERVAL_MS)
+    {
+        mqtt.publishGatewayTelemetry(GATEWAY_BATTERY_LEVEL);
+        lastTelemetry = millis();
     }
 
     delay(10);
