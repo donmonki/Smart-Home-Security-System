@@ -9,6 +9,12 @@
         "name": "DisarmTimer",
         "duration": "0:00:00",
         "restore": false
+      },
+      {
+        "id": "heartbeattimernode1",
+        "name": "heartbeatTimerNode1",
+        "restore": false,
+        "duration": "0:05:00"
       }
     ]
   }

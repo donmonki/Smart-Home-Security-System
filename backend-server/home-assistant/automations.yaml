@@ -36,13 +36,13 @@
     topic: 'PLACEHOLDER: rfid topic'
   conditions: []
   variables:
-    rfid_id: "{{ trigger.payload }}"
+    rfid_id: '{{ trigger.payload }}'
     valid_ids:
-      - "PLACEHOLDER: valid rfid id"
+    - 'PLACEHOLDER: valid rfid id'
   actions:
   - if:
     - condition: template
-      value_template: "{{ rfid_id in valid_ids }}"
+      value_template: '{{ rfid_id in valid_ids }}'
     then:
     - action: timer.cancel
       metadata: {}
@@ -53,4 +53,19 @@
     - action: script.start_alarm
       metadata: {}
       data: {}
+  mode: single
+- id: '1776895453165'
+  alias: Node 1 heartbeat check
+  description: ''
+  triggers:
+  - trigger: mqtt
+    options:
+      topic: home/nodes/NODEID/status
+  conditions: []
+  actions:
+  - action: timer.start
+    metadata: {}
+    target:
+      entity_id: timer.heartbeattimernode1
+    data: {}
   mode: single
