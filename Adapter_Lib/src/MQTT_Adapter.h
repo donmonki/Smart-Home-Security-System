@@ -23,10 +23,27 @@ enum MqttMessageType : uint8_t
     MQTT_MSG_MOTIONALARM = 0x04,
 };
 
-//========================================ROOT CA Certificate=============================================================
-// ca.crt content in PEM format stored in PROGMEM
-// IMPORTANT: Ensure the certificate is correctly formatted with proper line breaks and PEM headers/footers. Any formatting issues can lead to TLS handshake failures.
-// You have to insert YOUR generated certificate here! Run generate-certs.sh and you can find the generated certificate in the 'certs' folder
+//==================================================================================
+// ROOT CA CERTIFICATE - Required for TLS/SSL connection to Mosquitto broker
+//==================================================================================
+// INSTRUCTIONS:
+// 1. Run: cd backend-server/mosquitto && ./generate-certs.sh
+// 2. Extract CA certificate: cat certs/ca.crt
+// 3. Copy entire certificate content (including BEGIN/END lines)
+// 4. Paste between R"EOF( and )EOF" below
+//
+// IMPORTANT FORMATTING NOTES:
+// - Include the entire "-----BEGIN CERTIFICATE-----" line
+// - Include the entire "-----END CERTIFICATE-----" line
+// - Preserve all line breaks exactly as they appear
+// - No extra whitespace at the beginning or end
+// - Any formatting issues will cause TLS handshake failures
+//
+// VERIFICATION:
+// After updating, verify certificate is valid:
+// - Certificate chain matches server cert: openssl verify -CAfile certs/ca.crt certs/server.crt
+// - Certificate format is correct: openssl x509 -in certs/ca.crt -text -noout
+// - For debugging steps, see: backend-server/mosquitto/ESP32_GATEWAY_SETUP.md
 static const char ROOT_CA_CERT[] PROGMEM = R"EOF(-----BEGIN CERTIFICATE-----
 MIIDpDCCAoygAwIBAgIUGxdSblONuHS1rhGZKq0cXKd3m/QwDQYJKoZIhvcNAQEL
 BQAwajELMAkGA1UEBhMCVVMxDjAMBgNVBAgMBVN0YXRlMQ0wCwYDVQQHDARDaXR5
