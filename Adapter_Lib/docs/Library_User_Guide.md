@@ -1,11 +1,13 @@
 # Library User Guide
 
 ### _General Description_:
+
 The library is created to use for the Node- and Gateway development to send and receive data.\
 Supported Communication protocols:
+
 - LoRa P2P
 - MQTT
-- LoRaWAN (TBD)
+- LoRaWAN
 
 ## **_LoRaP2P Adapter User Guide_**
 
@@ -18,10 +20,11 @@ LoraP2P(uint8_t rst_pin, uint8_t rx_pin, uint8_t tx_pin, HardwareSerial &serial)
 ```
 
 Creates a LoRaP2P adapter instance with the following parameters:
+
 - `rst_pin`: GPIO pin connected to the LoRa module reset line
 - `rx_pin`: GPIO pin for UART RX (connected to LoRa TX)
 - `tx_pin`: GPIO pin for UART TX (connected to LoRa RX)
-- `serial`: Reference to the HardwareSerial port 
+- `serial`: Reference to the HardwareSerial port
 
 #### **Initialization**
 
@@ -40,7 +43,7 @@ The standard payload structure (16 bytes total) for all LoRa P2P communication:
 struct LoRaPayload {
     uint8_t nodeId;      // ID of the sending/receiving node
     uint8_t msgType;     // Message type identifier
-    
+
     union {
         // For sensor data (Heartbeat, Motion Alarm, RFID)
         struct {
@@ -49,7 +52,7 @@ struct LoRaPayload {
             uint32_t messageCounter; // 4 bytes
             uint8_t padding[5];      // Padding to reach 14 bytes
         } sensorData;
-        
+
         // For gateway commands
         struct {
             uint8_t actionId;        // Command type
@@ -79,7 +82,6 @@ struct LoRaPayload {
   - Handles all serial communication with the LoRa module
   - `return`: `true` if transmission successful, `false` otherwise
 
-
 #### **Reception Method**
 
 - `bool receivePayload(LoRaPayload &receivedData)`: Receives and decrypts a LoRa payload.
@@ -88,7 +90,6 @@ struct LoRaPayload {
   - Populates the provided `receivedData` struct with received information
   - Must be called regularly in `loop()` to check for incoming messages
   - `return`: `true` if valid payload received and decrypted, `false` otherwise
-
 
 #### **Encryption and Utility Functions**
 
@@ -102,6 +103,7 @@ struct LoRaPayload {
 #### **LoRa Module Configuration**
 
 The module is configured with the following parameters during initialization:
+
 - **Frequency**: 866.1 MHz (EU ISM band)
 - **Spreading Factor**: SF7 (balance between range and data rate)
 - **Bandwidth**: 125 kHz
@@ -120,15 +122,13 @@ For complete working examples, refer to the example files in the `Adapter_Lib/ex
 - `Lora_Tx_basic_example.cpp`: Basic transmit example without encryption
 - `Lora_Tx_encryption_example.cpp`: Transmit example with encryption
 
-
-
 #### **Tips for Payload Construction**
 
 - Always initialize the payload struct to ensure padding bytes are cleared
 - Use appropriate message type for your data
 - Message counter should be incremented for each message sent by a node
 - Ensure the same AES key is configured on all devices
-- Add a small delay time for transmission/reception (typically 1-2 seconds per message) 
+- Add a small delay time for transmission/reception (typically 1-2 seconds per message)
 
 ## **_MQTT Adapter User Guide_**
 
@@ -141,6 +141,7 @@ MqttAdapter(const char *ssid, const char *password, const char *mqttServer, uint
 ```
 
 Creates an MQTT adapter instance with the following parameters:
+
 - `ssid`: WiFi network SSID
 - `password`: WiFi network password
 - `mqttServer`: IP address or hostname of the MQTT broker
@@ -151,7 +152,6 @@ Creates an MQTT adapter instance with the following parameters:
 
 - `void init(MQTT_CALLBACK_SIGNATURE)`: Initializes the MQTT adapter and establishes connection to the broker. Must be called in `setup()`.
   - Parameter: MQTT callback function to handle incoming messages from the broker
-  
 - `void alive_loop()`: Maintains the MQTT connection and processes incoming messages. Must be called regularly in `loop()`.
   - Automatically attempts to reconnect if the connection is lost
   - Synchronizes time with NTP server upon WiFi connection
@@ -190,6 +190,7 @@ Creates an MQTT adapter instance with the following parameters:
 #### **Message Types and Device Status**
 
 The adapter supports the following message types:
+
 - `MQTT_MSG_UNKNOWN` (0x00): Unknown message
 - `MQTT_MSG_GATEWAY_TELEMETRY` (0x01): Gateway status and battery information
 - `MQTT_MSG_HEARTBEAT` (0x02): Node heartbeat/status update
@@ -197,6 +198,7 @@ The adapter supports the following message types:
 - `MQTT_MSG_MOTIONALARM` (0x04): Motion detection alarms
 
 Device status values:
+
 - `MQTT_DEVICE_ONLINE` (0x1): Device is online and operational
 - `MQTT_DEVICE_OFFLINE` (0x0): Device is offline
 
@@ -206,7 +208,6 @@ For complete working examples, refer to the example files in the `Adapter_Lib/ex
 
 - `MQTT_Publish_function_test.cpp`: Demonstrates publishing various MQTT messages (telemetry, events, node status)
 - `MQTT_Received_Payload_test.cpp`: Demonstrates receiving and processing incoming MQTT commands from the backend
-
 
 #### **MQTT Topic Structure**
 
@@ -222,6 +223,7 @@ For complete working examples, refer to the example files in the `Adapter_Lib/ex
 #### **JSON Payload Format**
 
 All MQTT messages use JSON format with the following common fields:
+
 - `nodeId` or `gatewayId`: Identifier of the device
 - `type`: Message type identifier
 - `deviceStatus`: Current device status (ONLINE/OFFLINE)
@@ -231,3 +233,214 @@ All MQTT messages use JSON format with the following common fields:
   - `hour`, `minute`, `second`: Time components
 - `dataType`: Type of data (varies by message type)
 - `value`: Message-specific data value
+
+## **_LoRaWAN Adapter User Guide_**
+
+The LoRaWAN Adapter provides connectivity to The Things Network (TTN) for emergency backup communication. It handles OTAA (Over-The-Air Activation) join procedures and uplink transmission to the LoRaWAN network, enabling cloud-based notifications when local infrastructure is down.
+
+#### **Constructor**
+
+```cpp
+LoRaWAN(uint8_t rst_pin, uint8_t rx_pin, uint8_t tx_pin, HardwareSerial &serial,
+        const char *devEUI, const char *appEUI, const char *appKey)
+```
+
+Creates a LoRaWAN adapter instance with the following parameters:
+
+- `rst_pin`: GPIO pin connected to module reset pin
+- `rx_pin`: GPIO pin for UART RX (module TX)
+- `tx_pin`: GPIO pin for UART TX (module RX)
+- `serial`: Reference to HardwareSerial object (typically `Serial2`)
+- `devEUI`: Device EUI from TTN Console (16 hex characters)
+- `appEUI`: Application EUI from TTN Console (16 hex characters)
+- `appKey`: Application Key from TTN Console (32 hex characters)
+
+#### **Initialization and Network Join**
+
+- `bool init()`: Initializes the LoRaWAN module and configures TTN parameters. Must be called in `setup()`.
+  - Performs hardware reset
+  - Configures MAC layer for EU868 frequency band
+  - Sets DevEUI, AppEUI, and AppKey
+  - Enables Adaptive Data Rate (ADR)
+  - `return`: `true` if initialization successful, `false` otherwise
+
+- `bool join()`: Performs OTAA join to TTN network.
+  - Initiates join procedure
+  - Waits up to 30 seconds for network acceptance
+  - Must be called after `init()` and before any transmission
+  - `return`: `true` if join accepted, `false` if denied or timeout
+
+- `bool isJoined()`: Checks if module is currently joined to network.
+  - `return`: `true` if joined, `false` otherwise
+
+#### **LoRaWAN Payload Structure**
+
+The adapter uses a compact 8-byte payload structure optimized for LoRaWAN airtime:
+
+```cpp
+struct LoRaWANPayload {
+    uint8_t messageType;    // Message type identifier (1 byte)
+    uint32_t timestamp;     // Unix timestamp or uptime (4 bytes)
+    uint8_t batteryLevel;   // Battery percentage 0-100 (1 byte)
+    uint8_t reserved[2];    // Reserved for future use (2 bytes)
+};
+```
+
+#### **Message Types**
+
+- `LORAWAN_MSG_BLACKOUT` (0x01): Power blackout alert
+- `LORAWAN_MSG_RESTORED` (0x02): Power restored notification
+- `LORAWAN_MSG_CUSTOM` (0xFF): Custom payload
+
+#### **Transmission Methods**
+
+- `bool sendPayload(const LoRaWANPayload &payload, uint8_t port = 1, bool confirmed = false)`: Sends a structured payload.
+  - `port`: LoRaWAN port number (1-223)
+  - `confirmed`: If `true`, requires network acknowledgment
+  - `return`: `true` if transmission successful, `false` otherwise
+
+- `bool sendRaw(const uint8_t *data, uint8_t length, uint8_t port = 1, bool confirmed = false)`: Sends raw byte array.
+  - `data`: Pointer to data buffer
+  - `length`: Number of bytes to send
+  - `return`: `true` if transmission successful, `false` otherwise
+
+- `bool sendHex(const String &hexData, uint8_t port = 1, bool confirmed = false)`: Sends hex-encoded string.
+  - `hexData`: Hex string (e.g., "0102030405")
+  - `return`: `true` if transmission successful, `false` otherwise
+
+#### **Predefined Emergency Messages**
+
+- `bool sendBlackoutAlert(uint8_t batteryLevel)`: Sends power blackout alert.
+  - Uses **confirmed transmission** for reliability
+  - Automatically populates payload with `LORAWAN_MSG_BLACKOUT` type
+  - `batteryLevel`: Current battery percentage (0-100)
+  - `return`: `true` if alert sent successfully, `false` otherwise
+
+- `bool sendPowerRestored(uint8_t batteryLevel)`: Sends power restored notification.
+  - Uses **unconfirmed transmission** to save airtime
+  - Automatically populates payload with `LORAWAN_MSG_RESTORED` type
+  - `return`: `true` if notification sent successfully, `false` otherwise
+
+#### **Utility Methods**
+
+- `void reset()`: Performs hardware reset of LoRa module.
+  - Clears serial buffer
+  - Resets module to factory state
+
+- `String getDevEUI()`: Retrieves hardware EUI from module.
+  - Useful for verifying device identity
+  - `return`: Device EUI as hex string
+
+#### **Usage Example**
+
+For a complete working example, refer to `LoRaWAN_emergency_example.cpp` in the `Adapter_Lib/examples/` folder.
+
+**Basic usage pattern:**
+
+```cpp
+#include <LoRaWAN_Adapter.h>
+
+// Define pins and credentials
+#define RST_PIN 23
+#define RX_PIN 18
+#define TX_PIN 19
+
+const char* DEV_EUI = "YOUR_DEV_EUI";
+const char* APP_EUI = "YOUR_APP_EUI";
+const char* APP_KEY = "YOUR_APP_KEY";
+
+HardwareSerial loraSerial(2);
+LoRaWAN myLoRaWAN(RST_PIN, RX_PIN, TX_PIN, loraSerial, DEV_EUI, APP_EUI, APP_KEY);
+
+void setup() {
+    // Initialize module
+    if (!myLoRaWAN.init()) {
+        Serial.println("Init failed!");
+        return;
+    }
+
+    // Join network
+    if (!myLoRaWAN.join()) {
+        Serial.println("Join failed!");
+        return;
+    }
+
+    Serial.println("Ready!");
+}
+
+void loop() {
+    // Detect power blackout (example)
+    if (powerLost) {
+        uint8_t battery = getBatteryLevel();
+        myLoRaWAN.sendBlackoutAlert(battery);
+    }
+}
+```
+
+#### **TTN Integration**
+
+The LoRaWAN adapter integrates with The Things Network for cloud-based emergency notifications:
+
+1. **Device Registration**: Register your device in TTN Console with OTAA activation
+2. **Payload Decoder**: Add JavaScript decoder in TTN Console to parse binary payload
+3. **Webhook Integration**: Configure TTN webhook to forward data to Telegram Bot API or other services
+4. **Coverage**: Verify TTN gateway coverage in your area at https://www.thethingsnetwork.org/map
+
+**Example TTN Payload Decoder (JavaScript):**
+
+```javascript
+function decodeUplink(input) {
+	var decoded = {
+		messageType: input.bytes[0],
+		timestamp:
+			(input.bytes[1] << 24) |
+			(input.bytes[2] << 16) |
+			(input.bytes[3] << 8) |
+			input.bytes[4],
+		battery: input.bytes[5],
+	};
+
+	var typeNames = {
+		0x01: "power_blackout",
+		0x02: "power_restored",
+	};
+
+	decoded.type = typeNames[decoded.messageType] || "unknown";
+
+	return {
+		data: decoded,
+	};
+}
+```
+
+#### **Best Practices**
+
+- **Airtime Considerations**: LoRaWAN has fair use policy. Avoid sending messages more frequently than every 2-3 minutes
+- **Confirmed vs Unconfirmed**: Use confirmed transmission only for critical alerts (blackout). Use unconfirmed for non-critical data (power restored)
+- **Payload Size**: Keep payloads small (<51 bytes) to minimize airtime. The 8-byte default payload is optimal
+- **Join Timing**: OTAA join can take 5-30 seconds. Perform join during setup, not during emergency
+- **Battery Optimization**: Send one alert on power loss rather than continuous updates to maximize battery life
+- **Error Handling**: Always check return values and implement retry logic with exponential backoff
+- **Regional Settings**: Ensure module is configured for correct frequency band (EU868, US915, etc.)
+
+#### **Troubleshooting**
+
+**Join fails:**
+
+- Verify DevEUI, AppEUI, and AppKey are correct and match TTN Console
+- Check TTN gateway coverage in your area
+- Ensure module is configured for correct frequency band
+- Wait at least 30 seconds for join acceptance
+
+**Transmission fails:**
+
+- Ensure module is joined (`isJoined()` returns `true`)
+- Check for duty cycle limitations (wait longer between transmissions)
+- Verify TTN gateway is within range and operational
+- Check module serial connection and baud rate (57600)
+
+**No data in TTN Console:**
+
+- Verify payload decoder is configured in TTN Application
+- Check webhook integration is properly configured
+- Monitor TTN gateway traffic in Console to verify uplinks are received
