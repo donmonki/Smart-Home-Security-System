@@ -73,12 +73,12 @@ L = City
 O = SmartHome
 OU = Security
 CN = YOUR_SERVER_IP_OR_HOSTNAME
-# IMPORTANT: Update the CN to match your server's IP or hostname!!!!!!!!!!
+
 [v3_req]
 subjectAltName = @alt_names
 basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
-# IMPORTANT: Update the DNS.3 and IP.2 to match your server's IP or hostname!!!!!!!!!!
+
 [alt_names]
 DNS.1 = localhost
 DNS.2 = mosquitto
@@ -119,11 +119,21 @@ echo "  - ca.crt        (Root certificate - copy this to ESP32)"
 echo "  - server.crt    (Server certificate for Mosquitto)"
 echo "  - server.key    (Server private key for Mosquitto)"
 echo ""
-echo " Next steps:"
-echo "  1. Restart Mosquitto broker: docker-compose restart mosquitto"
-echo "  2. Copy ca.crt contents to your ESP32 code"
-echo "  3. Configure ESP32 to connect to port 8883 with TLS"
-echo "  4. Copy the ca.crt to the MQTT_Adapter.h file in the ROOT_CA_CERT variable"
+echo " NEXT STEPS:"
+echo "  1. Verify certificate chain:"
+echo "     openssl verify -CAfile certs/ca.crt certs/server.crt"
 echo ""
-echo "To view the CA certificate for ESP32:"
-echo "  cat $CERT_DIR/ca.crt"
+echo "  2. Check certificate details:"
+echo "     openssl x509 -in certs/server.crt -text -noout | grep -A 2 'Subject Alternative Name'"
+echo ""
+echo "  3. Restart Mosquitto broker:"
+echo "     docker-compose restart mosquitto"
+echo ""
+echo "  4. Copy ca.crt contents to ESP32 code:"
+echo "     cat certs/ca.crt"
+echo "     (Paste entire content into ROOT_CA_CERT variable in MQTT_Adapter.h)"
+echo ""
+echo "  5. Configure ESP32 to connect to port 8883 with TLS"
+echo ""
+echo " For more debugging steps, see: backend-server/mosquitto/ESP32_GATEWAY_SETUP.md"
+echo ""
