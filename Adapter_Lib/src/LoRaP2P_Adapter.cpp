@@ -44,7 +44,7 @@ void hexToBytes(const String& hex, unsigned char* bytes) {
 }
 
 LoraP2P::LoraP2P(uint8_t rst_pin, uint8_t rx_pin, uint8_t tx_pin, HardwareSerial &serial)
-    : _loraSerial(serial), _rst_pin(rst_pin), _rx_pin(rx_pin), _tx_pin(tx_pin) {}
+    : _rst_pin(rst_pin), _rx_pin(rx_pin), _tx_pin(tx_pin), _loraSerial(serial) {}
 /************************
  * Private Functions
 *************************/
