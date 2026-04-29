@@ -4,70 +4,52 @@
   "key": "core.restore_state",
   "data": [
     {
-      "state": {"entity_id":"conversation.home_assistant","state":"unknown","attributes":{"friendly_name":"Home Assistant","supported_features":1},"last_changed":"2026-04-17T18:07:57.649792+00:00","last_reported":"2026-04-17T18:07:57.649792+00:00","last_updated":"2026-04-17T18:07:57.649792+00:00","context":{"id":"01KPEA1KPHSAAZ0XB5VB8JG9DQ","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"conversation.home_assistant","state":"unknown","attributes":{"friendly_name":"Home Assistant","supported_features":1},"last_changed":"2026-04-23T08:05:50.199641+00:00","last_reported":"2026-04-23T08:05:50.199641+00:00","last_updated":"2026-04-23T08:05:50.199641+00:00","context":{"id":"01KPWNZCZQZY80263MRB5491JN","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-17T18:07:58.780323+00:00"
+      "last_seen": "2026-04-23T12:24:40.109678+00:00"
     },
     {
-      "state": {"entity_id":"event.backup_automatic_backup","state":"unknown","attributes":{"event_types":["completed","failed","in_progress"],"event_type":null,"friendly_name":"Backup Automatic backup"},"last_changed":"2026-04-17T18:07:57.665272+00:00","last_reported":"2026-04-17T18:07:57.665272+00:00","last_updated":"2026-04-17T18:07:57.665272+00:00","context":{"id":"01KPEA1KQ1CENTHQGZDSEBAVTP","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"event.backup_automatic_backup","state":"unknown","attributes":{"event_types":["completed","failed","in_progress"],"event_type":null,"friendly_name":"Backup Automatic backup"},"last_changed":"2026-04-23T08:05:50.239535+00:00","last_reported":"2026-04-23T08:05:50.239535+00:00","last_updated":"2026-04-23T08:05:50.239535+00:00","context":{"id":"01KPWNZD0ZZVJRTEY43X5NF9YY","parent_id":null,"user_id":null}},
       "extra_data": {
         "last_event_type": null,
         "last_event_attributes": null
       },
-      "last_seen": "2026-04-17T18:07:58.780323+00:00"
+      "last_seen": "2026-04-23T12:24:40.109678+00:00"
     },
     {
-      "state": {"entity_id":"person.kristian","state":"unknown","attributes":{"editable":true,"id":"kristian","device_trackers":[],"source":"person.kristian","user_id":"421f0e91322c4038b38de397e203f7ea","friendly_name":"kristian"},"last_changed":"2026-04-17T18:07:57.776197+00:00","last_reported":"2026-04-17T18:07:57.776197+00:00","last_updated":"2026-04-17T18:07:57.776197+00:00","context":{"id":"01KPEA1KTG8X3NR9M91HCTGM46","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.kristian","state":"unknown","attributes":{"editable":true,"id":"kristian","device_trackers":[],"user_id":"421f0e91322c4038b38de397e203f7ea","friendly_name":"kristian"},"last_changed":"2026-04-23T08:05:51.085883+00:00","last_reported":"2026-04-23T08:05:57.859092+00:00","last_updated":"2026-04-23T08:05:57.859092+00:00","context":{"id":"01KPWNZMF3HQY52QFHSVKEB7Q6","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-17T18:07:58.780323+00:00"
+      "last_seen": "2026-04-23T12:24:40.109678+00:00"
     },
     {
-      "state": {"entity_id":"person.mairo","state":"unknown","attributes":{"editable":true,"id":"mairo","device_trackers":[],"source":"person.mairo","user_id":"41822dc52d604795bb3ab785a941f593","friendly_name":"mairo"},"last_changed":"2026-04-17T18:07:57.776254+00:00","last_reported":"2026-04-17T18:07:57.776254+00:00","last_updated":"2026-04-17T18:07:57.776254+00:00","context":{"id":"01KPEA1KTG6XBJ5RRB400HVSBK","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.mairo","state":"unknown","attributes":{"editable":true,"id":"mairo","device_trackers":[],"user_id":"41822dc52d604795bb3ab785a941f593","friendly_name":"mairo"},"last_changed":"2026-04-23T08:05:51.086116+00:00","last_reported":"2026-04-23T08:05:57.859184+00:00","last_updated":"2026-04-23T08:05:57.859184+00:00","context":{"id":"01KPWNZMF3V327ABD23H8RV9KN","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-17T18:07:58.780323+00:00"
+      "last_seen": "2026-04-23T12:24:40.109678+00:00"
     },
     {
-      "state": {"entity_id":"person.mark","state":"unknown","attributes":{"editable":true,"id":"mark","device_trackers":[],"source":"person.mark","user_id":"ceea46277d2c4fc9b53fe284e68636c7","friendly_name":"mark"},"last_changed":"2026-04-17T18:07:57.776295+00:00","last_reported":"2026-04-17T18:07:57.776295+00:00","last_updated":"2026-04-17T18:07:57.776295+00:00","context":{"id":"01KPEA1KTG2AWQ83081BHXSHTQ","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.mark","state":"unknown","attributes":{"editable":true,"id":"mark","device_trackers":[],"user_id":"ceea46277d2c4fc9b53fe284e68636c7","friendly_name":"mark"},"last_changed":"2026-04-23T08:05:51.086316+00:00","last_reported":"2026-04-23T08:05:57.859234+00:00","last_updated":"2026-04-23T08:05:57.859234+00:00","context":{"id":"01KPWNZMF3G6MSWD8A7N1K5JPS","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-17T18:07:58.780323+00:00"
+      "last_seen": "2026-04-23T12:24:40.109678+00:00"
     },
     {
-      "state": {"entity_id":"person.lex","state":"unknown","attributes":{"editable":true,"id":"lex","device_trackers":[],"source":"person.lex","user_id":"514b9860cf8d4547a22be30883a0fde9","friendly_name":"lex"},"last_changed":"2026-04-17T18:07:57.776334+00:00","last_reported":"2026-04-17T18:07:57.776334+00:00","last_updated":"2026-04-17T18:07:57.776334+00:00","context":{"id":"01KPEA1KTGS1MZ1M3KC1AYB3F7","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.lex","state":"unknown","attributes":{"editable":true,"id":"lex","device_trackers":[],"user_id":"514b9860cf8d4547a22be30883a0fde9","friendly_name":"lex"},"last_changed":"2026-04-23T08:05:51.086558+00:00","last_reported":"2026-04-23T08:05:57.859269+00:00","last_updated":"2026-04-23T08:05:57.859269+00:00","context":{"id":"01KPWNZMF319A8QZGGJACG7XK4","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-17T18:07:58.780323+00:00"
+      "last_seen": "2026-04-23T12:24:40.109678+00:00"
     },
     {
-      "state": {"entity_id":"person.zivota","state":"unknown","attributes":{"editable":true,"id":"zivota","device_trackers":[],"source":"person.zivota","user_id":"9bb9626551ac4c55a83014aaf8dc28fb","friendly_name":"zivota"},"last_changed":"2026-04-17T18:07:57.776366+00:00","last_reported":"2026-04-17T18:07:57.776366+00:00","last_updated":"2026-04-17T18:07:57.776366+00:00","context":{"id":"01KPEA1KTGGGFSJEZ9AGQZYGB6","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.zivota","state":"unknown","attributes":{"editable":true,"id":"zivota","device_trackers":[],"user_id":"9bb9626551ac4c55a83014aaf8dc28fb","friendly_name":"zivota"},"last_changed":"2026-04-23T08:05:51.086710+00:00","last_reported":"2026-04-23T08:05:57.859299+00:00","last_updated":"2026-04-23T08:05:57.859299+00:00","context":{"id":"01KPWNZMF30M4PHERZRQAPTXTW","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-17T18:07:58.780323+00:00"
+      "last_seen": "2026-04-23T12:24:40.109678+00:00"
     },
     {
-      "state": {"entity_id":"person.pawas","state":"unknown","attributes":{"editable":true,"id":"pawas","device_trackers":[],"source":"person.pawas","user_id":"13d17a89889141c0b8890602cc5d5d83","friendly_name":"pawas"},"last_changed":"2026-04-17T18:07:57.776396+00:00","last_reported":"2026-04-17T18:07:57.776396+00:00","last_updated":"2026-04-17T18:07:57.776396+00:00","context":{"id":"01KPEA1KTG34ERW5AKNQW4M3N9","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.pawas","state":"unknown","attributes":{"editable":true,"id":"pawas","device_trackers":[],"user_id":"13d17a89889141c0b8890602cc5d5d83","friendly_name":"pawas"},"last_changed":"2026-04-23T08:05:51.086862+00:00","last_reported":"2026-04-23T08:05:57.859327+00:00","last_updated":"2026-04-23T08:05:57.859327+00:00","context":{"id":"01KPWNZMF3QD1A6H97D8XMZH7R","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-17T18:07:58.780323+00:00"
+      "last_seen": "2026-04-23T12:24:40.109678+00:00"
     },
     {
-      "state": {"entity_id":"tts.google_translate_en_com","state":"unknown","attributes":{"friendly_name":"Google Translate en com"},"last_changed":"2026-04-17T18:07:58.202948+00:00","last_reported":"2026-04-17T18:07:58.202948+00:00","last_updated":"2026-04-17T18:07:58.202948+00:00","context":{"id":"01KPEA1M7T9CM78RNGN4Q53PHA","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"tts.google_translate_en_com","state":"unknown","attributes":{"friendly_name":"Google Translate en com"},"last_changed":"2026-04-23T08:05:55.265745+00:00","last_reported":"2026-04-23T08:05:55.265745+00:00","last_updated":"2026-04-23T08:05:55.265745+00:00","context":{"id":"01KPWNZHY1D0SH65Y295TCSD11","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-04-17T18:07:58.780323+00:00"
-    },
-    {
-      "state": {"entity_id":"sensor.lora_signal_strength","state":"unknown","attributes":{"unit_of_measurement":"dBm","icon":"mdi:signal","friendly_name":"LoRa Signal Strength"},"last_changed":"2026-04-16T07:53:52.894194+00:00","last_reported":"2026-04-16T07:53:52.894194+00:00","last_updated":"2026-04-16T07:53:52.894194+00:00","context":{"id":"01KPAMGFFY9RMEX5Y7G6KPAP2A","parent_id":null,"user_id":null}},
-      "extra_data": {
-        "native_value": null,
-        "native_unit_of_measurement": "dBm"
-      },
-      "last_seen": "2026-04-16T07:53:53.569172+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.security_system_armed","state":"unknown","attributes":{"device_class":"safety","friendly_name":"Security System Armed"},"last_changed":"2026-04-16T07:53:52.894214+00:00","last_reported":"2026-04-16T07:53:52.894214+00:00","last_updated":"2026-04-16T07:53:52.894214+00:00","context":{"id":"01KPAMGFFY7SNA4GAWP5GJ5412","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-04-16T07:53:53.569172+00:00"
-    },
-    {
-      "state": {"entity_id":"switch.security_system_enable","state":"unknown","attributes":{"friendly_name":"Security System Enable"},"last_changed":"2026-04-16T07:53:52.894225+00:00","last_reported":"2026-04-16T07:53:52.894225+00:00","last_updated":"2026-04-16T07:53:52.894225+00:00","context":{"id":"01KPAMGFFYBG0XW2E65GFSM2QN","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-04-16T07:53:53.569172+00:00"
+      "last_seen": "2026-04-23T12:24:40.109678+00:00"
     }
   ]
 }
