@@ -2,6 +2,7 @@
 #define MQTT_ADAPTER_H
 
 #include <WiFi.h>
+#include <WiFiClientSecure.h>
 #include <PubSubClient.h>
 #include <ArduinoJson.h>
 #include "LoRaP2P_Adapter.h"
@@ -21,10 +22,40 @@ enum MqttMessageType : uint8_t
     MQTT_MSG_AUTHENTICATION = 0x03,
     MQTT_MSG_MOTIONALARM = 0x04,
 };
+
+//========================================ROOT CA Certificate=============================================================
+// ca.crt content in PEM format stored in PROGMEM
+// IMPORTANT: Ensure the certificate is correctly formatted with proper line breaks and PEM headers/footers. Any formatting issues can lead to TLS handshake failures.
+// You have to insert YOUR generated certificate here! Run generate-certs.sh and you can find the generated certificate in the 'certs' folder
+static const char ROOT_CA_CERT[] PROGMEM = R"EOF(-----BEGIN CERTIFICATE-----
+MIIDpDCCAoygAwIBAgIUGxdSblONuHS1rhGZKq0cXKd3m/QwDQYJKoZIhvcNAQEL
+BQAwajELMAkGA1UEBhMCVVMxDjAMBgNVBAgMBVN0YXRlMQ0wCwYDVQQHDARDaXR5
+MRIwEAYDVQQKDAlTbWFydEhvbWUxETAPBgNVBAsMCFNlY3VyaXR5MRUwEwYDVQQD
+DAxTbWFydEhvbWUtQ0EwHhcNMjYwNDI5MjA1OTM5WhcNMzYwNDI2MjA1OTM5WjBq
+MQswCQYDVQQGEwJVUzEOMAwGA1UECAwFU3RhdGUxDTALBgNVBAcMBENpdHkxEjAQ
+BgNVBAoMCVNtYXJ0SG9tZTERMA8GA1UECwwIU2VjdXJpdHkxFTATBgNVBAMMDFNt
+YXJ0SG9tZS1DQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJqcGCTc
+ZCA9F2h7ulwcPJYhKA6ojMHO+fJMgKZexSb3A02cyQxYA//b9ETUcsUFVtfqRrW/
+KNSTl2egvcX2Czip/mOXArGm8PG//AjV9qe+3KVxx3b8ztgFCx9qkMVGlPQCDc2Y
+uNuOpUbxV9Y1ANbgYjI0CHlEVd1Ucm4rCsm9wMZHuvGtv6u+SK6NypCDp9YL8IG/
+D7J/R7m5bu+Du1hdQu8fr/E7eRAuYSSQlr+WAHzkNOV6fpTgFVRpacCYeq+5Es8s
+sj3H9ofUuJapWu+Zle4HmCcaTMka+a+T2Qq5dz1tEUgee06cmMupgiwMmitPRa1e
+jBYPYlbFOmdjuqECAwEAAaNCMEAwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8E
+BAMCAYYwHQYDVR0OBBYEFOHPr0bWX3ZhtH1COJpvvcQAY07dMA0GCSqGSIb3DQEB
+CwUAA4IBAQBtG/EFRueIoEWh586hdVn81F5JZ2AOEIjUEzuUjEsUNz+8aGK11d/k
+IVLOMuwaI+GdIHo5iWQJMeCj5MHcQaetAFA4Oaf17e2HaYw5d0PnCy6h4J+KYEDG
+4e5mDiDuMtysUzIeEI/Hj7AiPOsHZa3Y/Wmd0AccYqzvU2DW6aqUWniOgxRp13at
+rXsZWVTKQNzSGBfN0v3hy7Iv/j7VowjeOkBvDK/e9Kp1SVOR2eYT0BZUW0sIpxaI
+qUBbYey4s+0B5b+5rzxFptzwp63pzmshcjtdugIdKlaUIv6kJlmo1W+xWiUf6kOb
+QivGwbmBhEwfdRgcsMa4zuT2a8CG3TyR
+-----END CERTIFICATE-----
+)EOF";
+//=======================================================================================================================
+
 class MqttAdapter
 {
 private:
-    WiFiClient _wifiClient;
+    WiFiClientSecure _wifiClient;
     PubSubClient _mqttClient;
 
     const char *_ssid;

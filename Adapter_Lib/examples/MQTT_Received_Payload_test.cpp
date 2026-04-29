@@ -8,7 +8,7 @@ const char* WIFI_PASSWORD = "WIFI_PASSWORD";
 
 // MQTT Broker IP is the local machine running the docker
 const char* MQTT_SERVER   = "MQTT_SERVER_IP"; 
-const uint16_t MQTT_PORT  = 1883;
+const uint16_t MQTT_PORT  = 8883; // Default MQTT TLS port
 const char* CLIENT_ID     = "Gateway_01";
 // ==========================================
 MqttAdapter mqtt(WIFI_SSID, WIFI_PASSWORD, MQTT_SERVER, MQTT_PORT, CLIENT_ID);
