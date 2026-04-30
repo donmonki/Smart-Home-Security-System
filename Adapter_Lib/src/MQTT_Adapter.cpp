@@ -257,8 +257,19 @@ bool MqttAdapter::publishGatewayTelemetry(uint8_t gatewayBatteryLevel)
     char jsonBuffer[300];
     serializeJson(doc, jsonBuffer);
 
-    // Publish to a gateway-specific topic
-    return _mqttClient.publish("home/gateway/telemetry", jsonBuffer);
+    Serial.printf("[Telemetry] Sending: %s\n", jsonBuffer);
+
+    bool ok = _mqttClient.publish("home/gateway/telemetry", jsonBuffer);
+    if (ok)
+    {
+        Serial.println("[Telemetry] Published successfully.");
+    }
+    else
+    {
+        Serial.printf("[Telemetry] Publish failed. MQTT state: %d, connected: %s\n",
+                      _mqttClient.state(), _mqttClient.connected() ? "yes" : "no");
+    }
+    return ok;
 }
 
 // ===============================
@@ -271,12 +282,15 @@ void MqttAdapter::processIncomingMessage(char *topic, byte *payload, unsigned in
     memcpy(jsonStr, payload, length);
     jsonStr[length] = '\0';
 
+    Serial.printf("[MQTT] Incoming message on topic: %s\n", topic);
+    Serial.printf("[MQTT] Raw payload (%d bytes): %s\n", length, jsonStr);
+
     JsonDocument doc;
     DeserializationError error = deserializeJson(doc, jsonStr);
 
     if (error)
     {
-        Serial.println("[MQTT] Error: Failed to parse backend command.");
+        Serial.printf("[MQTT] Error: Failed to parse backend command: %s\n", error.c_str());
         return;
     }
 
@@ -291,5 +305,6 @@ void MqttAdapter::processIncomingMessage(char *topic, byte *payload, unsigned in
     outPayload.data.commandData.actionId = doc["actionId"];
     outPayload.data.commandData.parameter = doc["parameter"];
 
-    Serial.printf("[MQTT] Received command for Node %d\n", targetNode);
+    Serial.printf("[MQTT] Received command for Node %d | actionId: %d | parameter: %d\n",
+                  targetNode, outPayload.data.commandData.actionId, outPayload.data.commandData.parameter);
 }

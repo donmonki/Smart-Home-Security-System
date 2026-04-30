@@ -12,10 +12,10 @@
 // ----------------------------------------------------------------
 // WiFi / MQTT Credentials — update before deployment
 // ----------------------------------------------------------------
-#define WIFI_SSID      "your-ssid"
-#define WIFI_PASSWORD  "your-password"
-#define MQTT_SERVER    "your-broker-ip"
-#define MQTT_PORT      1883
+#define WIFI_SSID      "Pixel 7 Pro"
+#define WIFI_PASSWORD  "lookontherouter"
+#define MQTT_SERVER    "10.128.202.9"
+#define MQTT_PORT      8883
 #define MQTT_CLIENT_ID "gateway-1"
 
 // ----------------------------------------------------------------
@@ -26,7 +26,7 @@
 #define HEALTH_CHECK_INTERVAL_MS 5000
 #define TELEMETRY_INTERVAL_MS    60000  // publish gateway telemetry every 60s
 
-#define GATEWAY_BATTERY_LEVEL    100    // TODO: replace with real ADC reading
+#define GATEWAY_BATTERY_LEVEL    90    // TODO: replace with real ADC reading
 
 struct NodeStatus
 {
@@ -37,6 +37,7 @@ struct NodeStatus
 
 NodeStatus nodeRegistry[MAX_NODES];
 uint8_t    nodeCount = 0;
+bool       loraReady = false;
 
 // ----------------------------------------------------------------
 // Adapter Instances
@@ -118,14 +119,14 @@ void setup()
     Serial.begin(115200);
     Serial.println("[Gateway] Starting...");
 
-    if (lora.moduleInit())
+    loraReady = lora.moduleInit();
+    if (loraReady)
     {
         Serial.println("[Gateway] LoRa initialized — listening for nodes...");
     }
     else
     {
-        Serial.println("[Gateway] ERROR: LoRa initialization failed!");
-        // TODO: signal failure (e.g., blink onboard LED) and retry
+        Serial.println("[Gateway] ERROR: LoRa initialization failed! LoRa receive disabled.");
     }
 
     mqtt.init(mqttCallback);
@@ -134,17 +135,17 @@ void setup()
 
 void loop()
 {
-    // Keep MQTT connection alive and process incoming backend messages
     mqtt.alive_loop();
 
-    // Receive and route incoming LoRa messages from nodes
-    LoRaPayload payload;
-    if (lora.receivePayload(payload))
+    if (loraReady)
     {
-        routePayload(payload);
+        LoRaPayload payload;
+        if (lora.receivePayload(payload))
+        {
+            routePayload(payload);
+        }
     }
 
-    // Periodically check whether any nodes have gone silent
     static uint32_t lastHealthCheck = 0;
     if (millis() - lastHealthCheck >= HEALTH_CHECK_INTERVAL_MS)
     {
@@ -152,7 +153,6 @@ void loop()
         lastHealthCheck = millis();
     }
 
-    // Periodically publish gateway telemetry to the backend
     static uint32_t lastTelemetry = 0;
     if (millis() - lastTelemetry >= TELEMETRY_INTERVAL_MS)
     {
