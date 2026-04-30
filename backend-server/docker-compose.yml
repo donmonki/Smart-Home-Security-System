@@ -17,11 +17,13 @@ services:
     image: eclipse-mosquitto
     volumes:
       - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/certs:/mosquitto/certs
       - ./mosquitto/data:/mosquitto/data
       - ./mosquitto/log:/mosquitto/log
     restart: unless-stopped
     ports:
-      - "1883:1883"
+      - "127.0.0.1:1883:1883" # Only localhost access (for debugging)
+      - "8883:8883" # TLS port exposed to network (for ESP32)
     networks:
       - security_network
 

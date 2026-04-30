@@ -99,7 +99,22 @@ This folder contains the core intelligence of our security project, orchestrated
 
 ## 🚀 Quick Start (Running the Server)
 
-### For macOS/Linux:
+### Step 1: Generate MQTT TLS Certificates (First Time Only)
+
+The MQTT broker uses TLS encryption for secure ESP32 gateway communication. Each team member needs to generate certificates locally:
+
+```bash
+cd backend-server/mosquitto
+./generate-certs.sh
+```
+
+This creates certificates in `mosquitto/certs/` that are **NOT** committed to Git (for security). The script is in the repo, so everyone runs it once.
+
+> **Note**: After generating certificates, you'll need to copy `ca.crt` contents to your ESP32 code. See `mosquitto/ESP32_GATEWAY_SETUP.md` for details.
+
+### Step 2: Launch the Services
+
+#### For macOS/Linux:
 
 1. **Open Terminal** and navigate to this folder:
 
@@ -112,7 +127,7 @@ This folder contains the core intelligence of our security project, orchestrated
    docker-compose up -d
    ```
 
-### For Windows (WSL2):
+#### For Windows (WSL2):
 
 1. **Open Ubuntu** from Windows Start Menu
 
@@ -122,7 +137,15 @@ This folder contains the core intelligence of our security project, orchestrated
    cd /mnt/c/Users/YourUsername/Documents/Smart-Home-Security-System/backend-server
    ```
 
-3. **Launch the stack**:
+3. **Generate MQTT certificates** (first time only):
+
+   ```bash
+   cd mosquitto
+   ./generate-certs.sh
+   cd ..
+   ```
+
+4. **Launch the stack**:
    ```bash
    docker-compose up -d
    ```
@@ -141,16 +164,18 @@ You should see both `homeassistant` and `mosquitto` containers running.
 
 ### Home Assistant
 
-- **URL**: http://localhost:8123
-- **First-time setup**: Create an admin account when you first visit
+- **URL**: `http://localhost:8123`
+- **First Visit**: Create an account on first access
 - **Configuration files**: `./home-assistant/`
 
 ### MQTT Broker (Mosquitto)
 
 - **Host**: `localhost` (or your machine's IP for network access)
-- **Port**: `1883`
+- **Port (unencrypted)**: `1883` - localhost only, for Home Assistant
+- **Port (TLS encrypted)**: `8883` - network accessible, for ESP32 gateway
 - **Protocol**: MQTT
 - **Configuration**: `./mosquitto/config/mosquitto.conf`
+- **TLS Setup**: See `./mosquitto/ESP32_GATEWAY_SETUP.md`
 
 ---
 
@@ -257,8 +282,12 @@ backend-server/
 └── mosquitto/                 # MQTT broker configuration & data
     ├── config/
     │   └── mosquitto.conf
-    ├── data/
-    └── log/
+    ├── certs/                 # TLS certificates (generated locally, not in Git)
+    │   └── README.md          # Certificate setup instructions
+    ├── generate-certs.sh      # Script to generate TLS certificates
+    ├── ESP32_GATEWAY_SETUP.md # ESP32 TLS configuration guide
+    ├── data/                  # (Runtime data, not in Git)
+    └── log/                   # (Runtime logs, not in Git)
 ```
 
 ---
@@ -275,6 +304,7 @@ backend-server/
 ## 👥 Team Notes
 
 - All configuration changes should be committed to the repository
+- **Certificates are generated locally** - each team member runs `mosquitto/generate-certs.sh` once
 - Use branches for development and create pull requests before merging to main
 - Test your changes locally before pushing
 - Document any new integrations or automations in the appropriate configuration files
