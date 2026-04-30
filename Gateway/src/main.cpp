@@ -6,8 +6,8 @@
 // Pin Definitions - adjust to match your gateway hardware wiring
 // ----------------------------------------------------------------
 #define LORA_RST_PIN 23
-#define LORA_RX_PIN  19
-#define LORA_TX_PIN  18
+#define LORA_RX_PIN  18
+#define LORA_TX_PIN  19
 
 // ----------------------------------------------------------------
 // WiFi / MQTT Credentials — update before deployment
@@ -107,8 +107,33 @@ void checkNodeHealth()
 void routePayload(const LoRaPayload &payload)
 {
     updateNodeLastSeen(payload.nodeId);
-    Serial.printf("[Gateway] Received msg type 0x%02X from node %d\n", payload.msgType, payload.nodeId);
-    mqtt.publishEvent(payload);
+
+    switch (payload.msgType)
+    {
+    case LORA_MSG_HEARTBEAT:
+        Serial.printf("[Gateway] HEARTBEAT from node %d | counter: %lu\n",
+                      payload.nodeId, payload.data.sensorData.messageCounter);
+        break;
+    case LORA_MSG_MOTION_ALARM:
+        Serial.printf("[Gateway] MOTION ALARM from node %d | motion: %s | counter: %lu\n",
+                      payload.nodeId,
+                      payload.data.sensorData.motionDetected ? "YES" : "NO",
+                      payload.data.sensorData.messageCounter);
+        break;
+    case LORA_MSG_RFID_SCANNED:
+        Serial.printf("[Gateway] RFID SCAN from node %d | uid: 0x%08X | counter: %lu\n",
+                      payload.nodeId,
+                      payload.data.sensorData.rfidUid,
+                      payload.data.sensorData.messageCounter);
+        break;
+    default:
+        Serial.printf("[Gateway] UNKNOWN msg type 0x%02X from node %d\n",
+                      payload.msgType, payload.nodeId);
+        break;
+    }
+
+    bool published = mqtt.publishEvent(payload);
+    Serial.printf("[Gateway] MQTT publish %s for node %d\n", published ? "OK" : "FAILED", payload.nodeId);
 }
 
 // ----------------------------------------------------------------
