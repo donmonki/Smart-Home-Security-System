@@ -69,3 +69,18 @@
       entity_id: timer.heartbeattimernode1
     data: {}
   mode: single
+- id: '1777537244405'
+  alias: Motion Sensor heartbeat update
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.motion_sensor_node_motion_sensor_heartbeat
+  conditions: []
+  actions:
+  - action: timer.start
+    metadata: {}
+    target:
+      entity_id: timer.motion_sensor_heartbeat_timer
+    data: {}
+  mode: single

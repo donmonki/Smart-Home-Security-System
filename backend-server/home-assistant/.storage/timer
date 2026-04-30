@@ -15,6 +15,12 @@
         "name": "heartbeatTimerNode1",
         "restore": false,
         "duration": "0:05:00"
+      },
+      {
+        "id": "motion_sensor_heartbeat_timer",
+        "name": "Motion Sensor heartbeat timer",
+        "duration": "0:02:00",
+        "restore": false
       }
     ]
   }
