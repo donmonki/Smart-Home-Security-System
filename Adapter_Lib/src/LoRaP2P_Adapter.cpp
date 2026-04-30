@@ -53,48 +53,57 @@ bool LoraP2P::sendCmd(const char* cmd, const char* expected) {
     _loraSerial.println(cmd);
     String response = _loraSerial.readStringUntil('\n');
     response.trim();
-    
+
+    bool ok;
     if (expected == nullptr) {
-        return (response.length() > 0 && !response.startsWith("invalid"));
+        ok = (response.length() > 0 && !response.startsWith("invalid"));
+    } else {
+        ok = response.equals(expected);
     }
-    return response.equals(expected);
+
+    Serial.printf("[LoRa] CMD: %-30s | RSP: \"%s\" | %s\n",
+                  cmd, response.c_str(), ok ? "OK" : "FAIL");
+    return ok;
 }
 /************************
  * Public Functions
 *************************/
 // Lora Module Initialization
 bool LoraP2P::moduleInit() {
+    Serial.printf("[LoRa] Initializing on RX=%d TX=%d RST=%d\n", _rx_pin, _tx_pin, _rst_pin);
     _loraSerial.begin(57600, SERIAL_8N1, _rx_pin, _tx_pin);
     _loraSerial.setTimeout(1000);
 
-    // Hardware Reset
+    Serial.println("[LoRa] Resetting module...");
     pinMode(_rst_pin, OUTPUT);
     digitalWrite(_rst_pin, LOW);
     delay(200);
     digitalWrite(_rst_pin, HIGH);
     delay(500);
 
-    // Clear buffer
-    while (_loraSerial.available()) _loraSerial.read();
+    int flushed = 0;
+    while (_loraSerial.available()) { _loraSerial.read(); flushed++; }
+    if (flushed) Serial.printf("[LoRa] Flushed %d stale bytes from buffer\n", flushed);
 
-    // Initialize Radio (Returns false immediately if any fail)
-    if (!sendCmd("sys get ver", nullptr)) return false; 
-    if (!sendCmd("mac pause", nullptr)) return false;   
-    if (!sendCmd("radio set mod lora")) return false;
-    if (!sendCmd("radio set freq 866100000")) return false;
-    if (!sendCmd("radio set pwr 14")) return false;
-    if (!sendCmd("radio set sf sf7")) return false;
-    if (!sendCmd("radio set afcbw 41.7")) return false;
-    if (!sendCmd("radio set rxbw 125")) return false;
-    if (!sendCmd("radio set prlen 8")) return false;
-    if (!sendCmd("radio set crc on")) return false;
-    if (!sendCmd("radio set iqi off")) return false;
-    if (!sendCmd("radio set cr 4/5")) return false;
-    if (!sendCmd("radio set wdt 60000")) return false;
-    if (!sendCmd("radio set sync 12")) return false;
-    if (!sendCmd("radio set bw 125")) return false;
+    Serial.println("[LoRa] Sending init commands:");
+    if (!sendCmd("sys get ver",          nullptr))          { Serial.println("[LoRa] FAILED at: sys get ver (no response — check wiring/baud)"); return false; }
+    if (!sendCmd("mac pause",            nullptr))          { Serial.println("[LoRa] FAILED at: mac pause"); return false; }
+    if (!sendCmd("radio set mod lora",   "ok"))             { Serial.println("[LoRa] FAILED at: radio set mod lora"); return false; }
+    if (!sendCmd("radio set freq 866100000", "ok"))         { Serial.println("[LoRa] FAILED at: radio set freq"); return false; }
+    if (!sendCmd("radio set pwr 14",     "ok"))             { Serial.println("[LoRa] FAILED at: radio set pwr"); return false; }
+    if (!sendCmd("radio set sf sf7",     "ok"))             { Serial.println("[LoRa] FAILED at: radio set sf"); return false; }
+    if (!sendCmd("radio set afcbw 41.7", "ok"))             { Serial.println("[LoRa] FAILED at: radio set afcbw"); return false; }
+    if (!sendCmd("radio set rxbw 125",   "ok"))             { Serial.println("[LoRa] FAILED at: radio set rxbw"); return false; }
+    if (!sendCmd("radio set prlen 8",    "ok"))             { Serial.println("[LoRa] FAILED at: radio set prlen"); return false; }
+    if (!sendCmd("radio set crc on",     "ok"))             { Serial.println("[LoRa] FAILED at: radio set crc"); return false; }
+    if (!sendCmd("radio set iqi off",    "ok"))             { Serial.println("[LoRa] FAILED at: radio set iqi"); return false; }
+    if (!sendCmd("radio set cr 4/5",     "ok"))             { Serial.println("[LoRa] FAILED at: radio set cr"); return false; }
+    if (!sendCmd("radio set wdt 60000",  "ok"))             { Serial.println("[LoRa] FAILED at: radio set wdt"); return false; }
+    if (!sendCmd("radio set sync 12",    "ok"))             { Serial.println("[LoRa] FAILED at: radio set sync"); return false; }
+    if (!sendCmd("radio set bw 125",     "ok"))             { Serial.println("[LoRa] FAILED at: radio set bw"); return false; }
 
-    return true; 
+    Serial.println("[LoRa] Module initialized successfully.");
+    return true;
 }
 
 // Transmit method
