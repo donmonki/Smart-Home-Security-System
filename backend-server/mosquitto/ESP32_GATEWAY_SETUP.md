@@ -245,8 +245,6 @@ _wifiClient.setInsecure(); // Skips all certificate validation
 
 If this connects successfully, the issue is certificate-related. Re-verify the certificate chain using steps above.
 
-**Never use `setInsecure()` in production!**
-
 ## Certificate Renewal
 
 Certificates are valid for 10 years. To regenerate:

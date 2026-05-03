@@ -106,7 +106,7 @@ echo "Server certificate created: server.crt"
 # Clean up temporary files
 rm "$CERT_DIR/server.csr" "$CERT_DIR/san.cnf" "$CERT_DIR/ca.cnf"
 
-# Set appropriate permissions for Docker
+# Permisson adjustment for Mosquitto container 
 chmod 644 "$CERT_DIR/ca.crt"
 chmod 644 "$CERT_DIR/server.crt"
 chmod 644 "$CERT_DIR/server.key" # Changed to 644 so Mosquitto container can read it
