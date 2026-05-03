@@ -21,6 +21,13 @@ enum ActionType : uint8_t
     CMD_ALARM_ON = 0x01,
     CMD_ALARM_OFF = 0x02,
 };
+
+enum AuthenticationResult : uint8_t
+{
+    AUTH_FAILURE = 0x01,
+    AUTH_SUCCESS = 0x02,
+};
+
 // The 14-byte Payload Struct
 struct __attribute__((packed)) LoRaPayload {
     // 2-Byte Header 
@@ -40,12 +47,13 @@ struct __attribute__((packed)) LoRaPayload {
         // Used by Gateway to control the LED/Buzzer Node
         struct {
             uint8_t actionId;       // Trigger Alarm node
+            uint8_t authenticationResult; // Authentication result for RFID scanned events
             uint8_t parameter;      // Siren Duration time in seconds 
-            uint8_t padding[12];    // Pad to be 14 bytes
+            uint8_t padding[11];    // Pad to be 14 bytes
         } commandData;
 
     } data;
-
+    // Zero initializing the struct to ensure no garbage values in the payload
     LoRaPayload() {
         memset(this, 0, sizeof(LoRaPayload));
     }

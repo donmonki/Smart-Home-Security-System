@@ -52,9 +52,10 @@ struct LoRaPayload {
         
         // For gateway commands
         struct {
-            uint8_t actionId;        // Command type
-            uint8_t parameter;       // Command parameter (e.g., duration)
-            uint8_t padding[12];     // Padding to reach 14 bytes
+            uint8_t actionId;       // Trigger Alarm node
+            uint8_t authenticationResult; // Authentication result for RFID scanned events
+            uint8_t parameter;      // Siren Duration time in seconds 
+            uint8_t padding[11];    // Pad to be 14 bytes
         } commandData;
     } data;
 };
@@ -67,10 +68,16 @@ struct LoRaPayload {
 - `LORA_MSG_RFID_SCANNED` (0x03): RFID card scanned event from RFID node
 - `LORA_MSG_COMMAND` (0x04): Command from gateway to node (downlink)
 
-#### **Action Types (Gateway Commands)**
+#### **Action Types (Backend Commands)**
 
 - `CMD_ALARM_ON` (0x01): Activate alarm on target node
 - `CMD_ALARM_OFF` (0x02): Deactivate alarm on target node
+
+#### **Authentication Result (Backend Commands)** 
+
+- `AUTH_FAILURE` (0x01): Authentication failed (e.g. wrong Tag ID received)
+- `AUTH_SUCCESS` (0X02): Authentication successfull (Received tag ID is matching with stored ones)  
+
 
 #### **Transmission Method**
 
