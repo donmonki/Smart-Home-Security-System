@@ -8,10 +8,10 @@ enum LoRaWANMessageType : uint8_t
 {
     LORAWAN_MSG_BLACKOUT = 0x01,
     LORAWAN_MSG_RESTORED = 0x02,
+    LORAWAN_MSG_BACKEND_UNREACHABLE = 0x03,
     LORAWAN_MSG_CUSTOM = 0xFF
 };
 
-// Compact payload structure for LoRaWAN (keep small for airtime)
 struct __attribute__((packed)) LoRaWANPayload
 {
     uint8_t messageType;
@@ -32,14 +32,11 @@ private:
     uint8_t _rx_pin;
     uint8_t _tx_pin;
     HardwareSerial &_loraSerial;
-
     String _devEUI;
     String _appEUI;
     String _appKey;
-
     bool _isJoined;
 
-    // Private helper methods
     bool sendCmd(const char *cmd, const char *expected_response = "ok", uint32_t timeout = 5000);
     String bytesToHex(const uint8_t *data, int length);
     bool waitForResponse(const char *expected, uint32_t timeout);
@@ -51,7 +48,6 @@ public:
 
     bool init();
     bool join();
-
     bool isJoined() const { return _isJoined; }
 
     bool sendPayload(const LoRaWANPayload &payload, uint8_t port = 1, bool confirmed = false);
@@ -60,9 +56,12 @@ public:
 
     bool sendBlackoutAlert(uint8_t batteryLevel);
     bool sendPowerRestored(uint8_t batteryLevel);
+    bool sendBackendUnreachableAlert(uint8_t batteryLevel);
 
     void reset();
     String getDevEUI();
+    void shutdown();
+    void wakeup();
 };
 
 #endif // LORAWAN_ADAPTER_H
