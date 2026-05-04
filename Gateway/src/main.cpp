@@ -51,6 +51,14 @@
 // ----------------------------------------------------------------
 #define MQTT_FAIL_ALERT_THRESHOLD 5    // consecutive publish failures before LoRaWAN alert
 
+// ----------------------------------------------------------------
+// LoRa Airtime Budget — guards EU 868 MHz 1% duty-cycle limit
+// ----------------------------------------------------------------
+#define AIRTIME_PER_TX_MS    90        // approx. SF7 / 125 kHz / 16-byte airtime
+#define AIRTIME_WINDOW_MS    3600000UL // 1 hour
+#define AIRTIME_BUDGET_MS    28800UL   // 0.8% of an hour — leaves headroom under the 1% cap
+#define AIRTIME_SLOT_COUNT   512
+
 struct NodeStatus
 {
     uint8_t  nodeId;
@@ -68,6 +76,31 @@ static uint8_t mqttFailCount      = 0;
 static bool    backendAlertSent   = false;
 static bool    externalPower      = true;   // tracks last known power state
 static bool    blackoutAlertSent  = false;
+
+// Sliding 1 h ring buffer of LoRa TX timestamps for duty-cycle accounting.
+static uint32_t airtimeLog[AIRTIME_SLOT_COUNT] = {0};
+static uint16_t airtimeHead  = 0;
+static uint16_t airtimeCount = 0;
+
+static bool airtimeWouldExceed()
+{
+    uint32_t now  = millis();
+    uint32_t used = 0;
+    for (uint16_t i = 0; i < airtimeCount; i++)
+    {
+        uint16_t idx = (airtimeHead + AIRTIME_SLOT_COUNT - 1 - i) % AIRTIME_SLOT_COUNT;
+        if (now - airtimeLog[idx] > AIRTIME_WINDOW_MS) break;
+        used += AIRTIME_PER_TX_MS;
+    }
+    return (used + AIRTIME_PER_TX_MS) > AIRTIME_BUDGET_MS;
+}
+
+static void airtimeRecord()
+{
+    airtimeLog[airtimeHead] = millis();
+    airtimeHead = (airtimeHead + 1) % AIRTIME_SLOT_COUNT;
+    if (airtimeCount < AIRTIME_SLOT_COUNT) airtimeCount++;
+}
 
 // ----------------------------------------------------------------
 // Adapter Instances
@@ -90,7 +123,14 @@ void mqttCallback(char* topic, byte* payload, unsigned int length)
     {
         Serial.printf("[Gateway] Forwarding command (action %d) to node %d\n",
                       command.data.commandData.actionId, command.nodeId);
-        lora.transmitPayload(command);
+        if (lora.transmitWithLBT(command))
+        {
+            airtimeRecord();
+        }
+        else
+        {
+            Serial.println("[Gateway] WARNING: command TX failed (LBT exhausted)");
+        }
     }
 }
 
@@ -174,6 +214,29 @@ bool sendLoRaWANAlert(LoRaWANAlert alert)
 void routePayload(const LoRaPayload &payload)
 {
     updateNodeLastSeen(payload.nodeId);
+
+    // Acknowledge alarm/RFID uplinks so the node can stop retransmitting.
+    // Heartbeats are intentionally not acked (saves airtime; offline-timeout
+    // already handles missed heartbeats).
+    if (payload.msgType == LORA_MSG_MOTION_ALARM ||
+        payload.msgType == LORA_MSG_RFID_SCANNED)
+    {
+        if (airtimeWouldExceed())
+        {
+            Serial.printf("[Gateway] Skipping ACK for node %d — airtime budget exhausted\n",
+                          payload.nodeId);
+        }
+        else if (lora.sendAck(payload.nodeId, payload.data.sensorData.messageCounter))
+        {
+            airtimeRecord();
+        }
+        else
+        {
+            Serial.printf("[Gateway] WARNING: ACK TX failed for node %d (counter %lu)\n",
+                          payload.nodeId,
+                          (unsigned long)payload.data.sensorData.messageCounter);
+        }
+    }
 
     switch (payload.msgType)
     {
