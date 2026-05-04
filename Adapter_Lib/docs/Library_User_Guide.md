@@ -57,9 +57,15 @@ struct LoRaPayload {
         struct {
             uint8_t actionId;       // Trigger Alarm node
             uint8_t authenticationResult; // Authentication result for RFID scanned events
-            uint8_t parameter;      // Siren Duration time in seconds 
+            uint8_t parameter;      // Siren Duration time in seconds
             uint8_t padding[11];    // Pad to be 14 bytes
         } commandData;
+
+        // For gateway acknowledgements
+        struct {
+            uint32_t ackedMessageCounter; // Counter of the uplink frame being acked
+            uint8_t  padding[10];         // Pad to be 14 bytes
+        } ackData;
     } data;
 };
 ```
@@ -70,6 +76,7 @@ struct LoRaPayload {
 - `LORA_MSG_MOTION_ALARM` (0x02): Motion detection event from motion sensor node
 - `LORA_MSG_RFID_SCANNED` (0x03): RFID card scanned event from RFID node
 - `LORA_MSG_COMMAND` (0x04): Command from gateway to node (downlink)
+- `LORA_MSG_ACK` (0x05): Gateway acknowledgement of an uplink message (downlink)
 
 #### **Action Types (Backend Commands)**
 
@@ -97,6 +104,68 @@ struct LoRaPayload {
   - Populates the provided `receivedData` struct with received information
   - Must be called regularly in `loop()` to check for incoming messages
   - `return`: `true` if valid payload received and decrypted, `false` otherwise
+
+#### **Reliable Communication Protocol (Node ↔ Gateway)**
+
+LoRa P2P is a shared, half-duplex channel with no built-in collision avoidance. With multiple nodes (up to 8) sending heartbeats and event-driven alarms, raw `transmitPayload()` calls will collide and packets will be silently lost. The adapter therefore exposes a reliability layer that **all node firmware must use** for normal traffic.
+
+##### **Protocol rules (mandatory)**
+
+1. **Listen-Before-Talk (LBT)** — every node TX must first probe the channel for ~120 ms. If activity is detected, back off (50–800 ms, exponential + jitter) and retry.
+2. **Heartbeat jitter** — periodic heartbeats must apply ±20% random jitter to their interval so multiple nodes do not drift onto the same boundary.
+3. **ACKs for alarms / RFID** — the gateway acknowledges every successful `LORA_MSG_MOTION_ALARM` and `LORA_MSG_RFID_SCANNED` uplink with an `LORA_MSG_ACK` carrying the original `messageCounter`. Nodes must wait for that ACK and retransmit if it is missing.
+4. **Heartbeats are not acked** — they are best-effort. The gateway's 30 s offline-timeout handles loss. Do not retransmit heartbeats on missing ACK.
+5. **Message counters** — `sensorData.messageCounter` must increment monotonically per node. The gateway uses it to dedup retransmissions.
+6. **ACK targeting** — `ackData.nodeId` is the node being acked, and `ackData.ackedMessageCounter` is the counter of the acknowledged frame. Nodes must ignore any ACK whose `nodeId` does not match their own.
+
+##### **Per-message-type contract**
+
+| Uplink type             | TX method on node                  | Retries | ACK expected? |
+|-------------------------|------------------------------------|---------|---------------|
+| `LORA_MSG_HEARTBEAT`    | `transmitWithLBT(payload)`         | 0       | No            |
+| `LORA_MSG_MOTION_ALARM` | `transmitWithAck(payload, 600, 4)` | 4       | Yes           |
+| `LORA_MSG_RFID_SCANNED` | `transmitWithAck(payload, 600, 4)` | 4       | Yes           |
+
+##### **API reference**
+
+- `bool channelBusy(uint16_t listenMs = 120)`: Listen-before-talk probe.
+  - Arms the radio for `listenMs` and returns `true` if any frame was heard.
+  - A frame heard during the probe is buffered internally — the next call to `receivePayload()` will still deliver it; no packets are lost.
+  - You normally do not call this directly; the helpers below use it.
+
+- `bool transmitWithLBT(const LoRaPayload &payload, uint8_t maxAttempts = 3)`: LBT-guarded transmit.
+  - Performs `channelBusy()` before each attempt, backs off 50–800 ms (exponential + jitter) on busy.
+  - Use this for **heartbeats** and any traffic that does not require an ACK.
+  - `return`: `true` on successful transmit, `false` if the channel stayed busy for all attempts.
+
+- `bool transmitWithAck(const LoRaPayload &payload, uint16_t ackTimeoutMs = 600, uint8_t maxRetries = 4)`: LBT-guarded transmit with ACK + retransmit.
+  - Calls `transmitWithLBT()`, then waits up to `ackTimeoutMs` for an `LORA_MSG_ACK` whose `nodeId` and `ackedMessageCounter` match.
+  - On miss: random 100–400 ms backoff and retransmit, up to `maxRetries` times.
+  - Use this for **alarms and RFID events** — the ACK is the only signal that the gateway received the uplink.
+  - `return`: `true` if an ACK was received within the retry budget, `false` otherwise.
+
+- `bool sendAck(uint8_t targetNodeId, uint32_t ackedCounter)`: Gateway-side helper.
+  - Used by the gateway only — nodes do not call this.
+  - Sends `LORA_MSG_ACK` to `targetNodeId` carrying `ackedCounter`, via `transmitWithLBT()`.
+
+##### **What about `transmitPayload()`?**
+
+`transmitPayload()` remains the low-level primitive that all helpers wrap. It does **no** LBT and **no** ACK handling. Application code should not call it directly outside of bring-up tests and examples — use the helpers above so collisions and packet loss are handled for you.
+
+##### **Heartbeat scheduling pattern**
+
+```cpp
+const uint32_t HEARTBEAT_INTERVAL_MS = 25000;  // ~25 s nominal
+uint32_t nextHeartbeatAt = 0;
+
+void scheduleNextHeartbeat() {
+    int32_t jitter = random(-(int32_t)(HEARTBEAT_INTERVAL_MS / 5),
+                              (int32_t)(HEARTBEAT_INTERVAL_MS / 5));  // ±20%
+    nextHeartbeatAt = millis() + HEARTBEAT_INTERVAL_MS + jitter;
+}
+```
+
+See `Lora_Node_Reliable_Tx_example.cpp` for a full working node sketch.
 
 #### **Encryption and Utility Functions**
 
@@ -127,7 +196,8 @@ For complete working examples, refer to the example files in the `Adapter_Lib/ex
 - `Lora_Rx_basic_example.cpp`: Basic receive example without encryption
 - `Lora_Rx_decryption_example.cpp`: Receive example with decryption
 - `Lora_Tx_basic_example.cpp`: Basic transmit example without encryption
-- `Lora_Tx_encryption_example.cpp`: Transmit example with encryption
+- `Lora_Tx_encryption_example.cpp`: Transmit example with encryption (low-level — no LBT/ACK)
+- `Lora_Node_Reliable_Tx_example.cpp`: **Recommended** node-side pattern — LBT for heartbeats, ACK + retry for alarms, jittered scheduling
 
 #### **Tips for Payload Construction**
 
