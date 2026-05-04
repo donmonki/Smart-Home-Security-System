@@ -259,11 +259,33 @@ void loop() {
 
 ---
 
-## Advanced: Dynamic Payload in Webhook (Optional)
+## Advanced: Dynamic Payload with Pipedream Middleware (Optional)
 
-If you want battery level and timestamp in the notification, you'll need a middleware service (Pipedream, Cloudflare Worker, etc.) to transform the TTN payload format to Telegram's format.
+If you want battery level and timestamp in the notification, you'll need a middleware service to transform the TTN payload format to Telegram's format.
 
-This is not needed for the basic blackout alert, but useful for future enhancements.
+**Recommended Solution: Pipedream**
+
+Pipedream provides a free serverless platform to process TTN webhooks and format dynamic Telegram messages:
+
+1. **Create Pipedream account**: https://pipedream.com/
+2. **Create new workflow** triggered by HTTP request
+3. **Configure TTN webhook** to point to your Pipedream URL instead of Telegram API
+4. **Add steps** to:
+   - Parse TTN payload (extract battery, timestamp, message type)
+   - Format custom Telegram message with dynamic data
+   - Forward to Telegram Bot API
+5. **Deploy** the workflow and test with real TTN uplinks
+
+This allows rich notifications like:
+
+```
+🚨 Power Blackout Detected!
+Battery: 87%
+Timestamp: 2026-05-04 14:32:15
+Device: gateway-01
+```
+
+For payload provisioning examples and middleware setup details, refer to the LoRaWAN example documentation.
 
 ---
 
