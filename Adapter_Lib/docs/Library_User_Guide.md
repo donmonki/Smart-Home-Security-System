@@ -290,6 +290,7 @@ struct LoRaWANPayload {
 
 - `LORAWAN_MSG_BLACKOUT` (0x01): Power blackout alert
 - `LORAWAN_MSG_RESTORED` (0x02): Power restored notification
+- `LORAWAN_MSG_BACKEND_UNREACHABLE` (0x03): Backend server unreachable alert
 - `LORAWAN_MSG_CUSTOM` (0xFF): Custom payload
 
 #### **Transmission Methods**
@@ -311,15 +312,20 @@ struct LoRaWANPayload {
 #### **Predefined Emergency Messages**
 
 - `bool sendBlackoutAlert(uint8_t batteryLevel)`: Sends power blackout alert.
-  - Uses **confirmed transmission** for reliability
+  - Uses confirmed transmission with automatic retry mechanism (up to 3 attempts)
   - Automatically populates payload with `LORAWAN_MSG_BLACKOUT` type
   - `batteryLevel`: Current battery percentage (0-100)
   - `return`: `true` if alert sent successfully, `false` otherwise
 
 - `bool sendPowerRestored(uint8_t batteryLevel)`: Sends power restored notification.
-  - Uses **unconfirmed transmission** to save airtime
+  - Uses unconfirmed transmission to save airtime
   - Automatically populates payload with `LORAWAN_MSG_RESTORED` type
   - `return`: `true` if notification sent successfully, `false` otherwise
+
+- `bool sendBackendUnreachableAlert(uint8_t batteryLevel)`: Sends backend server unreachable alert.
+  - Uses confirmed transmission with automatic retry mechanism (up to 3 attempts)
+  - Automatically populates payload with `LORAWAN_MSG_BACKEND_UNREACHABLE` type
+  - `return`: `true` if alert sent successfully, `false` otherwise
 
 #### **Utility Methods**
 
@@ -331,97 +337,42 @@ struct LoRaWANPayload {
   - Useful for verifying device identity
   - `return`: Device EUI as hex string
 
+#### **Power Management Methods**
+
+- `void shutdown()`: Puts module into hardware shutdown mode.
+  - Holds RST pin LOW to completely disable module
+  - Clears join state
+  - Module requires `init()` and `join()` after wakeup
+
+- `void wakeup()`: Wakes module from hardware shutdown.
+  - Releases RST pin (sets HIGH)
+  - Clears serial buffer
+  - Module must be reinitialized with `init()` and `join()` before use
+
 #### **Usage Example**
 
 For a complete working example, refer to `LoRaWAN_emergency_example.cpp` in the `Adapter_Lib/examples/` folder.
-
-**Basic usage pattern:**
-
-```cpp
-#include <LoRaWAN_Adapter.h>
-
-// Define pins and credentials
-#define RST_PIN 23
-#define RX_PIN 18
-#define TX_PIN 19
-
-const char* DEV_EUI = "YOUR_DEV_EUI";
-const char* APP_EUI = "YOUR_APP_EUI";
-const char* APP_KEY = "YOUR_APP_KEY";
-
-HardwareSerial loraSerial(2);
-LoRaWAN myLoRaWAN(RST_PIN, RX_PIN, TX_PIN, loraSerial, DEV_EUI, APP_EUI, APP_KEY);
-
-void setup() {
-    // Initialize module
-    if (!myLoRaWAN.init()) {
-        Serial.println("Init failed!");
-        return;
-    }
-
-    // Join network
-    if (!myLoRaWAN.join()) {
-        Serial.println("Join failed!");
-        return;
-    }
-
-    Serial.println("Ready!");
-}
-
-void loop() {
-    // Detect power blackout (example)
-    if (powerLost) {
-        uint8_t battery = getBatteryLevel();
-        myLoRaWAN.sendBlackoutAlert(battery);
-    }
-}
-```
 
 #### **TTN Integration**
 
 The LoRaWAN adapter integrates with The Things Network for cloud-based emergency notifications:
 
 1. **Device Registration**: Register your device in TTN Console with OTAA activation
-2. **Payload Decoder**: Add JavaScript decoder in TTN Console to parse binary payload
+2. **Payload Decoder**: Configure payload formatter in TTN Console to parse binary payload
 3. **Webhook Integration**: Configure TTN webhook to forward data to Telegram Bot API or other services
 4. **Coverage**: Verify TTN gateway coverage in your area at https://www.thethingsnetwork.org/map
 
-**Example TTN Payload Decoder (JavaScript):**
-
-```javascript
-function decodeUplink(input) {
-	var decoded = {
-		messageType: input.bytes[0],
-		timestamp:
-			(input.bytes[1] << 24) |
-			(input.bytes[2] << 16) |
-			(input.bytes[3] << 8) |
-			input.bytes[4],
-		battery: input.bytes[5],
-	};
-
-	var typeNames = {
-		0x01: "power_blackout",
-		0x02: "power_restored",
-	};
-
-	decoded.type = typeNames[decoded.messageType] || "unknown";
-
-	return {
-		data: decoded,
-	};
-}
-```
+Refer to the LoRaWAN example file for TTN payload formatter implementation.
 
 #### **Best Practices**
 
-- **Airtime Considerations**: LoRaWAN has fair use policy. Avoid sending messages more frequently than every 2-3 minutes
-- **Confirmed vs Unconfirmed**: Use confirmed transmission only for critical alerts (blackout). Use unconfirmed for non-critical data (power restored)
-- **Payload Size**: Keep payloads small (<51 bytes) to minimize airtime. The 8-byte default payload is optimal
-- **Join Timing**: OTAA join can take 5-30 seconds. Perform join during setup, not during emergency
-- **Battery Optimization**: Send one alert on power loss rather than continuous updates to maximize battery life
-- **Error Handling**: Always check return values and implement retry logic with exponential backoff
-- **Regional Settings**: Ensure module is configured for correct frequency band (EU868, US915, etc.)
+- **Airtime Considerations**: LoRaWAN has fair use policy. Avoid sending messages more frequently than necessary
+- **Confirmed vs Unconfirmed**: Critical alerts use confirmed transmission with retry. Non-critical messages use unconfirmed
+- **Payload Size**: Keep payloads small (<51 bytes) to minimize airtime. The 8-byte payload structure is optimized for LoRaWAN
+- **Join Timing**: OTAA join can take 5-30 seconds. Perform join during initialization, not during emergency
+- **Battery Optimization**: Use power management methods (`shutdown()`/`wakeup()`) when module is not needed
+- **Error Handling**: Always check return values from transmission methods
+- **Regional Settings**: Module is configured for EU868 frequency band by default
 
 #### **Troubleshooting**
 
