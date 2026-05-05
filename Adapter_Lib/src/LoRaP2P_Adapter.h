@@ -42,7 +42,7 @@ struct __attribute__((packed)) LoRaPayload {
             bool motionDetected;    // 1 byte
             uint32_t rfidUid;       // 4 bytes
             uint32_t messageCounter;// 4 bytes
-            uint8_t padding[5];     // Pad to be 14 bytes 
+            uint8_t padding[7];     // Pad to be 16 bytes 
         } sensorData;
 
         // Used by Gateway to control the LED/Buzzer Node
@@ -50,13 +50,13 @@ struct __attribute__((packed)) LoRaPayload {
             uint8_t actionId;       // Trigger Alarm node
             uint8_t authenticationResult; // Authentication result for RFID scanned events
             uint8_t parameter;      // Siren Duration time in seconds
-            uint8_t padding[11];    // Pad to be 14 bytes
+            uint8_t padding[13];    // Pad to be 16 bytes
         } commandData;
 
         // Used by Gateway to acknowledge an uplink message
         struct {
             uint32_t ackedMessageCounter; // 4 bytes — matches sensorData.messageCounter
-            uint8_t  padding[10];          // Pad to be 14 bytes
+            uint8_t  padding[12];          // Pad to be 16 bytes
         } ackData;
 
     } data;

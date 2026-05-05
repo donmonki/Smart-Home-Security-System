@@ -63,7 +63,10 @@ struct NodeStatus
 {
     uint8_t  nodeId;
     uint32_t lastSeenMs;
+    uint32_t lastHeartbeatMs;  // updated only on HEARTBEAT; drives offline detection
+    uint32_t lastMsgCounter;   // last processed counter; used to suppress retransmissions
     bool     online;
+    bool     seenCounter;      // false until first message counter is recorded
 };
 
 NodeStatus nodeRegistry[MAX_NODES];
@@ -151,7 +154,7 @@ void updateNodeLastSeen(uint8_t nodeId)
 
     if (nodeCount < MAX_NODES)
     {
-        nodeRegistry[nodeCount++] = {nodeId, millis(), true};
+        nodeRegistry[nodeCount++] = {nodeId, millis(), 0, 0, true, false};
         Serial.printf("[Gateway] New node registered: %d\n", nodeId);
     }
     else
@@ -165,8 +168,13 @@ void checkNodeHealth()
     uint32_t now = millis();
     for (int i = 0; i < nodeCount; i++)
     {
-        if (nodeRegistry[i].online &&
-            (now - nodeRegistry[i].lastSeenMs) > HEARTBEAT_TIMEOUT_MS)
+        // Use the heartbeat timestamp when available; fall back to lastSeenMs for
+        // nodes that have not yet sent a dedicated heartbeat packet.
+        uint32_t ref = nodeRegistry[i].lastHeartbeatMs != 0
+                       ? nodeRegistry[i].lastHeartbeatMs
+                       : nodeRegistry[i].lastSeenMs;
+
+        if (nodeRegistry[i].online && (now - ref) > HEARTBEAT_TIMEOUT_MS)
         {
             nodeRegistry[i].online = false;
             mqtt.publishNodeOffline(nodeRegistry[i].nodeId);
@@ -215,9 +223,39 @@ void routePayload(const LoRaPayload &payload)
 {
     updateNodeLastSeen(payload.nodeId);
 
-    // Acknowledge alarm/RFID uplinks so the node can stop retransmitting.
-    // Heartbeats are intentionally not acked (saves airtime; offline-timeout
-    // already handles missed heartbeats).
+    // Per-node deduplication: detect retransmissions by comparing the incoming
+    // counter against the last processed one.  A retransmission still receives
+    // an ACK (to stop the node from sending more) but its payload is not
+    // forwarded to MQTT a second time, keeping airtime and backend load down.
+    //
+    // This is the primary mitigation for the airtime-exhaustion / burst loop:
+    // even when we cannot ACK (budget exceeded) the duplicate suppression
+    // prevents the backend from seeing the same event repeatedly, and once the
+    // budget recovers the first ACK silences the node.
+    bool isDuplicate = false;
+    for (int i = 0; i < nodeCount; i++)
+    {
+        if (nodeRegistry[i].nodeId != payload.nodeId) continue;
+
+        if (payload.msgType == LORA_MSG_HEARTBEAT)
+            nodeRegistry[i].lastHeartbeatMs = millis();
+
+        if (nodeRegistry[i].seenCounter &&
+            nodeRegistry[i].lastMsgCounter == payload.data.sensorData.messageCounter)
+        {
+            isDuplicate = true;
+        }
+        else
+        {
+            nodeRegistry[i].lastMsgCounter = payload.data.sensorData.messageCounter;
+            nodeRegistry[i].seenCounter    = true;
+        }
+        break;
+    }
+
+    // ACK alarm/RFID uplinks (including retransmissions) so the node stops sending.
+    // Heartbeats are intentionally not acked — missed heartbeats are handled by
+    // the offline-timeout in checkNodeHealth.
     if (payload.msgType == LORA_MSG_MOTION_ALARM ||
         payload.msgType == LORA_MSG_RFID_SCANNED)
     {
@@ -236,6 +274,13 @@ void routePayload(const LoRaPayload &payload)
                           payload.nodeId,
                           (unsigned long)payload.data.sensorData.messageCounter);
         }
+    }
+
+    if (isDuplicate)
+    {
+        Serial.printf("[Gateway] Duplicate from node %d (counter %lu) — ACK sent, payload suppressed\n",
+                      payload.nodeId, (unsigned long)payload.data.sensorData.messageCounter);
+        return;
     }
 
     switch (payload.msgType)
