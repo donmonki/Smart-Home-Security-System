@@ -11,9 +11,10 @@ enum MessageType : uint8_t
     LORA_MSG_HEARTBEAT = 0x01,     // Sent by all nodes
     LORA_MSG_MOTION_ALARM = 0x02,  // Sent by Motion sensor node
     LORA_MSG_RFID_SCANNED = 0x03,  // Sent by RFID node
-    
+
     // Downlink (Gateway -> Node)
-    LORA_MSG_COMMAND = 0x04
+    LORA_MSG_COMMAND = 0x04,
+    LORA_MSG_ACK = 0x05            // Acknowledgement of an uplink message
 };
 
 enum ActionType : uint8_t
@@ -41,16 +42,22 @@ struct __attribute__((packed)) LoRaPayload {
             bool motionDetected;    // 1 byte
             uint32_t rfidUid;       // 4 bytes
             uint32_t messageCounter;// 4 bytes
-            uint8_t padding[5];     // Pad to be 14 bytes 
+            uint8_t padding[7];     // Pad to be 16 bytes 
         } sensorData;
 
         // Used by Gateway to control the LED/Buzzer Node
         struct {
             uint8_t actionId;       // Trigger Alarm node
             uint8_t authenticationResult; // Authentication result for RFID scanned events
-            uint8_t parameter;      // Siren Duration time in seconds 
-            uint8_t padding[11];    // Pad to be 14 bytes
+            uint8_t parameter;      // Siren Duration time in seconds
+            uint8_t padding[13];    // Pad to be 16 bytes
         } commandData;
+
+        // Used by Gateway to acknowledge an uplink message
+        struct {
+            uint32_t ackedMessageCounter; // 4 bytes — matches sensorData.messageCounter
+            uint8_t  padding[12];          // Pad to be 16 bytes
+        } ackData;
 
     } data;
     // Zero initializing the struct to ensure no garbage values in the payload
@@ -72,6 +79,7 @@ private:
     uint8_t _rx_pin;
     uint8_t _tx_pin;
     HardwareSerial &_loraSerial;
+    String _bufferedRx; // packet swallowed during LBT, replayed by next receive()
     bool sendCmd(const char *cmd, const char *expected_response = "ok");
 
 public:
@@ -85,6 +93,14 @@ public:
     String receive();
     bool transmitPayload(const LoRaPayload &payload);
     bool receivePayload(LoRaPayload &receivedData);
+
+    // Collision-avoidance / reliability layer
+    bool channelBusy(uint16_t listenMs = 120);
+    bool transmitWithLBT(const LoRaPayload &payload, uint8_t maxAttempts = 3);
+    bool transmitWithAck(const LoRaPayload &payload,
+                         uint16_t ackTimeoutMs = 600,
+                         uint8_t  maxRetries   = 4);
+    bool sendAck(uint8_t targetNodeId, uint32_t ackedCounter);
 };
 
 #endif // LORA_P2P_ADAPTER_H

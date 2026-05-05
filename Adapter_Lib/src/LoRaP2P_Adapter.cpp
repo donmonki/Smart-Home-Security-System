@@ -121,6 +121,13 @@ bool LoraP2P::transmitHex(const String &hexData) {
 
 // Receive method
 String LoraP2P::receive() {
+    // Replay any packet that was swallowed during a prior LBT probe
+    if (_bufferedRx.length() > 0) {
+        String cached = _bufferedRx;
+        _bufferedRx = "";
+        return cached;
+    }
+
     // Only start reception if the module buffer is empty
     if (!_loraSerial.available()) {
         _loraSerial.println("radio rx 0");
@@ -160,18 +167,124 @@ bool LoraP2P::transmitPayload(const LoRaPayload &payload) {
 bool LoraP2P::receivePayload(LoRaPayload &receivedData) {
     // Call Receive method to get the hex string
     String receivedHex = receive();
-    
+
 
     // Check if we got a 32 character hex string (16 bytes)
     if (receivedHex.length() != 32) {
-        return false; 
+        return false;
     }
-    
+
     // Convert the Hex into a 16-byte array
     unsigned char encryptedBytes[16];
     hexToBytes(receivedHex, encryptedBytes);
-    
+
     // Decrypt the bytes directly into the provided struct
     return decryptPayload(encryptedBytes, receivedData);
+}
+
+// ----------------------------------------------------------------
+// Collision-avoidance / reliability layer
+// ----------------------------------------------------------------
+
+// Listen-before-talk: arms the radio for listenMs, returns true if a frame
+// was heard during the window. Any received hex is buffered so the caller's
+// next receive() call still sees it.
+bool LoraP2P::channelBusy(uint16_t listenMs) {
+    if (listenMs < 30) listenMs = 30;
+
+    // Lower the receive watchdog to bound the listen window, then restore.
+    char wdtCmd[32];
+    snprintf(wdtCmd, sizeof(wdtCmd), "radio set wdt %u", (unsigned)listenMs);
+    if (!sendCmd(wdtCmd, "ok")) {
+        sendCmd("radio set wdt 60000", "ok");
+        return false;
+    }
+
+    // Drain any stale UART bytes before arming RX.
+    while (_loraSerial.available()) _loraSerial.read();
+
+    _loraSerial.println("radio rx 0");
+    String armed = _loraSerial.readStringUntil('\n');
+    armed.trim();
+    if (!armed.equals("ok")) {
+        sendCmd("radio set wdt 60000", "ok");
+        return false;
+    }
+
+    // Wait up to listenMs (+ small slack) for either radio_rx or radio_err.
+    _loraSerial.setTimeout((uint32_t)listenMs + 50);
+    String response = _loraSerial.readStringUntil('\n');
+    _loraSerial.setTimeout(1000);
+    response.trim();
+
+    bool busy = false;
+    if (response.startsWith("radio_rx  ")) {
+        // Buffer so the application doesn't lose the packet.
+        _bufferedRx = response.substring(10);
+        busy = true;
+    }
+
+    sendCmd("radio set wdt 60000", "ok");
+    return busy;
+}
+
+bool LoraP2P::transmitWithLBT(const LoRaPayload &payload, uint8_t maxAttempts) {
+    if (maxAttempts == 0) maxAttempts = 1;
+    for (uint8_t attempt = 0; attempt < maxAttempts; attempt++) {
+        if (!channelBusy(120)) {
+            return transmitPayload(payload);
+        }
+        // Exponential backoff with jitter: 50–800 ms, growing per attempt.
+        uint32_t cap = (uint32_t)50 << attempt; // 50, 100, 200, 400, 800...
+        if (cap > 800) cap = 800;
+        uint32_t backoff = 50 + (uint32_t)random(0, cap);
+        Serial.printf("[LoRa] LBT busy on attempt %u, backing off %lums\n",
+                      attempt + 1, (unsigned long)backoff);
+        delay(backoff);
+    }
+    Serial.println("[LoRa] LBT failed: channel busy after max attempts");
+    return false;
+}
+
+bool LoraP2P::transmitWithAck(const LoRaPayload &payload,
+                              uint16_t ackTimeoutMs,
+                              uint8_t  maxRetries)
+{
+    for (uint8_t attempt = 0; attempt <= maxRetries; attempt++) {
+        if (!transmitWithLBT(payload)) {
+            // Channel could not be acquired; brief pause then retry.
+            delay(50 + random(0, 200));
+            continue;
+        }
+
+        uint32_t expectedCounter = payload.data.sensorData.messageCounter;
+        uint32_t deadline = millis() + ackTimeoutMs;
+        while ((int32_t)(deadline - millis()) > 0) {
+            LoRaPayload rx;
+            if (receivePayload(rx)
+                && rx.msgType == LORA_MSG_ACK
+                && rx.nodeId == payload.nodeId
+                && rx.data.ackData.ackedMessageCounter == expectedCounter)
+            {
+                return true;
+            }
+            delay(10);
+        }
+
+        Serial.printf("[LoRa] ACK miss for counter %lu (attempt %u/%u)\n",
+                      (unsigned long)expectedCounter,
+                      attempt + 1, maxRetries + 1);
+        // Backoff before retransmit so a colliding peer can clear.
+        delay(100 + random(0, 300));
+    }
+    return false;
+}
+
+bool LoraP2P::sendAck(uint8_t targetNodeId, uint32_t ackedCounter) {
+    LoRaPayload ack;
+    ack.nodeId  = targetNodeId;
+    ack.msgType = LORA_MSG_ACK;
+    ack.data.ackData.ackedMessageCounter = ackedCounter;
+    return transmitWithLBT(ack, 3);
 }
 
