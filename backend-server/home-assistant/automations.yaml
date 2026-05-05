@@ -32,13 +32,12 @@
   alias: RFID Card Check
   description: ''
   triggers:
-  - trigger: mqtt
-    topic: 'PLACEHOLDER: rfid topic'
+  - device_id: a5f2fbe73757a645e092d19254692dc1
+    domain: alarm_control_panel
+    entity_id: b4a942cd82f6f0e1c954d851e895dfa3
+    type: triggered
+    trigger: device
   conditions: []
-  variables:
-    rfid_id: '{{ trigger.payload }}'
-    valid_ids:
-    - 'PLACEHOLDER: valid rfid id'
   actions:
   - if:
     - condition: template
@@ -49,10 +48,19 @@
       target:
         entity_id: timer.disarmtimer
       data: {}
+    - action: notify.notify
+      metadata: {}
+      data:
+        message: AUTHENTICATED
+        target: notify.rfid_reader_rfid_authenticated
     else:
     - action: script.start_alarm
       metadata: {}
       data: {}
+  variables:
+    rfid_id: '{{ trigger.payload }}'
+    valid_ids:
+    - 'PLACEHOLDER: valid rfid id'
   mode: single
 - id: '1776895453165'
   alias: Node 1 heartbeat check

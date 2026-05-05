@@ -2,5 +2,802 @@
   "version": 1,
   "minor_version": 1,
   "key": "trace.saved_traces",
-  "data": {}
+  "data": {
+    "automation.1777537244405": [
+      {
+        "extended_dict": {
+          "last_step": "action/0",
+          "run_id": "59eef5d079c8e77bc8a925f517032ccf",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-04-30T09:00:17.648887+00:00",
+            "finish": "2026-04-30T09:00:17.712771+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777537244405",
+          "trigger": "state of sensor.motion_sensor_node_motion_sensor_heartbeat",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2026-04-30T09:00:17.660996+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.motion_sensor_heartbeat_update",
+                    "state": "on",
+                    "attributes": {
+                      "id": "1777537244405",
+                      "last_triggered": null,
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Motion Sensor heartbeat update"
+                    },
+                    "last_changed": "2026-04-30T08:20:46.794001+00:00",
+                    "last_reported": "2026-04-30T08:20:46.794562+00:00",
+                    "last_updated": "2026-04-30T08:20:46.794001+00:00",
+                    "context": {
+                      "id": "01KQEQKSJAGTHJ5PMWC9PVQRX1",
+                      "parent_id": null,
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                    "from_state": {
+                      "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                      "state": "unknown",
+                      "attributes": {
+                        "state_class": "measurement",
+                        "device_class": "timestamp",
+                        "friendly_name": "Motion sensor node Motion sensor heartbeat"
+                      },
+                      "last_changed": "2026-04-30T07:58:59.165174+00:00",
+                      "last_reported": "2026-04-30T07:58:59.165174+00:00",
+                      "last_updated": "2026-04-30T07:58:59.165174+00:00",
+                      "context": {
+                        "id": "01KQEPBWJXNNJ50R8MHSNG7B3M",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                      "state": "unavailable",
+                      "attributes": {
+                        "state_class": "measurement",
+                        "device_class": "timestamp",
+                        "friendly_name": "Motion sensor node Motion sensor heartbeat"
+                      },
+                      "last_changed": "2026-04-30T09:00:17.613368+00:00",
+                      "last_reported": "2026-04-30T09:00:17.613368+00:00",
+                      "last_updated": "2026-04-30T09:00:17.613368+00:00",
+                      "context": {
+                        "id": "01KQESW4TD8B1EPNXYHFQNEV0N",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of sensor.motion_sensor_node_motion_sensor_heartbeat"
+                  }
+                }
+              }
+            ],
+            "action/0": [
+              {
+                "path": "action/0",
+                "timestamp": "2026-04-30T09:00:17.671103+00:00",
+                "changed_variables": {
+                  "context": {
+                    "id": "01KQESW4V5YRYKWV46DA7YE99T",
+                    "parent_id": "01KQESW4TD8B1EPNXYHFQNEV0N",
+                    "user_id": null
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "start",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.motion_sensor_heartbeat_timer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "id": "1777537244405",
+            "alias": "Motion Sensor heartbeat update",
+            "description": "",
+            "triggers": [
+              {
+                "trigger": "state",
+                "entity_id": [
+                  "sensor.motion_sensor_node_motion_sensor_heartbeat"
+                ]
+              }
+            ],
+            "conditions": [],
+            "actions": [
+              {
+                "action": "timer.start",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.motion_sensor_heartbeat_timer"
+                },
+                "data": {}
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KQESW4V5YRYKWV46DA7YE99T",
+            "parent_id": "01KQESW4TD8B1EPNXYHFQNEV0N",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "action/0",
+          "run_id": "59eef5d079c8e77bc8a925f517032ccf",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-04-30T09:00:17.648887+00:00",
+            "finish": "2026-04-30T09:00:17.712771+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777537244405",
+          "trigger": "state of sensor.motion_sensor_node_motion_sensor_heartbeat"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "action/0",
+          "run_id": "b0fb20177ede1e381e049c5c742f891a",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-04-30T09:59:07.634424+00:00",
+            "finish": "2026-04-30T09:59:07.643730+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777537244405",
+          "trigger": "state of sensor.motion_sensor_node_motion_sensor_heartbeat",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2026-04-30T09:59:07.635109+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.motion_sensor_heartbeat_update",
+                    "state": "on",
+                    "attributes": {
+                      "id": "1777537244405",
+                      "last_triggered": "2026-04-30T09:31:58.332569+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Motion Sensor heartbeat update"
+                    },
+                    "last_changed": "2026-04-30T09:51:50.459914+00:00",
+                    "last_reported": "2026-04-30T09:51:50.459914+00:00",
+                    "last_updated": "2026-04-30T09:51:50.459914+00:00",
+                    "context": {
+                      "id": "01KQEWTH5VAKM7XWQ3GEWNV5QN",
+                      "parent_id": null,
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                    "from_state": {
+                      "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                      "state": "unknown",
+                      "attributes": {
+                        "state_class": "measurement",
+                        "device_class": "timestamp",
+                        "friendly_name": "Motion sensor node Motion sensor heartbeat"
+                      },
+                      "last_changed": "2026-04-30T09:51:50.526501+00:00",
+                      "last_reported": "2026-04-30T09:51:50.526501+00:00",
+                      "last_updated": "2026-04-30T09:51:50.526501+00:00",
+                      "context": {
+                        "id": "01KQEWTH7YGGBSJTDGBQNDDB91",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                      "state": "unavailable",
+                      "attributes": {
+                        "restored": true,
+                        "state_class": "measurement",
+                        "device_class": "timestamp",
+                        "friendly_name": "Motion sensor heartbeat",
+                        "supported_features": 0
+                      },
+                      "last_changed": "2026-04-30T09:59:07.625080+00:00",
+                      "last_reported": "2026-04-30T09:59:07.625080+00:00",
+                      "last_updated": "2026-04-30T09:59:07.625080+00:00",
+                      "context": {
+                        "id": "01KQEX7W39AY4TYE47TGE5RV04",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of sensor.motion_sensor_node_motion_sensor_heartbeat"
+                  }
+                }
+              }
+            ],
+            "action/0": [
+              {
+                "path": "action/0",
+                "timestamp": "2026-04-30T09:59:07.636806+00:00",
+                "changed_variables": {
+                  "context": {
+                    "id": "01KQEX7W3JQ6442D3ZYWEQ8PM2",
+                    "parent_id": "01KQEX7W39AY4TYE47TGE5RV04",
+                    "user_id": null
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "start",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.motion_sensor_heartbeat_timer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "id": "1777537244405",
+            "alias": "Motion Sensor heartbeat update",
+            "description": "",
+            "triggers": [
+              {
+                "trigger": "state",
+                "entity_id": [
+                  "sensor.motion_sensor_node_motion_sensor_heartbeat"
+                ]
+              }
+            ],
+            "conditions": [],
+            "actions": [
+              {
+                "action": "timer.start",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.motion_sensor_heartbeat_timer"
+                },
+                "data": {}
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KQEX7W3JQ6442D3ZYWEQ8PM2",
+            "parent_id": "01KQEX7W39AY4TYE47TGE5RV04",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "action/0",
+          "run_id": "b0fb20177ede1e381e049c5c742f891a",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-04-30T09:59:07.634424+00:00",
+            "finish": "2026-04-30T09:59:07.643730+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777537244405",
+          "trigger": "state of sensor.motion_sensor_node_motion_sensor_heartbeat"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "action/0",
+          "run_id": "470e58a87080d9607ae99595e30be898",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-04-30T09:59:07.721131+00:00",
+            "finish": "2026-04-30T09:59:07.724463+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777537244405",
+          "trigger": "state of sensor.motion_sensor_node_motion_sensor_heartbeat",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2026-04-30T09:59:07.721277+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.motion_sensor_heartbeat_update",
+                    "state": "on",
+                    "attributes": {
+                      "id": "1777537244405",
+                      "last_triggered": "2026-04-30T09:59:07.635798+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Motion Sensor heartbeat update"
+                    },
+                    "last_changed": "2026-04-30T09:51:50.459914+00:00",
+                    "last_reported": "2026-04-30T09:59:07.643398+00:00",
+                    "last_updated": "2026-04-30T09:59:07.643398+00:00",
+                    "context": {
+                      "id": "01KQEX7W3JQ6442D3ZYWEQ8PM2",
+                      "parent_id": "01KQEX7W39AY4TYE47TGE5RV04",
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                    "from_state": {
+                      "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                      "state": "unavailable",
+                      "attributes": {
+                        "restored": true,
+                        "state_class": "measurement",
+                        "device_class": "timestamp",
+                        "friendly_name": "Motion sensor heartbeat",
+                        "supported_features": 0
+                      },
+                      "last_changed": "2026-04-30T09:59:07.625080+00:00",
+                      "last_reported": "2026-04-30T09:59:07.625080+00:00",
+                      "last_updated": "2026-04-30T09:59:07.625080+00:00",
+                      "context": {
+                        "id": "01KQEX7W39AY4TYE47TGE5RV04",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                      "state": "unavailable",
+                      "attributes": {
+                        "state_class": "measurement",
+                        "device_class": "timestamp",
+                        "friendly_name": "Motion sensor node Motion sensor heartbeat"
+                      },
+                      "last_changed": "2026-04-30T09:59:07.625080+00:00",
+                      "last_reported": "2026-04-30T09:59:07.701425+00:00",
+                      "last_updated": "2026-04-30T09:59:07.701425+00:00",
+                      "context": {
+                        "id": "01KQEX7W5NE28JEXHYY4MNDTR6",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of sensor.motion_sensor_node_motion_sensor_heartbeat"
+                  }
+                }
+              }
+            ],
+            "action/0": [
+              {
+                "path": "action/0",
+                "timestamp": "2026-04-30T09:59:07.721820+00:00",
+                "changed_variables": {
+                  "context": {
+                    "id": "01KQEX7W69X680EZ9284QSXC08",
+                    "parent_id": "01KQEX7W5NE28JEXHYY4MNDTR6",
+                    "user_id": null
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "start",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.motion_sensor_heartbeat_timer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "id": "1777537244405",
+            "alias": "Motion Sensor heartbeat update",
+            "description": "",
+            "triggers": [
+              {
+                "trigger": "state",
+                "entity_id": [
+                  "sensor.motion_sensor_node_motion_sensor_heartbeat"
+                ]
+              }
+            ],
+            "conditions": [],
+            "actions": [
+              {
+                "action": "timer.start",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.motion_sensor_heartbeat_timer"
+                },
+                "data": {}
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KQEX7W69X680EZ9284QSXC08",
+            "parent_id": "01KQEX7W5NE28JEXHYY4MNDTR6",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "action/0",
+          "run_id": "470e58a87080d9607ae99595e30be898",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-04-30T09:59:07.721131+00:00",
+            "finish": "2026-04-30T09:59:07.724463+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777537244405",
+          "trigger": "state of sensor.motion_sensor_node_motion_sensor_heartbeat"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "action/0",
+          "run_id": "d7d03ef27f9e124d4fc917411bc17b7e",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-04-30T09:59:07.730117+00:00",
+            "finish": "2026-04-30T09:59:07.731158+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777537244405",
+          "trigger": "state of sensor.motion_sensor_node_motion_sensor_heartbeat",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2026-04-30T09:59:07.730182+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.motion_sensor_heartbeat_update",
+                    "state": "on",
+                    "attributes": {
+                      "id": "1777537244405",
+                      "last_triggered": "2026-04-30T09:59:07.721511+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Motion Sensor heartbeat update"
+                    },
+                    "last_changed": "2026-04-30T09:51:50.459914+00:00",
+                    "last_reported": "2026-04-30T09:59:07.724361+00:00",
+                    "last_updated": "2026-04-30T09:59:07.724361+00:00",
+                    "context": {
+                      "id": "01KQEX7W69X680EZ9284QSXC08",
+                      "parent_id": "01KQEX7W5NE28JEXHYY4MNDTR6",
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                    "from_state": {
+                      "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                      "state": "unavailable",
+                      "attributes": {
+                        "state_class": "measurement",
+                        "device_class": "timestamp",
+                        "friendly_name": "Motion sensor node Motion sensor heartbeat"
+                      },
+                      "last_changed": "2026-04-30T09:59:07.625080+00:00",
+                      "last_reported": "2026-04-30T09:59:07.701425+00:00",
+                      "last_updated": "2026-04-30T09:59:07.701425+00:00",
+                      "context": {
+                        "id": "01KQEX7W5NE28JEXHYY4MNDTR6",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                      "state": "unknown",
+                      "attributes": {
+                        "state_class": "measurement",
+                        "device_class": "timestamp",
+                        "friendly_name": "Motion sensor node Motion sensor heartbeat"
+                      },
+                      "last_changed": "2026-04-30T09:59:07.728596+00:00",
+                      "last_reported": "2026-04-30T09:59:07.728596+00:00",
+                      "last_updated": "2026-04-30T09:59:07.728596+00:00",
+                      "context": {
+                        "id": "01KQEX7W6GSSB9YQDCBV4K3RX6",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of sensor.motion_sensor_node_motion_sensor_heartbeat"
+                  }
+                }
+              }
+            ],
+            "action/0": [
+              {
+                "path": "action/0",
+                "timestamp": "2026-04-30T09:59:07.730395+00:00",
+                "changed_variables": {
+                  "context": {
+                    "id": "01KQEX7W6JRY28J0V87HAFKCA2",
+                    "parent_id": "01KQEX7W6GSSB9YQDCBV4K3RX6",
+                    "user_id": null
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "start",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.motion_sensor_heartbeat_timer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "id": "1777537244405",
+            "alias": "Motion Sensor heartbeat update",
+            "description": "",
+            "triggers": [
+              {
+                "trigger": "state",
+                "entity_id": [
+                  "sensor.motion_sensor_node_motion_sensor_heartbeat"
+                ]
+              }
+            ],
+            "conditions": [],
+            "actions": [
+              {
+                "action": "timer.start",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.motion_sensor_heartbeat_timer"
+                },
+                "data": {}
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KQEX7W6JRY28J0V87HAFKCA2",
+            "parent_id": "01KQEX7W6GSSB9YQDCBV4K3RX6",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "action/0",
+          "run_id": "d7d03ef27f9e124d4fc917411bc17b7e",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-04-30T09:59:07.730117+00:00",
+            "finish": "2026-04-30T09:59:07.731158+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777537244405",
+          "trigger": "state of sensor.motion_sensor_node_motion_sensor_heartbeat"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "action/0",
+          "run_id": "41b793dbf335a4a4dfa4eb0aa63f62b0",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-04-30T10:18:13.533410+00:00",
+            "finish": "2026-04-30T10:18:13.537732+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777537244405",
+          "trigger": "state of sensor.motion_sensor_node_motion_sensor_heartbeat",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2026-04-30T10:18:13.533592+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.motion_sensor_heartbeat_update",
+                    "state": "on",
+                    "attributes": {
+                      "id": "1777537244405",
+                      "last_triggered": "2026-04-30T09:59:07.730255+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Motion Sensor heartbeat update"
+                    },
+                    "last_changed": "2026-04-30T09:51:50.459914+00:00",
+                    "last_reported": "2026-04-30T09:59:07.731093+00:00",
+                    "last_updated": "2026-04-30T09:59:07.731093+00:00",
+                    "context": {
+                      "id": "01KQEX7W6JRY28J0V87HAFKCA2",
+                      "parent_id": "01KQEX7W6GSSB9YQDCBV4K3RX6",
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                    "from_state": {
+                      "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                      "state": "unknown",
+                      "attributes": {
+                        "state_class": "measurement",
+                        "device_class": "timestamp",
+                        "friendly_name": "Motion sensor node Motion sensor heartbeat"
+                      },
+                      "last_changed": "2026-04-30T09:59:07.728596+00:00",
+                      "last_reported": "2026-04-30T09:59:07.728596+00:00",
+                      "last_updated": "2026-04-30T09:59:07.728596+00:00",
+                      "context": {
+                        "id": "01KQEX7W6GSSB9YQDCBV4K3RX6",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "sensor.motion_sensor_node_motion_sensor_heartbeat",
+                      "state": "unavailable",
+                      "attributes": {
+                        "state_class": "measurement",
+                        "device_class": "timestamp",
+                        "friendly_name": "Motion sensor node Motion sensor heartbeat"
+                      },
+                      "last_changed": "2026-04-30T10:18:13.529982+00:00",
+                      "last_reported": "2026-04-30T10:18:13.529982+00:00",
+                      "last_updated": "2026-04-30T10:18:13.529982+00:00",
+                      "context": {
+                        "id": "01KQEYAV4S661QEXZBC918QMZT",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of sensor.motion_sensor_node_motion_sensor_heartbeat"
+                  }
+                }
+              }
+            ],
+            "action/0": [
+              {
+                "path": "action/0",
+                "timestamp": "2026-04-30T10:18:13.534368+00:00",
+                "changed_variables": {
+                  "context": {
+                    "id": "01KQEYAV4XPCXAV79KV3S9DTFF",
+                    "parent_id": "01KQEYAV4S661QEXZBC918QMZT",
+                    "user_id": null
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "start",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.motion_sensor_heartbeat_timer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "id": "1777537244405",
+            "alias": "Motion Sensor heartbeat update",
+            "description": "",
+            "triggers": [
+              {
+                "trigger": "state",
+                "entity_id": [
+                  "sensor.motion_sensor_node_motion_sensor_heartbeat"
+                ]
+              }
+            ],
+            "conditions": [],
+            "actions": [
+              {
+                "action": "timer.start",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.motion_sensor_heartbeat_timer"
+                },
+                "data": {}
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KQEYAV4XPCXAV79KV3S9DTFF",
+            "parent_id": "01KQEYAV4S661QEXZBC918QMZT",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "action/0",
+          "run_id": "41b793dbf335a4a4dfa4eb0aa63f62b0",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-04-30T10:18:13.533410+00:00",
+            "finish": "2026-04-30T10:18:13.537732+00:00"
+          },
+          "domain": "automation",
+          "item_id": "1777537244405",
+          "trigger": "state of sensor.motion_sensor_node_motion_sensor_heartbeat"
+        }
+      }
+    ]
+  }
 }
