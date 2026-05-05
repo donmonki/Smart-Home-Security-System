@@ -28,40 +28,6 @@
     metadata: {}
     data: {}
   mode: single
-- id: '1776329076298'
-  alias: RFID Card Check
-  description: ''
-  triggers:
-  - device_id: a5f2fbe73757a645e092d19254692dc1
-    domain: alarm_control_panel
-    entity_id: b4a942cd82f6f0e1c954d851e895dfa3
-    type: triggered
-    trigger: device
-  conditions: []
-  actions:
-  - if:
-    - condition: template
-      value_template: '{{ rfid_id in valid_ids }}'
-    then:
-    - action: timer.cancel
-      metadata: {}
-      target:
-        entity_id: timer.disarmtimer
-      data: {}
-    - action: notify.notify
-      metadata: {}
-      data:
-        message: AUTHENTICATED
-        target: notify.rfid_reader_rfid_authenticated
-    else:
-    - action: script.start_alarm
-      metadata: {}
-      data: {}
-  variables:
-    rfid_id: '{{ trigger.payload }}'
-    valid_ids:
-    - 'PLACEHOLDER: valid rfid id'
-  mode: single
 - id: '1776895453165'
   alias: Node 1 heartbeat check
   description: ''
@@ -91,4 +57,23 @@
     target:
       entity_id: timer.motion_sensor_heartbeat_timer
     data: {}
+  mode: single
+- id: '1777998260451'
+  alias: RFID Scan Handler
+  description: ''
+  triggers:
+  - trigger: mqtt
+    options:
+      topic: home/nodes/3/scanned
+  conditions: []
+  actions:
+  - variables:
+      scanned_id: '{{ trigger.payload_json.value | upper }}'
+      valid_ids: '{{ states(''input_text.rfid_valid_ids'').split('','') }}'
+  - action: notify.send_message
+    metadata: {}
+    target:
+      entity_id: notify.rfid_reader_rfid_authenticated
+    data:
+      message: '{{ 2 if scanned_id in valid_ids else 1 }}'
   mode: single

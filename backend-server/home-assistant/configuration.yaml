@@ -8,3 +8,8 @@ frontend:
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+
+input_text:
+  rfid_valid_ids:
+    name: Valid RFID IDs
+    initial: "AABBCCDD,11223344"

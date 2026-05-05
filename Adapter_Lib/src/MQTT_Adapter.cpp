@@ -305,6 +305,11 @@ void MqttAdapter::processIncomingMessage(char *topic, byte *payload, unsigned in
     outPayload.data.commandData.actionId = doc["actionId"];
     outPayload.data.commandData.parameter = doc["parameter"];
 
+    if (doc["type"] == MQTT_MSG_AUTHENTICATION)
+    {
+        outPayload.data.commandData.authenticationResult = doc["authResult"];
+    }
+
     Serial.printf("[MQTT] Received command for Node %d | actionId: %d | parameter: %d\n",
                   targetNode, outPayload.data.commandData.actionId, outPayload.data.commandData.parameter);
 }

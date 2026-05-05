@@ -46,6 +46,13 @@
             "should_expose": true
           }
         }
+      },
+      "automation.rfid_scan_handler": {
+        "assistants": {
+          "conversation": {
+            "should_expose": false
+          }
+        }
       }
     }
   }
