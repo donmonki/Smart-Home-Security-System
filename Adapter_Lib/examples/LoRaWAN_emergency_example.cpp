@@ -12,7 +12,8 @@ const char *APP_EUI = "1234567890ABCDE0";
 const char *APP_KEY = "0BB350EC15ED31F52F37E3892169818E";
 
 HardwareSerial loraSerial(2);
-LoRaWAN myLoRaWAN(RST_PIN, RX_PIN, TX_PIN, loraSerial, DEV_EUI, APP_EUI, APP_KEY);
+// Pass &Serial as debug output - all logs will be prefixed with [LoRaWAN]
+LoRaWAN myLoRaWAN(RST_PIN, RX_PIN, TX_PIN, loraSerial, DEV_EUI, APP_EUI, APP_KEY, &Serial);
 
 void setup()
 {
