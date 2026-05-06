@@ -1,0 +1,163 @@
+# =====================================================================
+#  Template helpers for the Overview dashboard.
+#  Pulled in from configuration.yaml -> template: !include templates.yaml
+# =====================================================================
+
+# ---- Gateway "last seen" timestamp --------------------------------- #
+# Uses the most recently-changed heartbeat as a proxy for the gateway
+# being alive (every node talks through the gateway).
+- sensor:
+    - name: "Gateway last seen"
+      unique_id: gateway_last_seen
+      device_class: timestamp
+      state: >
+        {% set candidates = [
+            states.binary_sensor.rfid_reader_rfid_heartbeat,
+            states.binary_sensor.motion_sensor_node_motion_sensor_heartbeat,
+            states.binary_sensor.buzzer_buzzer_heartbeat,
+            states.sensor.gateway_gateway_battery_level
+        ] | reject('none') | list %}
+        {% if candidates | length == 0 %}
+          unknown
+        {% else %}
+          {{ (candidates | map(attribute='last_changed') | max).isoformat() }}
+        {% endif %}
+
+# ---- Gateway hardware identity ------------------------------------- #
+# Reads a stable identifier published by the gateway firmware on the
+# topic   home/gateway/id      (payload = MAC or chip-ID string).
+# If your firmware uses a different topic, change `topic:` below.
+- trigger:
+    - platform: mqtt
+      topic: "home/gateway/id"
+  sensor:
+    - name: "Gateway HW ID"
+      unique_id: gateway_hw_id
+      icon: mdi:identifier
+      state: "{{ trigger.payload }}"
+      attributes:
+        last_announced: "{{ now().isoformat() }}"
+
+# ---- Gateway swap detector ----------------------------------------- #
+# Compares the latest reported HW ID against the previously stored one.
+# Goes "on" the moment a different ID appears and stays on until you
+# acknowledge it (toggle the alarm or restart HA).
+- binary_sensor:
+    - name: "Gateway HW changed"
+      unique_id: gateway_hw_changed
+      device_class: problem
+      state: >
+        {% set current = states('sensor.gateway_hw_id') %}
+        {% set previous = state_attr('sensor.gateway_hw_id', 'previous_id') %}
+        {{ previous is not none and current != 'unknown'
+           and previous != 'unknown' and current != previous }}
+
+# =====================================================================
+#  VIEW-LAYER OVERLAYS  —  used by the Overview dashboard cards.
+#  Each `view_*` entity passes the REAL value through normally, but
+#  switches to demo helper values when input_boolean.demo_mode is ON.
+#  This way the dashboard can be shown end-to-end without any node
+#  being connected, and a single toggle flips it back to live data.
+# =====================================================================
+- sensor:
+    - name: "View Gateway battery"
+      unique_id: view_gateway_battery
+      unit_of_measurement: "%"
+      device_class: battery
+      state: >
+        {% if is_state('input_boolean.demo_mode', 'on') %}
+          {{ states('input_number.demo_battery') | int(0) }}
+        {% else %}
+          {{ states('sensor.gateway_gateway_battery_level') }}
+        {% endif %}
+
+    - name: "View Gateway HW ID"
+      unique_id: view_gateway_hw_id
+      icon: mdi:identifier
+      state: >
+        {% if is_state('input_boolean.demo_mode', 'on') %}
+          {{ states('input_text.demo_gateway_id') }}
+        {% else %}
+          {{ states('sensor.gateway_hw_id') }}
+        {% endif %}
+
+    - name: "View Gateway last seen"
+      unique_id: view_gateway_last_seen
+      device_class: timestamp
+      state: >
+        {% if is_state('input_boolean.demo_mode', 'on') %}
+          {{ now().isoformat() }}
+        {% else %}
+          {{ states('sensor.gateway_last_seen') }}
+        {% endif %}
+
+- binary_sensor:
+    - name: "View Alarm armed"
+      unique_id: view_alarm_armed
+      icon: mdi:alarm-light
+      state: >
+        {% if is_state('input_boolean.demo_mode', 'on') %}
+          {{ is_state('input_boolean.demo_alarm', 'on') }}
+        {% else %}
+          {{ is_state('siren.rfid_reader_rfid_alarm', 'on') }}
+        {% endif %}
+
+    - name: "View Buzzer on"
+      unique_id: view_buzzer_on
+      icon: mdi:bullhorn
+      state: >
+        {% if is_state('input_boolean.demo_mode', 'on') %}
+          {{ is_state('input_boolean.demo_buzzer', 'on') }}
+        {% else %}
+          {{ is_state('siren.buzzer_buzzer_control', 'on') }}
+        {% endif %}
+
+    - name: "View Motion detected"
+      unique_id: view_motion_detected
+      device_class: motion
+      state: >
+        {% if is_state('input_boolean.demo_mode', 'on') %}
+          {{ is_state('input_boolean.demo_motion', 'on') }}
+        {% else %}
+          {{ is_state('binary_sensor.motion_sensor_node_motion_sensor_alarm', 'on') }}
+        {% endif %}
+
+    - name: "View RFID online"
+      unique_id: view_rfid_online
+      device_class: connectivity
+      state: >
+        {% if is_state('input_boolean.demo_mode', 'on') %}
+          {{ is_state('input_boolean.demo_rfid_online', 'on') }}
+        {% else %}
+          {{ is_state('binary_sensor.rfid_reader_rfid_heartbeat', 'on') }}
+        {% endif %}
+
+    - name: "View Motion online"
+      unique_id: view_motion_online
+      device_class: connectivity
+      state: >
+        {% if is_state('input_boolean.demo_mode', 'on') %}
+          {{ is_state('input_boolean.demo_motion_online', 'on') }}
+        {% else %}
+          {{ is_state('binary_sensor.motion_sensor_node_motion_sensor_heartbeat', 'on') }}
+        {% endif %}
+
+    - name: "View Buzzer online"
+      unique_id: view_buzzer_online
+      device_class: connectivity
+      state: >
+        {% if is_state('input_boolean.demo_mode', 'on') %}
+          {{ is_state('input_boolean.demo_buzzer_online', 'on') }}
+        {% else %}
+          {{ is_state('binary_sensor.buzzer_buzzer_heartbeat', 'on') }}
+        {% endif %}
+
+    - name: "View Gateway swapped"
+      unique_id: view_gateway_swapped
+      device_class: problem
+      state: >
+        {% if is_state('input_boolean.demo_mode', 'on') %}
+          {{ is_state('input_boolean.demo_gateway_changed', 'on') }}
+        {% else %}
+          {{ is_state('binary_sensor.gateway_hw_changed', 'on') }}
+        {% endif %}

@@ -5,7 +5,8 @@
   "data": {
     "core": {
       "onboarded_version": "2026.4.1",
-      "onboarded_date": "2026-04-16T07:47:06.095Z"
+      "onboarded_date": "2026-04-16T07:47:06.095Z",
+      "default_panel": "lovelace-security"
     }
   }
 }

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "frontend_panels",
+  "data": {
+    "home": {
+      "show_in_sidebar": false
+    }
+  }
+}
