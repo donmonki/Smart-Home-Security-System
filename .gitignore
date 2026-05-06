@@ -1,3 +1,4 @@
+
 # --- Backend Server Ignores ---
 # Database files (runtime state - too large and changes constantly)
 backend-server/home-assistant/home-assistant_v2.db*
@@ -16,5 +17,11 @@ backend-server/home-assistant/secrets.yaml
 backend-server/mosquitto/data/
 backend-server/mosquitto/log/
 
+# MQTT TLS certificates (generated locally by each developer)
+backend-server/mosquitto/certs/*.crt
+backend-server/mosquitto/certs/*.key
+backend-server/mosquitto/certs/*.srl
+
 # NOTE: .storage/ is now SHARED for team collaboration
 # This includes user accounts and integration configs
+CLAUDE.local.md
