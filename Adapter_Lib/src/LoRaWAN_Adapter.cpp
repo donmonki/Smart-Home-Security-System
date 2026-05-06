@@ -1,9 +1,31 @@
 #include "LoRaWAN_Adapter.h"
 
 LoRaWAN::LoRaWAN(uint8_t rst_pin, uint8_t rx_pin, uint8_t tx_pin, HardwareSerial &serial,
-                 const char *devEUI, const char *appEUI, const char *appKey)
+                 const char *devEUI, const char *appEUI, const char *appKey, Stream *debugSerial)
     : _loraSerial(serial), _rst_pin(rst_pin), _rx_pin(rx_pin), _tx_pin(tx_pin),
-      _devEUI(devEUI), _appEUI(appEUI), _appKey(appKey), _isJoined(false) {}
+      _devEUI(devEUI), _appEUI(appEUI), _appKey(appKey), _debugSerial(debugSerial), _isJoined(false) {}
+
+/************************
+ * Private Functions
+ *************************/
+
+void LoRaWAN::debugPrint(const char *msg)
+{
+    if (_debugSerial)
+    {
+        _debugSerial->print("[LoRaWAN] ");
+        _debugSerial->println(msg);
+    }
+}
+
+void LoRaWAN::debugPrint(const String &msg)
+{
+    if (_debugSerial)
+    {
+        _debugSerial->print("[LoRaWAN] ");
+        _debugSerial->println(msg);
+    }
+}
 
 /************************
  * Private Functions
@@ -125,14 +147,14 @@ bool LoRaWAN::init()
     // Check module version
     if (!sendCmd("sys get ver", nullptr))
     {
-        Serial.println("Failed to get module version");
+        debugPrint("Failed to get module version");
         return false;
     }
 
     // Reset MAC layer to factory defaults
     if (!sendCmd("mac reset 868"))
     {
-        Serial.println("Failed to reset MAC");
+        debugPrint("Failed to reset MAC");
         return false;
     }
 
@@ -142,21 +164,21 @@ bool LoRaWAN::init()
     String devEUICmd = "mac set deveui " + _devEUI;
     if (!sendCmd(devEUICmd.c_str()))
     {
-        Serial.println("Failed to set DevEUI");
+        debugPrint("Failed to set DevEUI");
         return false;
     }
 
     String appEUICmd = "mac set appeui " + _appEUI;
     if (!sendCmd(appEUICmd.c_str()))
     {
-        Serial.println("Failed to set AppEUI");
+        debugPrint("Failed to set AppEUI");
         return false;
     }
 
     String appKeyCmd = "mac set appkey " + _appKey;
     if (!sendCmd(appKeyCmd.c_str()))
     {
-        Serial.println("Failed to set AppKey");
+        debugPrint("Failed to set AppKey");
         return false;
     }
 
@@ -178,7 +200,7 @@ bool LoRaWAN::join()
     // Start OTAA join
     if (!sendCmd("mac join otaa", "ok"))
     {
-        Serial.println("Failed to start join procedure");
+        debugPrint("Failed to start join procedure");
         return false;
     }
 
@@ -189,7 +211,7 @@ bool LoRaWAN::join()
         return true;
     }
 
-    Serial.println("Join failed");
+    debugPrint("Join failed");
     _isJoined = false;
     return false;
 }
@@ -206,7 +228,7 @@ bool LoRaWAN::sendHex(const String &hexData, uint8_t port, bool confirmed)
 {
     if (!_isJoined)
     {
-        Serial.println("Error: Not joined to network");
+        debugPrint("Error: Not joined to network");
         return false;
     }
 
@@ -217,7 +239,7 @@ bool LoRaWAN::sendHex(const String &hexData, uint8_t port, bool confirmed)
     // Send command
     if (!sendCmd(cmd.c_str(), "ok"))
     {
-        Serial.println("Failed to initiate transmission");
+        debugPrint("Failed to initiate transmission");
         return false;
     }
 
@@ -229,7 +251,7 @@ bool LoRaWAN::sendHex(const String &hexData, uint8_t port, bool confirmed)
         return true;
     }
 
-    Serial.println("Transmission failed");
+    debugPrint("Transmission failed");
     return false;
 }
 
@@ -254,7 +276,7 @@ bool LoRaWAN::sendCriticalPayload(const LoRaWANPayload &payload, uint8_t maxRetr
 
         if (!_isJoined)
         {
-            Serial.println("Error: Not joined to network");
+            debugPrint("Error: Not joined to network");
             return false;
         }
 
@@ -296,13 +318,13 @@ bool LoRaWAN::sendCriticalPayload(const LoRaWANPayload &payload, uint8_t maxRetr
 
             if (!moduleAlive)
             {
-                Serial.println("Module unresponsive - resetting");
+                debugPrint("Module unresponsive - resetting");
                 reset();
                 delay(2000);
 
                 if (!init() || !join())
                 {
-                    Serial.println("Failed to recover module");
+                    debugPrint("Failed to recover module");
                     return false;
                 }
             }

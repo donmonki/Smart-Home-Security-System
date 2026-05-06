@@ -32,6 +32,7 @@ private:
     uint8_t _rx_pin;
     uint8_t _tx_pin;
     HardwareSerial &_loraSerial;
+    Stream *_debugSerial;
     String _devEUI;
     String _appEUI;
     String _appKey;
@@ -41,10 +42,12 @@ private:
     String bytesToHex(const uint8_t *data, int length);
     bool waitForResponse(const char *expected, uint32_t timeout);
     bool sendCriticalPayload(const LoRaWANPayload &payload, uint8_t maxRetries = 3, uint32_t retryDelay = 10000);
+    void debugPrint(const char *msg);
+    void debugPrint(const String &msg);
 
 public:
     LoRaWAN(uint8_t rst_pin, uint8_t rx_pin, uint8_t tx_pin, HardwareSerial &serial,
-            const char *devEUI, const char *appEUI, const char *appKey);
+            const char *devEUI, const char *appEUI, const char *appKey, Stream *debugSerial = nullptr);
 
     bool init();
     bool join();

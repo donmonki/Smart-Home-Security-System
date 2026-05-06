@@ -242,7 +242,8 @@ The LoRaWAN Adapter provides connectivity to The Things Network (TTN) for emerge
 
 ```cpp
 LoRaWAN(uint8_t rst_pin, uint8_t rx_pin, uint8_t tx_pin, HardwareSerial &serial,
-        const char *devEUI, const char *appEUI, const char *appKey)
+        const char *devEUI, const char *appEUI, const char *appKey,
+        Stream *debugSerial = nullptr)
 ```
 
 Creates a LoRaWAN adapter instance with the following parameters:
@@ -254,6 +255,17 @@ Creates a LoRaWAN adapter instance with the following parameters:
 - `devEUI`: Device EUI from TTN Console (16 hex characters)
 - `appEUI`: Application EUI from TTN Console (16 hex characters)
 - `appKey`: Application Key from TTN Console (32 hex characters)
+- `debugSerial`: Optional pointer to Stream for debug output (e.g., `&Serial`, `&Serial1`). Pass `nullptr` to disable debug logging
+
+**Note**: All debug messages are prefixed with `[LoRaWAN]` and only output if a debug serial interface is provided. This is particularly useful when the gateway uses multiple hardware serial ports for multiple LoRa modules.
+
+**ESP32 Serial Ports**: ESP32 has three UART interfaces:
+
+- `Serial` (UART0): USB connection on most dev boards - keep free for debug if possible
+- `Serial1` (UART1): May be unavailable or limited on some boards (used for flash memory)
+- `Serial2` (UART2): Fully available for user applications
+
+For gateways with two LoRa modules, use `Serial1` and `Serial2` for the modules (if Serial1 is available), keeping `Serial` free for debug output. If `Serial1` is not available, you may need to use `Serial` for one module, but then USB debug output won't be available.
 
 #### **Initialization and Network Join**
 
@@ -352,6 +364,40 @@ struct LoRaWANPayload {
 #### **Usage Example**
 
 For a complete working example, refer to `LoRaWAN_emergency_example.cpp` in the `Adapter_Lib/examples/` folder.
+
+**Basic Usage with Debug Output:**
+
+```cpp
+// Single LoRa module using Serial2, debug output to Serial (USB)
+LoRaWAN lorawan(RST_PIN, RX_PIN, TX_PIN, Serial2, DEV_EUI, APP_EUI, APP_KEY, &Serial);
+```
+
+**Gateway with Multiple LoRa Modules:**
+
+```cpp
+// Gateway using two hardware serials for two LoRa modules
+// ESP32 has Serial (UART0/USB), Serial1 (UART1), and Serial2 (UART2)
+// Note: Serial is USB connection - keep it free for debug output if needed
+
+// Option 1: Both modules on Serial1 and Serial2, debug on Serial (USB)
+HardwareSerial loraSerial1(1);  // UART1 - check if available on your board
+HardwareSerial loraSerial2(2);  // UART2
+LoRaWAN loraModule1(RST_PIN1, RX1_PIN, TX1_PIN, loraSerial1, DEV_EUI1, APP_EUI1, APP_KEY1, &Serial);
+LoRaWAN loraModule2(RST_PIN2, RX2_PIN, TX2_PIN, loraSerial2, DEV_EUI2, APP_EUI2, APP_KEY2, &Serial);
+
+// Option 2: If Serial1 unavailable, use Serial for one module (no USB debug available)
+HardwareSerial loraSerial2(2);  // UART2
+LoRaWAN loraModule1(RST_PIN1, RX1_PIN, TX1_PIN, Serial, DEV_EUI1, APP_EUI1, APP_KEY1);      // No debug
+LoRaWAN loraModule2(RST_PIN2, RX2_PIN, TX2_PIN, loraSerial2, DEV_EUI2, APP_EUI2, APP_KEY2); // No debug
+// USB Serial not available for debug when used by LoRa module
+```
+
+**Silent Operation (No Debug Output):**
+
+```cpp
+// No debug serial specified - all debug logging disabled
+LoRaWAN lorawan(RST_PIN, RX_PIN, TX_PIN, Serial2, DEV_EUI, APP_EUI, APP_KEY);
+```
 
 #### **TTN Integration**
 
