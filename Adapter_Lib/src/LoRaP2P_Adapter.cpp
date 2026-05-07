@@ -108,15 +108,26 @@ bool LoraP2P::moduleInit() {
 
 // Transmit method
 bool LoraP2P::transmitHex(const String &hexData) {
-    // Transmit format: "radio tx <hex_data>"
+    stopRx(); // abort any active RX before transmitting
+
     String cmd = "radio tx " + hexData;
-    
     if (!sendCmd(cmd.c_str(), "ok")) return false;
     
     // When "ok" is received, the module will transmit, and then return "radio_tx_ok"
     String txStatus = _loraSerial.readStringUntil('\n');
     txStatus.trim();
     return txStatus.equals("radio_tx_ok");
+}
+
+// Abort an active RX window so the radio is free to transmit or re-arm for LBT.
+void LoraP2P::stopRx() {
+    if (!_radioInRx) return;
+    _loraSerial.println("radio rxstop");
+    _loraSerial.readStringUntil('\n'); // consume "ok"
+    // Module emits "radio_err" shortly after; drain it.
+    delay(20);
+    while (_loraSerial.available()) _loraSerial.read();
+    _radioInRx = false;
 }
 
 // Receive method
@@ -137,18 +148,18 @@ String LoraP2P::receive() {
     response.trim();
 
     // Handle different responses with empty returns
-    if (response.length() == 0) return ""; 
-    if (response.equals("busy")) return "";      // Module is actively listening
-    if (response.equals("ok")) return "";        // Module just started listening
-    if (response.equals("radio_err")) return ""; // Module error, retry next loop
+    if (response.length() == 0) return "";
+    if (response.equals("busy")) return "";            // Already listening
+    if (response.equals("ok")) { _radioInRx = true; return ""; }   // Just armed
+    if (response.equals("radio_err")) { _radioInRx = false; return ""; }
 
-    // Data received succesfully
+    // Data received successfully
     if (response.startsWith("radio_rx  ")) {
-        // Return just the hex data payload (without "radio_rx  ")
-        return response.substring(10); 
+        _radioInRx = false;
+        return response.substring(10);
     }
-    
-    return ""; 
+
+    return "";
 }
 
 //Encrypted Payload Transmission
@@ -192,6 +203,9 @@ bool LoraP2P::receivePayload(LoRaPayload &receivedData) {
 bool LoraP2P::channelBusy(uint16_t listenMs) {
     if (listenMs < 30) listenMs = 30;
 
+    // Abort any active RX so we can reconfigure the WDT and arm a fresh LBT window.
+    stopRx();
+
     // Lower the receive watchdog to bound the listen window, then restore.
     char wdtCmd[32];
     snprintf(wdtCmd, sizeof(wdtCmd), "radio set wdt %u", (unsigned)listenMs);
@@ -210,12 +224,14 @@ bool LoraP2P::channelBusy(uint16_t listenMs) {
         sendCmd("radio set wdt 60000", "ok");
         return false;
     }
+    _radioInRx = true;
 
     // Wait up to listenMs (+ small slack) for either radio_rx or radio_err.
     _loraSerial.setTimeout((uint32_t)listenMs + 50);
     String response = _loraSerial.readStringUntil('\n');
     _loraSerial.setTimeout(1000);
     response.trim();
+    _radioInRx = false;
 
     bool busy = false;
     if (response.startsWith("radio_rx  ")) {

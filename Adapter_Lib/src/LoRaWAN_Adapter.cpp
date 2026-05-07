@@ -2,8 +2,8 @@
 
 LoRaWAN::LoRaWAN(uint8_t rst_pin, uint8_t rx_pin, uint8_t tx_pin, HardwareSerial &serial,
                  const char *devEUI, const char *appEUI, const char *appKey, Stream *debugSerial)
-    : _loraSerial(serial), _rst_pin(rst_pin), _rx_pin(rx_pin), _tx_pin(tx_pin),
-      _devEUI(devEUI), _appEUI(appEUI), _appKey(appKey), _debugSerial(debugSerial), _isJoined(false) {}
+    : _rst_pin(rst_pin), _rx_pin(rx_pin), _tx_pin(tx_pin), _loraSerial(serial),
+      _debugSerial(debugSerial), _devEUI(devEUI), _appEUI(appEUI), _appKey(appKey), _isJoined(false) {}
 
 /************************
  * Private Functions
