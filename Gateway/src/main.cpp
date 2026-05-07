@@ -13,9 +13,9 @@
 // ----------------------------------------------------------------
 // Pin Definitions - LoRaWAN fallback module (UART1)
 // ----------------------------------------------------------------
-#define LORAWAN_RST_PIN 4
-#define LORAWAN_RX_PIN  16
-#define LORAWAN_TX_PIN  17
+#define LORAWAN_RST_PIN 22
+#define LORAWAN_RX_PIN  2
+#define LORAWAN_TX_PIN  4
 
 // HIGH = external power present, LOW = running on battery backup
 #define POWER_SENSE_PIN 34
@@ -32,9 +32,9 @@
 // ----------------------------------------------------------------
 // TTN Credentials — update before deployment
 // ----------------------------------------------------------------
-#define TTN_DEV_EUI "0000000000000000"
-#define TTN_APP_EUI "0000000000000000"
-#define TTN_APP_KEY "00000000000000000000000000000000"
+#define TTN_DEV_EUI "0004A30B0103EDFA"
+#define TTN_APP_EUI "1234567890ABCDE0"
+#define TTN_APP_KEY "0BB350EC15ED31F52F37E3892169818E"
 
 // ----------------------------------------------------------------
 // Node Health Tracking
@@ -113,7 +113,7 @@ HardwareSerial lorawanSerial(1);
 LoraP2P     lora(LORA_RST_PIN, LORA_RX_PIN, LORA_TX_PIN, loraSerial);
 MqttAdapter mqtt(WIFI_SSID, WIFI_PASSWORD, MQTT_SERVER, MQTT_PORT, MQTT_CLIENT_ID);
 LoRaWAN     lorawan(LORAWAN_RST_PIN, LORAWAN_RX_PIN, LORAWAN_TX_PIN, lorawanSerial,
-                    TTN_DEV_EUI, TTN_APP_EUI, TTN_APP_KEY);
+                    TTN_DEV_EUI, TTN_APP_EUI, TTN_APP_KEY, &Serial);
 
 // ----------------------------------------------------------------
 // MQTT Callback — called by PubSubClient on incoming backend messages
@@ -132,7 +132,7 @@ void mqttCallback(char* topic, byte* payload, unsigned int length)
         }
         else
         {
-            Serial.println("[Gateway] WARNING: command TX failed (LBT exhausted)");
+            Serial.println("[Gateway] WARNING: command TX failed");
         }
     }
 }
@@ -286,17 +286,17 @@ void routePayload(const LoRaPayload &payload)
     switch (payload.msgType)
     {
     case LORA_MSG_HEARTBEAT:
-        Serial.printf("[Gateway] HEARTBEAT from node %d | counter: %lu\n",
+        Serial.printf("[Gateway] HEARTBEAT from node %d | counter: %u\n",
                       payload.nodeId, payload.data.sensorData.messageCounter);
         break;
     case LORA_MSG_MOTION_ALARM:
-        Serial.printf("[Gateway] MOTION ALARM from node %d | motion: %s | counter: %lu\n",
+        Serial.printf("[Gateway] MOTION ALARM from node %d | motion: %s | counter: %u\n",
                       payload.nodeId,
                       payload.data.sensorData.motionDetected ? "YES" : "NO",
                       payload.data.sensorData.messageCounter);
         break;
     case LORA_MSG_RFID_SCANNED:
-        Serial.printf("[Gateway] RFID SCAN from node %d | uid: 0x%08X | counter: %lu\n",
+        Serial.printf("[Gateway] RFID SCAN from node %d | uid: 0x%08X | counter: %u\n",
                       payload.nodeId,
                       payload.data.sensorData.rfidUid,
                       payload.data.sensorData.messageCounter);
