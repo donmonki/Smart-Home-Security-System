@@ -5,6 +5,81 @@ default_config:
 frontend:
   themes: !include_dir_merge_named themes
 
+# ----- Custom Overview dashboard (YAML mode, new format) -------------
+# HA 2026.8 removes the legacy `mode: yaml` shortcut, so we register
+# the YAML dashboard as a sidebar entry. The default storage-mode
+# Overview is hidden manually in Settings -> Dashboards (see README).
+lovelace:
+  resource_mode: yaml
+  dashboards:
+    lovelace-security:           # URL path: /lovelace-security
+      mode: yaml
+      filename: ui-lovelace.yaml
+      title: Overview
+      icon: mdi:shield-home
+      show_in_sidebar: true
+      require_admin: false
+
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
+template: !include templates.yaml
+
+input_text:
+  rfid_valid_ids:
+    name: Valid RFID IDs
+    initial: "AABBCCDD,11223344"
+  # ---- Demo-mode overlays (used when input_boolean.demo_mode is on) -
+  demo_gateway_id:
+    name: Demo gateway HW ID
+    initial: "A4:CF:12:8B:7E:01"
+  demo_last_rfid_id:
+    name: Demo last RFID scanned
+    initial: "AABBCCDD"
+  demo_last_rfid_result:
+    name: Demo last RFID result
+    initial: "accepted"
+
+# =====================================================================
+#  Demo / preview helpers — let the dashboard be exercised end-to-end
+#  without the ESP32 nodes being online.  Toggle input_boolean.demo_mode
+#  to swap every card from real data to the helper values below.
+# =====================================================================
+input_boolean:
+  demo_mode:
+    name: Demo mode
+    icon: mdi:test-tube
+  demo_alarm:
+    name: Demo alarm armed
+    icon: mdi:alarm-light
+  demo_buzzer:
+    name: Demo buzzer on
+    icon: mdi:bullhorn
+  demo_motion:
+    name: Demo motion detected
+    icon: mdi:motion-sensor
+  demo_rfid_online:
+    name: Demo RFID node online
+    icon: mdi:credit-card-wireless
+    initial: true
+  demo_motion_online:
+    name: Demo motion node online
+    icon: mdi:motion-sensor
+    initial: true
+  demo_buzzer_online:
+    name: Demo buzzer node online
+    icon: mdi:bullhorn-outline
+    initial: true
+  demo_gateway_changed:
+    name: Demo gateway swapped
+    icon: mdi:swap-horizontal
+
+input_number:
+  demo_battery:
+    name: Demo gateway battery
+    icon: mdi:battery
+    min: 0
+    max: 100
+    step: 1
+    initial: 75
+    unit_of_measurement: "%"

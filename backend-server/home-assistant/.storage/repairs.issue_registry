@@ -10,6 +10,13 @@
         "domain": "mqtt",
         "is_persistent": false,
         "issue_id": "0x75aacfd4133ca819"
+      },
+      {
+        "created": "2026-05-06T21:05:31.033187+00:00",
+        "dismissed_version": null,
+        "domain": "lovelace",
+        "is_persistent": false,
+        "issue_id": "yaml_mode_deprecated"
       }
     ]
   }

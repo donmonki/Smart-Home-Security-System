@@ -1,0 +1,240 @@
+# =====================================================================
+#  Smart Home Security – Overview dashboard
+#  Author: 34346 IoT project
+#  Mode  : YAML (referenced from configuration.yaml -> lovelace.dashboards)
+#
+#  All data cards bind to view_* template entities so the dashboard
+#  works whether the ESP32 nodes are online or not.  Toggle
+#  "Demo mode" in the banner to swap to helper-driven dummy data.
+# =====================================================================
+title: Smart Home Security
+views:
+  - title: Overview
+    path: overview
+    icon: mdi:shield-home
+    type: sections
+    max_columns: 3
+    dense_section_placement: true
+    sections:
+
+      # =============================================================
+      # SECTION 0 — DEMO BANNER  (always visible)
+      # =============================================================
+      
+      # =============================================================
+      # SECTION 1 — ALARM STATUS
+      # =============================================================
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Alarm
+            heading_style: title
+            icon: mdi:shield-lock
+
+          - type: tile
+            entity: binary_sensor.view_alarm_armed
+            name: System alarm
+            icon: mdi:alarm-light
+            color: red
+            vertical: true
+            tap_action:
+              action: more-info
+
+          - type: tile
+            entity: binary_sensor.view_buzzer_on
+            name: Buzzer
+            icon: mdi:bullhorn
+            color: orange
+
+          - type: tile
+            entity: binary_sensor.view_motion_detected
+            name: Motion detected
+            icon: mdi:motion-sensor
+            color: amber
+
+          - type: tile
+            entity: timer.disarmtimer
+            name: Disarm window
+            icon: mdi:timer-sand
+            color: blue
+
+          - type: button
+            name: Cancel disarm timer
+            icon: mdi:timer-off
+            tap_action:
+              action: call-service
+              service: timer.cancel
+              target:
+                entity_id: timer.disarmtimer
+
+      # =============================================================
+      # SECTION 2 — RFID ACCESS
+      # =============================================================
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: RFID Access
+            heading_style: title
+            icon: mdi:card-account-details
+
+          - type: entities
+            title: Valid cards (comma-separated HEX)
+            show_header_toggle: false
+            entities:
+              - entity: input_text.rfid_valid_ids
+                name: Authorised IDs
+
+          # ----- Demo-only fake history (replaces logbook in demo mode)
+          - type: conditional
+            conditions:
+              - entity: input_boolean.demo_mode
+                state: "on"
+            card:
+              type: markdown
+              title: RFID scan history (demo)
+              content: |
+                | Time  | ID         | Result   |
+                | ----- | ---------- | -------- |
+                | 14:18 | `AABBCCDD` | accepted |
+                | 13:42 | `DEADBEEF` | denied   |
+                | 09:05 | `11223344` | accepted |
+                | 07:30 | `AABBCCDD` | accepted |
+
+          # ----- Real logbook (hidden in demo mode)
+          - type: conditional
+            conditions:
+              - entity: input_boolean.demo_mode
+                state: "off"
+            card:
+              type: logbook
+              title: RFID scan history (24h)
+              hours_to_show: 24
+              entities:
+                - automation.rfid_scan_handler_2
+                - automation.rfid_card_check
+                - notify.rfid_reader_rfid_authenticated
+                - siren.rfid_reader_rfid_alarm
+
+          - type: history-graph
+            title: RFID activity (24h)
+            hours_to_show: 24
+            entities:
+              - entity: binary_sensor.view_alarm_armed
+              - entity: binary_sensor.view_rfid_online
+
+      # =============================================================
+      # SECTION 3 — GATEWAY & NODES
+      # =============================================================
+      - type: grid
+        column_span: 1
+        cards:
+          - type: heading
+            heading: Gateway & Nodes
+            heading_style: title
+            icon: mdi:router-wireless
+
+          - type: gauge
+            entity: sensor.view_gateway_battery
+            name: Gateway battery
+            unit: "%"
+            min: 0
+            max: 100
+            severity:
+              green: 50
+              yellow: 20
+              red: 0
+            needle: true
+
+          - type: tile
+            entity: binary_sensor.view_rfid_online
+            name: RFID reader
+            icon: mdi:credit-card-wireless
+            color: cyan
+          - type: tile
+            entity: binary_sensor.view_motion_online
+            name: Motion node
+            icon: mdi:motion-sensor
+            color: cyan
+          - type: tile
+            entity: binary_sensor.view_buzzer_online
+            name: Buzzer node
+            icon: mdi:bullhorn-outline
+            color: cyan
+
+          - type: entities
+            title: Gateway identity
+            show_header_toggle: false
+            entities:
+              - entity: sensor.view_gateway_hw_id
+                name: Current gateway ID
+                icon: mdi:identifier
+              - entity: sensor.view_gateway_last_seen
+                name: Last seen
+                icon: mdi:clock-outline
+              - entity: binary_sensor.view_gateway_swapped
+                name: Gateway swapped?
+                icon: mdi:swap-horizontal
+
+          - type: history-graph
+            title: Connectivity (24h)
+            hours_to_show: 24
+            entities:
+              - entity: binary_sensor.view_rfid_online
+              - entity: binary_sensor.view_motion_online
+              - entity: binary_sensor.view_buzzer_online
+              - entity: sensor.view_gateway_battery
+
+      # =============================================================
+      # SECTION 4 — DEMO CONTROLS  (only visible when Demo Mode is on)
+      # =============================================================
+      - type: grid
+        column_span: 3
+        cards:
+          - type: conditional
+            conditions:
+              - entity: input_boolean.demo_mode
+                state: "on"
+            card:
+              type: entities
+              title: Demo controls — flip switches to fake events
+              state_color: true
+              entities:
+                - type: section
+                  label: Alarm
+                - entity: input_boolean.demo_alarm
+                  name: Alarm armed
+                - entity: input_boolean.demo_buzzer
+                  name: Buzzer on
+                - entity: input_boolean.demo_motion
+                  name: Motion detected
+
+                - type: section
+                  label: Connectivity
+                - entity: input_boolean.demo_rfid_online
+                  name: RFID node online
+                - entity: input_boolean.demo_motion_online
+                  name: Motion node online
+                - entity: input_boolean.demo_buzzer_online
+                  name: Buzzer node online
+
+                - type: section
+                  label: Gateway
+                - entity: input_number.demo_battery
+                  name: Battery level
+                - entity: input_text.demo_gateway_id
+                  name: HW identifier
+                - entity: input_boolean.demo_gateway_changed
+                  name: Gateway swapped
+      - type: grid
+        column_span: 3
+        cards:
+          - type: entities
+            title: Demo mode
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: input_boolean.demo_mode
+                name: "Use dummy data instead of live nodes"
+                icon: mdi:test-tube

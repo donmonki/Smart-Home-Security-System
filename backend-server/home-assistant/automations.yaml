@@ -1,1 +1,79 @@
-[]
+- id: '1776327465398'
+  alias: Start timer on motion detected
+  description: ''
+  triggers:
+  - trigger: mqtt
+    options:
+      payload: 'PLACEHOLDER: motion detected'
+      topic: 'PLACEHOLDER: motion'
+  conditions: []
+  actions:
+  - action: timer.start
+    metadata: {}
+    target:
+      entity_id: timer.disarmtimer
+    data: {}
+  mode: single
+- id: '1776329076297'
+  alias: Start alarm when timer finishes
+  description: ''
+  triggers:
+  - trigger: event
+    event_data:
+      entity_id: timer.disarmtimer
+    event_type: timer.finished
+  conditions: []
+  actions:
+  - action: script.start_alarm
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1776895453165'
+  alias: Node 1 heartbeat check
+  description: ''
+  triggers:
+  - trigger: mqtt
+    options:
+      topic: home/nodes/NODEID/status
+  conditions: []
+  actions:
+  - action: timer.start
+    metadata: {}
+    target:
+      entity_id: timer.heartbeattimernode1
+    data: {}
+  mode: single
+- id: '1777537244405'
+  alias: Motion Sensor heartbeat update
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.motion_sensor_node_motion_sensor_heartbeat
+  conditions: []
+  actions:
+  - action: timer.start
+    metadata: {}
+    target:
+      entity_id: timer.motion_sensor_heartbeat_timer
+    data: {}
+  mode: single
+- id: '1777998260451'
+  alias: RFID Scan Handler
+  description: ''
+  triggers:
+  - trigger: mqtt
+    options:
+      topic: home/nodes/3/scanned
+  conditions: []
+  actions:
+  - variables:
+      scanned_id: '{{ trigger.payload_json.value | upper }}'
+      valid_ids: '{{ states(''input_text.rfid_valid_ids'').split('','') }}'
+  - action: notify.send_message
+    metadata: {}
+    target:
+      entity_id: notify.rfid_reader_rfid_authenticated
+    data:
+      message: '{{ 2 if scanned_id in valid_ids else 1 }}'
+  mode: single
