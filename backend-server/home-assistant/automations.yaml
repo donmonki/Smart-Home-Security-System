@@ -14,7 +14,11 @@
     metadata: {}
     target:
       entity_id: timer.disarmtimer
-    data: {}
+    data:
+      duration:
+        hours: 0
+        minutes: 0
+        seconds: 30
   mode: single
 - id: '1776329076297'
   alias: Start alarm when timer finishes
@@ -31,36 +35,13 @@
     target:
       entity_id: siren.buzzer_buzzer_control
     data: {}
-  mode: single
-- id: '1776895453165'
-  alias: Node 1 heartbeat check
-  description: ''
-  triggers:
-  - trigger: mqtt
-    options:
-      topic: home/nodes/NODEID/status
-  conditions: []
-  actions:
-  - action: timer.start
+  - action: telegram_bot.send_message
     metadata: {}
-    target:
-      entity_id: timer.heartbeattimernode1
-    data: {}
-  mode: single
-- id: '1777537244405'
-  alias: Motion Sensor heartbeat update
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - sensor.motion_sensor_node_motion_sensor_heartbeat
-  conditions: []
-  actions:
-  - action: timer.start
-    metadata: {}
-    target:
-      entity_id: timer.motion_sensor_heartbeat_timer
-    data: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_mairo_trump
+      title: Alert!
+      message: Motion detected in your home!
   mode: single
 - id: '1777998260451'
   alias: RFID Scan Handler
@@ -124,4 +105,94 @@
       target:
         entity_id: input_boolean.armed_disarmed
       data: {}
+  mode: single
+- id: '1778266999836'
+  alias: RFID offline
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.rfid_reader_rfid_heartbeat
+    from:
+    - 'on'
+    to:
+    - unavailable
+    - 'off'
+    - unknown
+  conditions: []
+  actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_mairo_trump
+      title: Node offline
+      message: Your RFID reader has gone offline.
+  mode: single
+- id: '1778267119053'
+  alias: Motion sensor offline
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.motion_sensor_node_motion_sensor_heartbeat
+    from:
+    - 'on'
+    to:
+    - unavailable
+    - 'off'
+    - unknown
+  conditions: []
+  actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_mairo_trump
+      title: Node offline
+      message: Your motion sensor node has gone offline.
+  mode: single
+- id: '1778267192235'
+  alias: Buzzer offline
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.buzzer_buzzer_heartbeat
+    from:
+    - 'on'
+    to:
+    - unavailable
+    - 'off'
+    - unknown
+  conditions: []
+  actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_mairo_trump
+      title: Node offline
+      message: Your buzzer node has gone offline.
+  mode: single
+- id: '1778275327108'
+  alias: Gateway offline
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.gateway_gateway_battery_level
+    from:
+    to:
+    - unavailable
+    - unknown
+  conditions: []
+  actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_mairo_trump
+      title: Gateway offline!
+      message: Your gateway has gone offline.
   mode: single
