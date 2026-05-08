@@ -2,10 +2,12 @@
   alias: Start timer on motion detected
   description: ''
   triggers:
-  - trigger: mqtt
-    options:
-      payload: 'PLACEHOLDER: motion detected'
-      topic: 'PLACEHOLDER: motion'
+  - trigger: state
+    entity_id:
+    - binary_sensor.motion_sensor_node_motion_sensor_alarm
+    from:
+    to:
+    - 'on'
   conditions: []
   actions:
   - action: timer.start
@@ -24,8 +26,10 @@
     event_type: timer.finished
   conditions: []
   actions:
-  - action: script.start_alarm
+  - action: siren.turn_on
     metadata: {}
+    target:
+      entity_id: siren.buzzer_buzzer_control
     data: {}
   mode: single
 - id: '1776895453165'
@@ -65,7 +69,11 @@
   - trigger: mqtt
     options:
       topic: home/nodes/3/scanned
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: input_boolean.armed_disarmed
+    state:
+    - 'on'
   actions:
   - variables:
       scanned_id: '{{ trigger.payload_json.value | upper }}'
@@ -76,4 +84,44 @@
       entity_id: notify.rfid_reader_rfid_authenticated
     data:
       message: '{{ 2 if scanned_id in valid_ids else 1 }}'
+  - if:
+    - condition: template
+      value_template: '{{ scanned_id in valid_ids }}'
+    then:
+    - action: input_boolean.turn_off
+      metadata: {}
+      target:
+        entity_id: input_boolean.armed_disarmed
+      data: {}
+    - action: timer.cancel
+      metadata: {}
+      target:
+        entity_id: timer.disarmtimer
+      data: {}
+  mode: single
+- id: '1778148497275'
+  alias: RFID arm system
+  description: ''
+  triggers:
+  - trigger: mqtt
+    options:
+      topic: home/nodes/3/scanned
+  conditions:
+  - condition: state
+    entity_id: input_boolean.armed_disarmed
+    state:
+    - 'off'
+  actions:
+  - variables:
+      scanned_id: '{{ trigger.payload_json.value | upper }}'
+      valid_ids: '{{ states(''input_text.rfid_valid_ids'').split('','') }}'
+  - if:
+    - condition: template
+      value_template: '{{ scanned_id in valid_ids }}'
+    then:
+    - action: input_boolean.turn_on
+      metadata: {}
+      target:
+        entity_id: input_boolean.armed_disarmed
+      data: {}
   mode: single
