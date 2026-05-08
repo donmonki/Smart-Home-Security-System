@@ -17,6 +17,20 @@
         "domain": "lovelace",
         "is_persistent": false,
         "issue_id": "yaml_mode_deprecated"
+      },
+      {
+        "created": "2026-05-08T17:54:34.512971+00:00",
+        "dismissed_version": null,
+        "domain": "homeassistant",
+        "is_persistent": false,
+        "issue_id": "config_entry_only_telegram_bot"
+      },
+      {
+        "created": "2026-05-08T17:54:34.513942+00:00",
+        "dismissed_version": null,
+        "domain": "telegram",
+        "is_persistent": false,
+        "issue_id": "migrate_notify"
       }
     ]
   }
