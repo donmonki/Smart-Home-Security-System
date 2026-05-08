@@ -4,281 +4,285 @@
   "key": "core.restore_state",
   "data": [
     {
-      "state": {"entity_id":"conversation.home_assistant","state":"unknown","attributes":{"friendly_name":"Home Assistant","supported_features":1},"last_changed":"2026-05-07T08:41:50.555662+00:00","last_reported":"2026-05-07T08:41:50.555662+00:00","last_updated":"2026-05-07T08:41:50.555662+00:00","context":{"id":"01KR0SKCPVPEE1RW3167T7DGTC","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"conversation.home_assistant","state":"unknown","attributes":{"friendly_name":"Home Assistant","supported_features":1},"last_changed":"2026-05-08T17:49:45.470667+00:00","last_reported":"2026-05-08T17:49:45.470667+00:00","last_updated":"2026-05-08T17:49:45.470667+00:00","context":{"id":"01KR4BBC3YGJH4F0APPAJAN2HE","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"event.backup_automatic_backup","state":"unknown","attributes":{"event_types":["completed","failed","in_progress"],"event_type":null,"friendly_name":"Backup Automatic backup"},"last_changed":"2026-05-07T08:41:50.754308+00:00","last_reported":"2026-05-07T08:41:50.754308+00:00","last_updated":"2026-05-07T08:41:50.754308+00:00","context":{"id":"01KR0SKCX2ZM7FMTYJ38Y7PZCY","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"event.backup_automatic_backup","state":"unknown","attributes":{"event_types":["completed","failed","in_progress"],"event_type":null,"friendly_name":"Backup Automatic backup"},"last_changed":"2026-05-08T17:49:45.541698+00:00","last_reported":"2026-05-08T17:49:45.541698+00:00","last_updated":"2026-05-08T17:49:45.541698+00:00","context":{"id":"01KR4BBC65113R4STW4T04YT4R","parent_id":null,"user_id":null}},
       "extra_data": {
         "last_event_type": null,
         "last_event_attributes": null
       },
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"script.start_alarm","state":"off","attributes":{"last_triggered":null,"mode":"single","current":0,"friendly_name":"Start alarm"},"last_changed":"2026-05-07T08:41:51.756874+00:00","last_reported":"2026-05-07T08:41:51.756874+00:00","last_updated":"2026-05-07T08:41:51.756874+00:00","context":{"id":"01KR0SKDWCJZX7QKGXZRJMG48F","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"script.start_alarm","state":"off","attributes":{"last_triggered":null,"mode":"single","current":0,"friendly_name":"Start alarm"},"last_changed":"2026-05-08T17:49:46.758672+00:00","last_reported":"2026-05-08T17:49:46.758672+00:00","last_updated":"2026-05-08T17:49:46.758672+00:00","context":{"id":"01KR4BBDC6VZFBS56XRJYYSX94","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"person.kristian","state":"unknown","attributes":{"editable":true,"id":"kristian","device_trackers":[],"user_id":"421f0e91322c4038b38de397e203f7ea","friendly_name":"kristian"},"last_changed":"2026-05-07T08:41:51.765215+00:00","last_reported":"2026-05-07T08:41:57.231021+00:00","last_updated":"2026-05-07T08:41:57.231021+00:00","context":{"id":"01KR0SKK7FRAMH9FK5GW5C2WT2","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"timer.disarmtimer","state":"idle","attributes":{"duration":"0:00:00","editable":true,"friendly_name":"DisarmTimer"},"last_changed":"2026-05-08T17:49:46.778913+00:00","last_reported":"2026-05-08T17:49:46.778913+00:00","last_updated":"2026-05-08T17:49:46.778913+00:00","context":{"id":"01KR4BBDCTSG05TK9KTRJCB135","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"person.mairo","state":"unknown","attributes":{"editable":true,"id":"mairo","device_trackers":[],"user_id":"41822dc52d604795bb3ab785a941f593","friendly_name":"mairo"},"last_changed":"2026-05-07T08:41:51.765465+00:00","last_reported":"2026-05-07T08:41:57.231185+00:00","last_updated":"2026-05-07T08:41:57.231185+00:00","context":{"id":"01KR0SKK7F3FE63GEB4J7BZJ2N","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"timer.heartbeattimernode1","state":"idle","attributes":{"duration":"0:05:00","editable":true,"friendly_name":"heartbeatTimerNode1"},"last_changed":"2026-05-08T17:49:46.779096+00:00","last_reported":"2026-05-08T17:49:46.779096+00:00","last_updated":"2026-05-08T17:49:46.779096+00:00","context":{"id":"01KR4BBDCVZZZNPS0SAQGQNYSF","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"person.mark","state":"unknown","attributes":{"editable":true,"id":"mark","device_trackers":[],"user_id":"ceea46277d2c4fc9b53fe284e68636c7","friendly_name":"mark"},"last_changed":"2026-05-07T08:41:51.765691+00:00","last_reported":"2026-05-07T08:41:57.231308+00:00","last_updated":"2026-05-07T08:41:57.231308+00:00","context":{"id":"01KR0SKK7F0WK61CS8VWQQXCPY","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"timer.motion_sensor_heartbeat_timer","state":"idle","attributes":{"duration":"0:02:00","editable":true,"friendly_name":"Motion Sensor heartbeat timer"},"last_changed":"2026-05-08T17:49:46.779260+00:00","last_reported":"2026-05-08T17:49:46.779260+00:00","last_updated":"2026-05-08T17:49:46.779260+00:00","context":{"id":"01KR4BBDCV9MGGHX7QSFJSV5BV","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"person.lex","state":"unknown","attributes":{"editable":true,"id":"lex","device_trackers":[],"user_id":"514b9860cf8d4547a22be30883a0fde9","friendly_name":"lex"},"last_changed":"2026-05-07T08:41:51.765874+00:00","last_reported":"2026-05-07T08:41:57.231431+00:00","last_updated":"2026-05-07T08:41:57.231431+00:00","context":{"id":"01KR0SKK7FH5SEYXNBHQ2NQHSH","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_boolean.demo_mode","state":"off","attributes":{"editable":false,"icon":"mdi:test-tube","friendly_name":"Demo mode"},"last_changed":"2026-05-08T17:49:46.780605+00:00","last_reported":"2026-05-08T17:49:46.780605+00:00","last_updated":"2026-05-08T17:49:46.780605+00:00","context":{"id":"01KR4BBDCWT79TD1YYW3CHA87R","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"person.zivota","state":"unknown","attributes":{"editable":true,"id":"zivota","device_trackers":[],"user_id":"9bb9626551ac4c55a83014aaf8dc28fb","friendly_name":"zivota"},"last_changed":"2026-05-07T08:41:51.766067+00:00","last_reported":"2026-05-07T08:41:57.231555+00:00","last_updated":"2026-05-07T08:41:57.231555+00:00","context":{"id":"01KR0SKK7F3ZZMWYSH3QJ6XR3Z","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_boolean.demo_alarm","state":"off","attributes":{"editable":false,"icon":"mdi:alarm-light","friendly_name":"Demo alarm armed"},"last_changed":"2026-05-08T17:49:46.780798+00:00","last_reported":"2026-05-08T17:49:46.780798+00:00","last_updated":"2026-05-08T17:49:46.780798+00:00","context":{"id":"01KR4BBDCW9B0X7ZS00CESZXGN","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"person.pawas","state":"unknown","attributes":{"editable":true,"id":"pawas","device_trackers":[],"user_id":"13d17a89889141c0b8890602cc5d5d83","friendly_name":"pawas"},"last_changed":"2026-05-07T08:41:51.766232+00:00","last_reported":"2026-05-07T08:41:57.231655+00:00","last_updated":"2026-05-07T08:41:57.231655+00:00","context":{"id":"01KR0SKK7FZYB25VTS9C8BRQT2","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_boolean.demo_buzzer","state":"off","attributes":{"editable":false,"icon":"mdi:bullhorn","friendly_name":"Demo buzzer on"},"last_changed":"2026-05-08T17:49:46.781002+00:00","last_reported":"2026-05-08T17:49:46.781002+00:00","last_updated":"2026-05-08T17:49:46.781002+00:00","context":{"id":"01KR4BBDCXASR0NS18YSGJ1AAR","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_boolean.demo_mode","state":"off","attributes":{"editable":false,"icon":"mdi:test-tube","friendly_name":"Demo mode"},"last_changed":"2026-05-07T08:41:51.766555+00:00","last_reported":"2026-05-07T08:41:51.766555+00:00","last_updated":"2026-05-07T08:41:51.766555+00:00","context":{"id":"01KR0SKDWPRWDWS8NPSTHZK3DF","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_boolean.demo_motion","state":"off","attributes":{"editable":false,"icon":"mdi:motion-sensor","friendly_name":"Demo motion detected"},"last_changed":"2026-05-08T17:49:46.781125+00:00","last_reported":"2026-05-08T17:49:46.781125+00:00","last_updated":"2026-05-08T17:49:46.781125+00:00","context":{"id":"01KR4BBDCXWCFP5VBSS2RBHX0N","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_boolean.demo_alarm","state":"off","attributes":{"editable":false,"icon":"mdi:alarm-light","friendly_name":"Demo alarm armed"},"last_changed":"2026-05-07T08:41:51.766725+00:00","last_reported":"2026-05-07T08:41:51.766725+00:00","last_updated":"2026-05-07T08:41:51.766725+00:00","context":{"id":"01KR0SKDWPBR9EWF2YTENV9GVF","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_boolean.demo_rfid_online","state":"on","attributes":{"editable":false,"icon":"mdi:credit-card-wireless","friendly_name":"Demo RFID node online"},"last_changed":"2026-05-08T17:49:46.781276+00:00","last_reported":"2026-05-08T17:49:46.781276+00:00","last_updated":"2026-05-08T17:49:46.781276+00:00","context":{"id":"01KR4BBDCX0XYBSFWMGG67CHZ6","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_boolean.demo_buzzer","state":"off","attributes":{"editable":false,"icon":"mdi:bullhorn","friendly_name":"Demo buzzer on"},"last_changed":"2026-05-07T08:41:51.766845+00:00","last_reported":"2026-05-07T08:41:51.766845+00:00","last_updated":"2026-05-07T08:41:51.766845+00:00","context":{"id":"01KR0SKDWP3JF60FDNWJ2P48GJ","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_boolean.demo_motion_online","state":"on","attributes":{"editable":false,"icon":"mdi:motion-sensor","friendly_name":"Demo motion node online"},"last_changed":"2026-05-08T17:49:46.781379+00:00","last_reported":"2026-05-08T17:49:46.781379+00:00","last_updated":"2026-05-08T17:49:46.781379+00:00","context":{"id":"01KR4BBDCXXWM26XXN90GASR2Y","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_boolean.demo_motion","state":"off","attributes":{"editable":false,"icon":"mdi:motion-sensor","friendly_name":"Demo motion detected"},"last_changed":"2026-05-07T08:41:51.766981+00:00","last_reported":"2026-05-07T08:41:51.766981+00:00","last_updated":"2026-05-07T08:41:51.766981+00:00","context":{"id":"01KR0SKDWPVH1745VYVCM1ZV7J","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_boolean.demo_buzzer_online","state":"on","attributes":{"editable":false,"icon":"mdi:bullhorn-outline","friendly_name":"Demo buzzer node online"},"last_changed":"2026-05-08T17:49:46.781571+00:00","last_reported":"2026-05-08T17:49:46.781571+00:00","last_updated":"2026-05-08T17:49:46.781571+00:00","context":{"id":"01KR4BBDCX2FPNNNC2WD7C1AC8","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_boolean.demo_rfid_online","state":"on","attributes":{"editable":false,"icon":"mdi:credit-card-wireless","friendly_name":"Demo RFID node online"},"last_changed":"2026-05-07T08:41:51.767071+00:00","last_reported":"2026-05-07T08:41:51.767071+00:00","last_updated":"2026-05-07T08:41:51.767071+00:00","context":{"id":"01KR0SKDWQ6BB2WF68F0ZH9TXP","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_boolean.demo_gateway_changed","state":"off","attributes":{"editable":false,"icon":"mdi:swap-horizontal","friendly_name":"Demo gateway swapped"},"last_changed":"2026-05-08T17:49:46.781670+00:00","last_reported":"2026-05-08T17:49:46.781670+00:00","last_updated":"2026-05-08T17:49:46.781670+00:00","context":{"id":"01KR4BBDCXATS71D1BKXMWM0RX","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_boolean.demo_motion_online","state":"on","attributes":{"editable":false,"icon":"mdi:motion-sensor","friendly_name":"Demo motion node online"},"last_changed":"2026-05-07T08:41:51.767150+00:00","last_reported":"2026-05-07T08:41:51.767150+00:00","last_updated":"2026-05-07T08:41:51.767150+00:00","context":{"id":"01KR0SKDWQV532KHDDA79MSKFG","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_number.demo_battery","state":"75.0","attributes":{"initial":75.0,"editable":false,"min":0.0,"max":100.0,"step":1.0,"mode":"slider","unit_of_measurement":"%","icon":"mdi:battery","friendly_name":"Demo gateway battery"},"last_changed":"2026-05-08T17:49:46.781945+00:00","last_reported":"2026-05-08T17:49:46.781945+00:00","last_updated":"2026-05-08T17:49:46.781945+00:00","context":{"id":"01KR4BBDCX6ED6R5GNMN29JDED","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_boolean.demo_buzzer_online","state":"on","attributes":{"editable":false,"icon":"mdi:bullhorn-outline","friendly_name":"Demo buzzer node online"},"last_changed":"2026-05-07T08:41:51.767244+00:00","last_reported":"2026-05-07T08:41:51.767244+00:00","last_updated":"2026-05-07T08:41:51.767244+00:00","context":{"id":"01KR0SKDWQ3MVQBCQH75FX66X7","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.kristian","state":"unknown","attributes":{"editable":true,"id":"kristian","device_trackers":[],"source":"person.kristian","user_id":"421f0e91322c4038b38de397e203f7ea","friendly_name":"kristian"},"last_changed":"2026-05-08T17:49:46.782341+00:00","last_reported":"2026-05-08T17:49:46.782341+00:00","last_updated":"2026-05-08T17:49:46.782341+00:00","context":{"id":"01KR4BBDCYZN7ZA92TE8DA1SSY","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_boolean.demo_gateway_changed","state":"off","attributes":{"editable":false,"icon":"mdi:swap-horizontal","friendly_name":"Demo gateway swapped"},"last_changed":"2026-05-07T08:41:51.767321+00:00","last_reported":"2026-05-07T08:41:51.767321+00:00","last_updated":"2026-05-07T08:41:51.767321+00:00","context":{"id":"01KR0SKDWQE7VFSA4GYBKKF7AD","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.mairo","state":"unknown","attributes":{"editable":true,"id":"mairo","device_trackers":[],"source":"person.mairo","user_id":"41822dc52d604795bb3ab785a941f593","friendly_name":"mairo"},"last_changed":"2026-05-08T17:49:46.782660+00:00","last_reported":"2026-05-08T17:49:46.782660+00:00","last_updated":"2026-05-08T17:49:46.782660+00:00","context":{"id":"01KR4BBDCY36XC8P989J60D20S","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_number.demo_battery","state":"75.0","attributes":{"initial":75.0,"editable":false,"min":0.0,"max":100.0,"step":1.0,"mode":"slider","unit_of_measurement":"%","icon":"mdi:battery","friendly_name":"Demo gateway battery"},"last_changed":"2026-05-07T08:41:51.767520+00:00","last_reported":"2026-05-07T08:41:51.767520+00:00","last_updated":"2026-05-07T08:41:51.767520+00:00","context":{"id":"01KR0SKDWQN5CTC4B5N6WFZYHG","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.mark","state":"unknown","attributes":{"editable":true,"id":"mark","device_trackers":[],"source":"person.mark","user_id":"ceea46277d2c4fc9b53fe284e68636c7","friendly_name":"mark"},"last_changed":"2026-05-08T17:49:46.782921+00:00","last_reported":"2026-05-08T17:49:46.782921+00:00","last_updated":"2026-05-08T17:49:46.782921+00:00","context":{"id":"01KR4BBDCYQH2JJ7H38ABDRBHZ","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"timer.disarmtimer","state":"idle","attributes":{"duration":"0:00:00","editable":true,"friendly_name":"DisarmTimer"},"last_changed":"2026-05-07T08:41:51.768432+00:00","last_reported":"2026-05-07T08:41:51.768432+00:00","last_updated":"2026-05-07T08:41:51.768432+00:00","context":{"id":"01KR0SKDWRJXBB73TBCG8QB3D8","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.lex","state":"unknown","attributes":{"editable":true,"id":"lex","device_trackers":[],"source":"person.lex","user_id":"514b9860cf8d4547a22be30883a0fde9","friendly_name":"lex"},"last_changed":"2026-05-08T17:49:46.783088+00:00","last_reported":"2026-05-08T17:49:46.783088+00:00","last_updated":"2026-05-08T17:49:46.783088+00:00","context":{"id":"01KR4BBDCZEBGWBR79N9QWM332","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"timer.heartbeattimernode1","state":"idle","attributes":{"duration":"0:05:00","editable":true,"friendly_name":"heartbeatTimerNode1"},"last_changed":"2026-05-07T08:41:51.768670+00:00","last_reported":"2026-05-07T08:41:51.768670+00:00","last_updated":"2026-05-07T08:41:51.768670+00:00","context":{"id":"01KR0SKDWR1X086HKXYDR9NATM","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.zivota","state":"unknown","attributes":{"editable":true,"id":"zivota","device_trackers":[],"source":"person.zivota","user_id":"9bb9626551ac4c55a83014aaf8dc28fb","friendly_name":"zivota"},"last_changed":"2026-05-08T17:49:46.783520+00:00","last_reported":"2026-05-08T17:49:46.783520+00:00","last_updated":"2026-05-08T17:49:46.783520+00:00","context":{"id":"01KR4BBDCZXTZTNQB48VRS52NC","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"timer.motion_sensor_heartbeat_timer","state":"idle","attributes":{"duration":"0:02:00","editable":true,"friendly_name":"Motion Sensor heartbeat timer"},"last_changed":"2026-05-07T08:41:51.768997+00:00","last_reported":"2026-05-07T08:41:51.768997+00:00","last_updated":"2026-05-07T08:41:51.768997+00:00","context":{"id":"01KR0SKDWRYT319V71BPW68RRX","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"person.pawas","state":"unknown","attributes":{"editable":true,"id":"pawas","device_trackers":[],"source":"person.pawas","user_id":"13d17a89889141c0b8890602cc5d5d83","friendly_name":"pawas"},"last_changed":"2026-05-08T17:49:46.783822+00:00","last_reported":"2026-05-08T17:49:46.783822+00:00","last_updated":"2026-05-08T17:49:46.783822+00:00","context":{"id":"01KR4BBDCZQK0HQQMYJABYBYGB","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_text.rfid_valid_ids","state":"AABBCCDD,11223344","attributes":{"editable":false,"min":0,"max":100,"pattern":null,"mode":"text","friendly_name":"Valid RFID IDs"},"last_changed":"2026-05-07T08:41:55.977709+00:00","last_reported":"2026-05-07T08:41:55.977709+00:00","last_updated":"2026-05-07T08:41:55.977709+00:00","context":{"id":"01KR0SKJ09ZDMMWTSKQCE90R1V","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_boolean.armed_disarmed","state":"off","attributes":{"editable":true,"friendly_name":"Armed/disarmed"},"last_changed":"2026-05-08T17:49:46.790804+00:00","last_reported":"2026-05-08T17:49:46.790804+00:00","last_updated":"2026-05-08T17:49:46.790804+00:00","context":{"id":"01KR4BBDD6Q6RGD6BR1CTFAHXB","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_text.demo_gateway_id","state":"A4:CF:12:8B:7E:01","attributes":{"editable":false,"min":0,"max":100,"pattern":null,"mode":"text","friendly_name":"Demo gateway HW ID"},"last_changed":"2026-05-07T08:41:55.977919+00:00","last_reported":"2026-05-07T08:41:55.977919+00:00","last_updated":"2026-05-07T08:41:55.977919+00:00","context":{"id":"01KR0SKJ09ASQREJ9ZYY2F340T","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_text.rfid_valid_ids","state":"AABBCCDD,11223344","attributes":{"editable":false,"min":0,"max":100,"pattern":null,"mode":"text","friendly_name":"Valid RFID IDs"},"last_changed":"2026-05-08T17:49:49.520338+00:00","last_reported":"2026-05-08T17:49:49.520338+00:00","last_updated":"2026-05-08T17:49:49.520338+00:00","context":{"id":"01KR4BBG2GSMR952W847JCZXY0","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_text.demo_last_rfid_id","state":"AABBCCDD","attributes":{"editable":false,"min":0,"max":100,"pattern":null,"mode":"text","friendly_name":"Demo last RFID scanned"},"last_changed":"2026-05-07T08:41:55.978010+00:00","last_reported":"2026-05-07T08:41:55.978010+00:00","last_updated":"2026-05-07T08:41:55.978010+00:00","context":{"id":"01KR0SKJ0A1WK9HNQM2502E11Z","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_text.demo_gateway_id","state":"A4:CF:12:8B:7E:01","attributes":{"editable":false,"min":0,"max":100,"pattern":null,"mode":"text","friendly_name":"Demo gateway HW ID"},"last_changed":"2026-05-08T17:49:49.520555+00:00","last_reported":"2026-05-08T17:49:49.520555+00:00","last_updated":"2026-05-08T17:49:49.520555+00:00","context":{"id":"01KR4BBG2GH5Y4BEPD48M1GW88","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"input_text.demo_last_rfid_result","state":"accepted","attributes":{"editable":false,"min":0,"max":100,"pattern":null,"mode":"text","friendly_name":"Demo last RFID result"},"last_changed":"2026-05-07T08:41:55.978091+00:00","last_reported":"2026-05-07T08:41:55.978091+00:00","last_updated":"2026-05-07T08:41:55.978091+00:00","context":{"id":"01KR0SKJ0A9V0G5YD8452CNB0N","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_text.demo_last_rfid_id","state":"AABBCCDD","attributes":{"editable":false,"min":0,"max":100,"pattern":null,"mode":"text","friendly_name":"Demo last RFID scanned"},"last_changed":"2026-05-08T17:49:49.520673+00:00","last_reported":"2026-05-08T17:49:49.520673+00:00","last_updated":"2026-05-08T17:49:49.520673+00:00","context":{"id":"01KR4BBG2GQMFZAZNS0QT0JA38","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"sensor.gateway_last_seen","state":"2026-05-07T09:27:56+00:00","attributes":{"device_class":"timestamp","friendly_name":"Gateway last seen"},"last_changed":"2026-05-07T09:27:56.849802+00:00","last_reported":"2026-05-07T09:27:56.947483+00:00","last_updated":"2026-05-07T09:27:56.849802+00:00","context":{"id":"01KR0W7T5AVEBF1EH7X6P55FEA","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"input_text.demo_last_rfid_result","state":"accepted","attributes":{"editable":false,"min":0,"max":100,"pattern":null,"mode":"text","friendly_name":"Demo last RFID result"},"last_changed":"2026-05-08T17:49:49.520826+00:00","last_reported":"2026-05-08T17:49:49.520826+00:00","last_updated":"2026-05-08T17:49:49.520826+00:00","context":{"id":"01KR4BBG2G5QVCY6YH41TZ7Z9N","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.start_timer_on_motion_detected","state":"on","attributes":{"id":"1776327465398","last_triggered":"2026-05-07T10:26:35.492443+00:00","mode":"single","current":0,"friendly_name":"Start timer on motion detected"},"last_changed":"2026-05-08T17:49:52.283125+00:00","last_reported":"2026-05-08T17:49:52.283125+00:00","last_updated":"2026-05-08T17:49:52.283125+00:00","context":{"id":"01KR4BBJRVCEGK3G8033C4QXMR","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.start_alarm_when_timer_finishes","state":"on","attributes":{"id":"1776329076297","last_triggered":"2026-05-07T10:26:35.502149+00:00","mode":"single","current":0,"friendly_name":"Start alarm when timer finishes"},"last_changed":"2026-05-08T17:49:52.283431+00:00","last_reported":"2026-05-08T17:49:52.283431+00:00","last_updated":"2026-05-08T17:49:52.283431+00:00","context":{"id":"01KR4BBJRVR9Y57Y5PRB8CJ7NN","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.node_1_heartbeat","state":"on","attributes":{"id":"1776895453165","last_triggered":null,"mode":"single","current":0,"friendly_name":"Node 1 heartbeat check"},"last_changed":"2026-05-08T17:49:52.283615+00:00","last_reported":"2026-05-08T17:49:52.283615+00:00","last_updated":"2026-05-08T17:49:52.283615+00:00","context":{"id":"01KR4BBJRV3V90W93CA2JQ0DK0","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.motion_sensor_heartbeat_update","state":"on","attributes":{"id":"1777537244405","last_triggered":"2026-05-05T17:00:52.765042+00:00","mode":"single","current":0,"friendly_name":"Motion Sensor heartbeat update"},"last_changed":"2026-05-08T17:49:52.284026+00:00","last_reported":"2026-05-08T17:49:52.284026+00:00","last_updated":"2026-05-08T17:49:52.284026+00:00","context":{"id":"01KR4BBJRWX32VB5CS4BJYBNX2","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.rfid_scan_handler_2","state":"on","attributes":{"id":"1777998260451","last_triggered":"2026-05-07T10:24:43.716195+00:00","mode":"single","current":0,"friendly_name":"RFID disarm system"},"last_changed":"2026-05-08T17:49:52.284283+00:00","last_reported":"2026-05-08T17:49:52.284283+00:00","last_updated":"2026-05-08T17:49:52.284283+00:00","context":{"id":"01KR4BBJRWYV69NPTG4QG0QE7W","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"automation.rfid_arm_system","state":"on","attributes":{"id":"1778148497275","last_triggered":"2026-05-07T10:25:56.349203+00:00","mode":"single","current":0,"friendly_name":"RFID arm system"},"last_changed":"2026-05-08T17:49:52.284513+00:00","last_reported":"2026-05-08T17:49:52.284513+00:00","last_updated":"2026-05-08T17:49:52.284513+00:00","context":{"id":"01KR4BBJRWZKVBPAGNM4ZHZQZY","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.gateway_last_seen","state":"unknown","attributes":{"device_class":"timestamp","friendly_name":"Gateway last seen"},"last_changed":"2026-05-08T17:49:52.319140+00:00","last_reported":"2026-05-08T17:49:52.319140+00:00","last_updated":"2026-05-08T17:49:52.319140+00:00","context":{"id":"01KR4BBJSZSP9RWD6148ZH8GKM","parent_id":null,"user_id":null}},
       "extra_data": {
-        "native_value": {
-          "__type": "<class 'datetime.datetime'>",
-          "isoformat": "2026-05-07T09:27:56.944029+00:00"
-        },
+        "native_value": null,
         "native_unit_of_measurement": null
       },
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"binary_sensor.gateway_hw_changed","state":"off","attributes":{"device_class":"problem","friendly_name":"Gateway HW changed"},"last_changed":"2026-05-07T08:41:57.234838+00:00","last_reported":"2026-05-07T08:41:57.234838+00:00","last_updated":"2026-05-07T08:41:57.234838+00:00","context":{"id":"01KR0SKK7J8YBQ58AMC6H29AE9","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"binary_sensor.gateway_hw_changed","state":"unknown","attributes":{"device_class":"problem","friendly_name":"Gateway HW changed"},"last_changed":"2026-05-08T17:49:52.320267+00:00","last_reported":"2026-05-08T17:49:52.320267+00:00","last_updated":"2026-05-08T17:49:52.320267+00:00","context":{"id":"01KR4BBJT06AYH383MS9YRZG20","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"sensor.view_gateway_battery","state":"unknown","attributes":{"unit_of_measurement":"%","device_class":"battery","friendly_name":"View Gateway battery"},"last_changed":"2026-05-07T09:27:56.852180+00:00","last_reported":"2026-05-07T09:27:56.948117+00:00","last_updated":"2026-05-07T09:27:56.852180+00:00","context":{"id":"01KR0W7T5AVEBF1EH7X6P55FEA","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"sensor.view_gateway_battery","state":"unknown","attributes":{"unit_of_measurement":"%","device_class":"battery","friendly_name":"View Gateway battery"},"last_changed":"2026-05-08T17:49:52.321291+00:00","last_reported":"2026-05-08T17:49:52.321291+00:00","last_updated":"2026-05-08T17:49:52.321291+00:00","context":{"id":"01KR4BBJT1RYP7C7HBQ71ZCD15","parent_id":null,"user_id":null}},
       "extra_data": {
         "native_value": null,
         "native_unit_of_measurement": "%"
       },
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"sensor.view_gateway_hw_id","state":"unknown","attributes":{"icon":"mdi:identifier","friendly_name":"View Gateway HW ID"},"last_changed":"2026-05-07T08:41:56.257517+00:00","last_reported":"2026-05-07T08:41:56.257517+00:00","last_updated":"2026-05-07T08:41:56.257517+00:00","context":{"id":"01KR0SKJ91VRJAWJK8R4592FSJ","parent_id":null,"user_id":null}},
-      "extra_data": {
-        "native_value": "unknown",
-        "native_unit_of_measurement": null
-      },
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"sensor.view_gateway_last_seen","state":"2026-05-07T09:27:56+00:00","attributes":{"device_class":"timestamp","friendly_name":"View Gateway last seen"},"last_changed":"2026-05-07T09:27:56.866192+00:00","last_reported":"2026-05-07T09:27:56.866192+00:00","last_updated":"2026-05-07T09:27:56.866192+00:00","context":{"id":"01KR0W7T5AVEBF1EH7X6P55FEA","parent_id":null,"user_id":null}},
-      "extra_data": {
-        "native_value": {
-          "__type": "<class 'datetime.datetime'>",
-          "isoformat": "2026-05-07T09:27:56+00:00"
-        },
-        "native_unit_of_measurement": null
-      },
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.view_alarm_armed","state":"on","attributes":{"icon":"mdi:alarm-light","friendly_name":"View Alarm armed"},"last_changed":"2026-05-07T09:28:10.527559+00:00","last_reported":"2026-05-07T09:28:10.527559+00:00","last_updated":"2026-05-07T09:28:10.527559+00:00","context":{"id":"01KR0W87GVP3NDG7TM4E7G2HFG","parent_id":null,"user_id":"41822dc52d604795bb3ab785a941f593"}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.view_buzzer_on","state":"off","attributes":{"icon":"mdi:bullhorn","friendly_name":"View Buzzer on"},"last_changed":"2026-05-07T09:27:56.863383+00:00","last_reported":"2026-05-07T09:27:56.863383+00:00","last_updated":"2026-05-07T09:27:56.863383+00:00","context":{"id":"01KR0W7T5C9MYG53RR80P1CKS2","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.view_motion_detected","state":"off","attributes":{"device_class":"motion","friendly_name":"View Motion detected"},"last_changed":"2026-05-07T08:58:53.175654+00:00","last_reported":"2026-05-07T08:58:53.175654+00:00","last_updated":"2026-05-07T08:58:53.175654+00:00","context":{"id":"01KR0TJKBPB29ZXCP0R8M7A111","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.view_rfid_online","state":"off","attributes":{"device_class":"connectivity","friendly_name":"View RFID online"},"last_changed":"2026-05-07T08:41:57.239878+00:00","last_reported":"2026-05-07T08:41:57.239878+00:00","last_updated":"2026-05-07T08:41:57.239878+00:00","context":{"id":"01KR0SKK7QE96AQX8RCEFC1J69","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.view_motion_online","state":"off","attributes":{"device_class":"connectivity","friendly_name":"View Motion online"},"last_changed":"2026-05-07T08:59:17.647341+00:00","last_reported":"2026-05-07T08:59:17.647341+00:00","last_updated":"2026-05-07T08:59:17.647341+00:00","context":{"id":"01KR0TKB8EY38B4E6FS8BXCDA9","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.view_buzzer_online","state":"off","attributes":{"device_class":"connectivity","friendly_name":"View Buzzer online"},"last_changed":"2026-05-07T08:41:57.240873+00:00","last_reported":"2026-05-07T08:41:57.240873+00:00","last_updated":"2026-05-07T08:41:57.240873+00:00","context":{"id":"01KR0SKK7RXZSNT3A3W365947S","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.view_gateway_swapped","state":"off","attributes":{"device_class":"problem","friendly_name":"View Gateway swapped"},"last_changed":"2026-05-07T08:41:57.241572+00:00","last_reported":"2026-05-07T08:41:57.241572+00:00","last_updated":"2026-05-07T08:41:57.241572+00:00","context":{"id":"01KR0SKK7SBXAYRNV3JXRZ33ZY","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"sensor.gateway_hw_id","state":"unknown","attributes":{"icon":"mdi:identifier","friendly_name":"Gateway HW ID"},"last_changed":"2026-05-07T08:41:56.262674+00:00","last_reported":"2026-05-07T08:41:56.262674+00:00","last_updated":"2026-05-07T08:41:56.262674+00:00","context":{"id":"01KR0SKJ96HW2VAMRDZVG41J57","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"sensor.view_gateway_hw_id","state":"unknown","attributes":{"icon":"mdi:identifier","friendly_name":"View Gateway HW ID"},"last_changed":"2026-05-08T17:49:52.321538+00:00","last_reported":"2026-05-08T17:49:52.321538+00:00","last_updated":"2026-05-08T17:49:52.321538+00:00","context":{"id":"01KR4BBJT1MJEE3BXT6T8PAZFD","parent_id":null,"user_id":null}},
       "extra_data": {
         "native_value": null,
         "native_unit_of_measurement": null
       },
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"tts.google_translate_en_com","state":"unknown","attributes":{"friendly_name":"Google Translate en com"},"last_changed":"2026-05-07T08:41:57.155904+00:00","last_reported":"2026-05-07T08:41:57.155904+00:00","last_updated":"2026-05-07T08:41:57.155904+00:00","context":{"id":"01KR0SKK53M8D48NA5Y09CKWYG","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"sensor.view_gateway_last_seen","state":"unknown","attributes":{"device_class":"timestamp","friendly_name":"View Gateway last seen"},"last_changed":"2026-05-08T17:49:52.321818+00:00","last_reported":"2026-05-08T17:49:52.321818+00:00","last_updated":"2026-05-08T17:49:52.321818+00:00","context":{"id":"01KR4BBJT1N9XBR6AP33A5HYA6","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": null,
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.view_alarm_armed","state":"unknown","attributes":{"icon":"mdi:alarm-light","friendly_name":"View Alarm armed"},"last_changed":"2026-05-08T17:49:52.324374+00:00","last_reported":"2026-05-08T17:49:52.324374+00:00","last_updated":"2026-05-08T17:49:52.324374+00:00","context":{"id":"01KR4BBJT4EDFX7Z8QWD5E64V4","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"automation.start_timer_on_motion_detected","state":"on","attributes":{"id":"1776327465398","last_triggered":null,"mode":"single","current":0,"friendly_name":"Start timer on motion detected"},"last_changed":"2026-05-07T08:41:57.172706+00:00","last_reported":"2026-05-07T08:41:57.172706+00:00","last_updated":"2026-05-07T08:41:57.172706+00:00","context":{"id":"01KR0SKK5MY82CY81V5QSS1CD1","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"binary_sensor.view_buzzer_on","state":"unknown","attributes":{"icon":"mdi:bullhorn","friendly_name":"View Buzzer on"},"last_changed":"2026-05-08T17:49:52.324558+00:00","last_reported":"2026-05-08T17:49:52.324558+00:00","last_updated":"2026-05-08T17:49:52.324558+00:00","context":{"id":"01KR4BBJT4PG0Q6EV50FFEM3GE","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"automation.start_alarm_when_timer_finishes","state":"on","attributes":{"id":"1776329076297","last_triggered":null,"mode":"single","current":0,"friendly_name":"Start alarm when timer finishes"},"last_changed":"2026-05-07T08:41:57.173131+00:00","last_reported":"2026-05-07T08:41:57.173131+00:00","last_updated":"2026-05-07T08:41:57.173131+00:00","context":{"id":"01KR0SKK5N1YSDPADMQBZCV5C8","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"binary_sensor.view_motion_detected","state":"unknown","attributes":{"device_class":"motion","friendly_name":"View Motion detected"},"last_changed":"2026-05-08T17:49:52.324703+00:00","last_reported":"2026-05-08T17:49:52.324703+00:00","last_updated":"2026-05-08T17:49:52.324703+00:00","context":{"id":"01KR4BBJT410YGGJQC1CHEA852","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"automation.node_1_heartbeat","state":"on","attributes":{"id":"1776895453165","last_triggered":null,"mode":"single","current":0,"friendly_name":"Node 1 heartbeat check"},"last_changed":"2026-05-07T08:41:57.173322+00:00","last_reported":"2026-05-07T08:41:57.173322+00:00","last_updated":"2026-05-07T08:41:57.173322+00:00","context":{"id":"01KR0SKK5NZ2EW9KF8XCK4SSFB","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"binary_sensor.view_rfid_online","state":"unknown","attributes":{"device_class":"connectivity","friendly_name":"View RFID online"},"last_changed":"2026-05-08T17:49:52.324857+00:00","last_reported":"2026-05-08T17:49:52.324857+00:00","last_updated":"2026-05-08T17:49:52.324857+00:00","context":{"id":"01KR4BBJT4H05NPA7YB4FD0EA0","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"automation.motion_sensor_heartbeat_update","state":"on","attributes":{"id":"1777537244405","last_triggered":"2026-05-05T17:00:52.765042+00:00","mode":"single","current":0,"friendly_name":"Motion Sensor heartbeat update"},"last_changed":"2026-05-07T08:41:57.173489+00:00","last_reported":"2026-05-07T08:41:57.173489+00:00","last_updated":"2026-05-07T08:41:57.173489+00:00","context":{"id":"01KR0SKK5N4D4JE3EH5PYCHQSP","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"binary_sensor.view_motion_online","state":"unknown","attributes":{"device_class":"connectivity","friendly_name":"View Motion online"},"last_changed":"2026-05-08T17:49:52.325036+00:00","last_reported":"2026-05-08T17:49:52.325036+00:00","last_updated":"2026-05-08T17:49:52.325036+00:00","context":{"id":"01KR4BBJT5A65504A6SB9MN66P","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"automation.rfid_scan_handler_2","state":"on","attributes":{"id":"1777998260451","last_triggered":"2026-05-05T16:47:45.790833+00:00","mode":"single","current":0,"friendly_name":"RFID Scan Handler"},"last_changed":"2026-05-07T08:41:57.173678+00:00","last_reported":"2026-05-07T08:41:57.173678+00:00","last_updated":"2026-05-07T08:41:57.173678+00:00","context":{"id":"01KR0SKK5N3DKYHNKYJAM4HX2K","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"binary_sensor.view_buzzer_online","state":"unknown","attributes":{"device_class":"connectivity","friendly_name":"View Buzzer online"},"last_changed":"2026-05-08T17:49:52.325248+00:00","last_reported":"2026-05-08T17:49:52.325248+00:00","last_updated":"2026-05-08T17:49:52.325248+00:00","context":{"id":"01KR4BBJT585TK65C35GFKXTZE","parent_id":null,"user_id":null}},
       "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
-      "state": {"entity_id":"sensor.gateway_gateway_battery_level","state":"unknown","attributes":{"state_class":"measurement","unit_of_measurement":"%","device_class":"battery","friendly_name":"Gateway Gateway battery level"},"last_changed":"2026-05-07T09:27:56.944029+00:00","last_reported":"2026-05-07T09:27:56.944029+00:00","last_updated":"2026-05-07T09:27:56.944029+00:00","context":{"id":"01KR0W7T8GMXGJY8N5VD9ZRM25","parent_id":null,"user_id":null}},
+      "state": {"entity_id":"binary_sensor.view_gateway_swapped","state":"unknown","attributes":{"device_class":"problem","friendly_name":"View Gateway swapped"},"last_changed":"2026-05-08T17:49:52.325520+00:00","last_reported":"2026-05-08T17:49:52.325520+00:00","last_updated":"2026-05-08T17:49:52.325520+00:00","context":{"id":"01KR4BBJT5KE49BD5C376449NJ","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.gateway_hw_id","state":"unknown","attributes":{"icon":"mdi:identifier","friendly_name":"Gateway HW ID"},"last_changed":"2026-05-08T17:49:52.326410+00:00","last_reported":"2026-05-08T17:49:52.326410+00:00","last_updated":"2026-05-08T17:49:52.326410+00:00","context":{"id":"01KR4BBJT6K947Y348H0AAAERX","parent_id":null,"user_id":null}},
+      "extra_data": {
+        "native_value": null,
+        "native_unit_of_measurement": null
+      },
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"tts.google_translate_en_com","state":"unknown","attributes":{"friendly_name":"Google Translate en com"},"last_changed":"2026-05-08T17:49:52.366256+00:00","last_reported":"2026-05-08T17:49:52.366256+00:00","last_updated":"2026-05-08T17:49:52.366256+00:00","context":{"id":"01KR4BBJVEW7EE2TCTJG9YG50D","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"notify.rfid_reader_rfid_authenticated","state":"unavailable","attributes":{"friendly_name":"RFID response","supported_features":0},"last_changed":"2026-05-08T17:49:52.931396+00:00","last_reported":"2026-05-08T17:49:52.931396+00:00","last_updated":"2026-05-08T17:49:52.931396+00:00","context":{"id":"01KR4BBKD324CFQK1V406SZ424","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.motion_sensor_node_motion_sensor_alarm","state":"unavailable","attributes":{"device_class":"motion","friendly_name":"Motion sensor node Motion sensor alarm"},"last_changed":"2026-05-08T17:49:52.934040+00:00","last_reported":"2026-05-08T17:49:52.934040+00:00","last_updated":"2026-05-08T17:49:52.934040+00:00","context":{"id":"01KR4BBKD67BM0XZ8GSY09KXW8","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.motion_sensor_node_motion_sensor_heartbeat","state":"unavailable","attributes":{"friendly_name":"Motion sensor node Motion sensor heartbeat"},"last_changed":"2026-05-08T17:49:52.934339+00:00","last_reported":"2026-05-08T17:49:52.934339+00:00","last_updated":"2026-05-08T17:49:52.934339+00:00","context":{"id":"01KR4BBKD6V49NW5KC9GV1MF9M","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.rfid_reader_rfid_heartbeat","state":"unavailable","attributes":{"friendly_name":"RFID reader RFID heartbeat"},"last_changed":"2026-05-08T17:49:52.934893+00:00","last_reported":"2026-05-08T17:49:52.934893+00:00","last_updated":"2026-05-08T17:49:52.934893+00:00","context":{"id":"01KR4BBKD6MKJHQ5XJYJKER61H","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"binary_sensor.buzzer_buzzer_heartbeat","state":"unavailable","attributes":{"friendly_name":"Buzzer Buzzer heartbeat"},"last_changed":"2026-05-08T17:49:52.935522+00:00","last_reported":"2026-05-08T17:49:52.935522+00:00","last_updated":"2026-05-08T17:49:52.935522+00:00","context":{"id":"01KR4BBKD7ZNR946NN7H9FABST","parent_id":null,"user_id":null}},
+      "extra_data": null,
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
+    },
+    {
+      "state": {"entity_id":"sensor.gateway_gateway_battery_level","state":"unavailable","attributes":{"state_class":"measurement","unit_of_measurement":"%","device_class":"battery","friendly_name":"Gateway Gateway battery level"},"last_changed":"2026-05-08T17:49:52.937175+00:00","last_reported":"2026-05-08T17:49:52.937175+00:00","last_updated":"2026-05-08T17:49:52.937175+00:00","context":{"id":"01KR4BBKD90212NCGMRVNS0DS9","parent_id":null,"user_id":null}},
       "extra_data": {
         "native_value": null,
         "native_unit_of_measurement": "%"
       },
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"notify.rfid_reader_rfid_authenticated","state":"unknown","attributes":{"friendly_name":"RFID response","supported_features":0},"last_changed":"2026-05-07T09:27:56.944211+00:00","last_reported":"2026-05-07T09:27:56.944211+00:00","last_updated":"2026-05-07T09:27:56.944211+00:00","context":{"id":"01KR0W7T8GASZT5R2YKQFRX5D3","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.motion_sensor_node_motion_sensor_alarm","state":"unknown","attributes":{"device_class":"motion","friendly_name":"Motion sensor node Motion sensor alarm"},"last_changed":"2026-05-07T09:27:56.944350+00:00","last_reported":"2026-05-07T09:27:56.944350+00:00","last_updated":"2026-05-07T09:27:56.944350+00:00","context":{"id":"01KR0W7T8GMAVZPS8BZ4PVR3SQ","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.motion_sensor_node_motion_sensor_heartbeat","state":"unavailable","attributes":{"friendly_name":"Motion sensor node Motion sensor heartbeat"},"last_changed":"2026-05-07T08:59:17.646005+00:00","last_reported":"2026-05-07T09:27:56.944531+00:00","last_updated":"2026-05-07T09:27:56.932975+00:00","context":{"id":"01KR0W7T84YS1DKKJA9Z205K39","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.rfid_reader_rfid_heartbeat","state":"unavailable","attributes":{"friendly_name":"RFID reader RFID heartbeat"},"last_changed":"2026-05-07T08:41:57.211461+00:00","last_reported":"2026-05-07T09:27:56.944604+00:00","last_updated":"2026-05-07T09:27:56.933650+00:00","context":{"id":"01KR0W7T8531D3B673M19V58QP","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
-    },
-    {
-      "state": {"entity_id":"binary_sensor.buzzer_buzzer_heartbeat","state":"unavailable","attributes":{"friendly_name":"Buzzer Buzzer heartbeat"},"last_changed":"2026-05-07T08:41:57.213042+00:00","last_reported":"2026-05-07T09:27:56.944632+00:00","last_updated":"2026-05-07T09:27:56.935963+00:00","context":{"id":"01KR0W7T876JMCWRR0JJAMWZCA","parent_id":null,"user_id":null}},
-      "extra_data": null,
-      "last_seen": "2026-05-07T09:28:24.171208+00:00"
+      "last_seen": "2026-05-08T17:49:52.944991+00:00"
     },
     {
       "state": {"entity_id":"sensor.motion_sensor_node_motion_sensor_heartbeat","state":"unknown","attributes":{"state_class":"measurement","device_class":"timestamp","friendly_name":"Motion sensor node Motion sensor heartbeat"},"last_changed":"2026-05-05T17:00:52.764427+00:00","last_reported":"2026-05-05T17:00:52.764427+00:00","last_updated":"2026-05-05T17:00:52.764427+00:00","context":{"id":"01KQWHBQ4W3W0ECE8JWQV6TQNX","parent_id":null,"user_id":null}},
