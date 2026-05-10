@@ -8,7 +8,18 @@
     from:
     to:
     - 'on'
-  conditions: []
+  conditions:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.armed_disarmed
+      state:
+      - 'on'
+    - condition: state
+      entity_id: timer.armsystemtimer
+      state:
+      - idle
+      - paused
   actions:
   - action: timer.start
     metadata: {}
@@ -69,15 +80,8 @@
     - condition: template
       value_template: '{{ scanned_id in valid_ids }}'
     then:
-    - action: input_boolean.turn_off
+    - action: script.disarm
       metadata: {}
-      target:
-        entity_id: input_boolean.armed_disarmed
-      data: {}
-    - action: timer.cancel
-      metadata: {}
-      target:
-        entity_id: timer.disarmtimer
       data: {}
   mode: single
 - id: '1778148497275'
@@ -96,14 +100,18 @@
   - variables:
       scanned_id: '{{ trigger.payload_json.value | upper }}'
       valid_ids: '{{ states(''input_text.rfid_valid_ids'').split('','') }}'
+  - action: notify.send_message
+    metadata: {}
+    target:
+      entity_id: notify.rfid_reader_rfid_authenticated
+    data:
+      message: '{{ 2 if scanned_id in valid_ids else 1 }}'
   - if:
     - condition: template
       value_template: '{{ scanned_id in valid_ids }}'
     then:
-    - action: input_boolean.turn_on
+    - action: script.arm
       metadata: {}
-      target:
-        entity_id: input_boolean.armed_disarmed
       data: {}
   mode: single
 - id: '1778266999836'
