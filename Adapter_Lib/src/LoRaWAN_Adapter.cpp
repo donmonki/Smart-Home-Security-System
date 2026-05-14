@@ -137,9 +137,9 @@ void LoRaWAN::reset()
 
 bool LoRaWAN::init()
 {
-    // Initialize serial communication — end() first ensures a clean driver install
-    // whether or not the port was previously running (avoids double-init crash)
-    _loraSerial.end();
+    // begin() on ESP32 handles re-init internally (calls uartEnd before uartBegin if
+    // a driver is already installed). Calling end() here after shutdown() already did
+    // so corrupts the UART driver state and causes an IWDT crash via a stuck ISR.
     _loraSerial.begin(57600, SERIAL_8N1, _rx_pin, _tx_pin);
     _loraSerial.setTimeout(2000);
 
@@ -382,10 +382,17 @@ bool LoRaWAN::sendPowerRestored(uint8_t batteryLevel)
 // Power management
 void LoRaWAN::shutdown()
 {
+    // Drain UART before pulling RST so a half-byte during reset can't trigger a stale RX ISR.
+    // Do NOT call _loraSerial.end() here — begin() in init() internally calls uartEnd(),
+    // and an explicit end() races with the RX interrupt while the module is being reset,
+    // causing an IWDT crash on the next wake.
+    _loraSerial.flush();
+    while (_loraSerial.available())
+        _loraSerial.read();
+
     pinMode(_rst_pin, OUTPUT);
     digitalWrite(_rst_pin, LOW);
     _isJoined = false;
-    _loraSerial.end(); // Release UART driver so init() can begin() cleanly on next wake
 }
 
 void LoRaWAN::wakeup()
