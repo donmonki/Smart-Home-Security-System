@@ -305,7 +305,7 @@ void MqttAdapter::processIncomingMessage(char *topic, byte *payload, unsigned in
     outPayload.data.commandData.actionId = doc["actionId"];
     outPayload.data.commandData.parameter = doc["parameter"];
 
-    if (doc["type"] == MQTT_MSG_AUTHENTICATION)
+    if (doc["type"] == (uint8_t)MQTT_MSG_AUTHENTICATION)
     {
         outPayload.data.commandData.authenticationResult = doc["authResult"];
     }
