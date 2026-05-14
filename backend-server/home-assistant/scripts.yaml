@@ -36,3 +36,31 @@ arm:
     data: {}
   alias: Arm
   description: ''
+
+# ---------------------------------------------------------------------
+#  Router script used by the dashboard arm/disarm tile.
+#  Picks Arm or Disarm based on the current armed_disarmed state so a
+#  single Lovelace tap can flip the system either direction.
+# ---------------------------------------------------------------------
+toggle_arm_disarm:
+  alias: Toggle arm/disarm
+  description: 'Calls script.arm when system is disarmed, script.disarm when armed.'
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.armed_disarmed
+        state: 'off'
+      sequence:
+      - action: script.arm
+        metadata: {}
+        data: {}
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.armed_disarmed
+        state: 'on'
+      sequence:
+      - action: script.disarm
+        metadata: {}
+        data: {}
+  mode: single

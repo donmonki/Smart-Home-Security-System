@@ -59,14 +59,23 @@ views:
             icon: mdi:timer-sand
             color: blue
 
-          - type: button
-            name: Cancel disarm timer
-            icon: mdi:timer-off
+          # Arm / disarm switch — bound to the canonical state boolean
+          # (input_boolean.armed_disarmed, also flipped by valid RFID
+          # scans).  Tapping routes through script.toggle_arm_disarm,
+          # which dispatches to script.arm or script.disarm depending
+          # on the current state.
+          - type: tile
+            entity: input_boolean.armed_disarmed
+            name: System armed
+            icon: mdi:shield-home
+            color: red
+            vertical: true
+            state_content: state
             tap_action:
               action: call-service
-              service: timer.cancel
-              target:
-                entity_id: timer.disarmtimer
+              service: script.toggle_arm_disarm
+            hold_action:
+              action: more-info
 
       # =============================================================
       # SECTION 2 — RFID ACCESS
