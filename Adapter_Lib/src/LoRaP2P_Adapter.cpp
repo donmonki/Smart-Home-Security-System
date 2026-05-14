@@ -145,26 +145,29 @@ String LoraP2P::receive() {
         return cached;
     }
 
-    // Only start reception if the module buffer is empty
-    if (!_loraSerial.available()) {
+    if (!_radioInRx) {
+        // Arm the receiver — blocking read is fine here, we just want "ok"
         _loraSerial.println("radio rx 0");
+        String armed = _loraSerial.readStringUntil('\n');
+        armed.trim();
+        if (armed.equals("ok")) _radioInRx = true;
+        return "";
     }
-    // Read received response 
+
+    // Already armed — only read if the module has put data in the UART buffer.
+    // This keeps receive() non-blocking so ACK wait loops respect their deadline.
+    if (!_loraSerial.available()) return "";
+
     String response = _loraSerial.readStringUntil('\n');
     response.trim();
 
-    // Handle different responses with empty returns
-    if (response.length() == 0) return "";
-    if (response.equals("busy")) return "";            // Already listening
-    if (response.equals("ok")) { _radioInRx = true; return ""; }   // Just armed
-    if (response.equals("radio_err")) { _radioInRx = false; return ""; }
-
-    // Data received successfully
     if (response.startsWith("radio_rx  ")) {
         _radioInRx = false;
         return response.substring(10);
     }
-
+    if (response.equals("radio_err")) {
+        _radioInRx = false;
+    }
     return "";
 }
 
