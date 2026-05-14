@@ -20,6 +20,13 @@
       state:
       - idle
       - paused
+    - condition: state
+      entity_id: timer.disarmtimer
+      state:
+      - idle
+      - paused
+      - unavailable
+      - unknown
   actions:
   - action: timer.start
     metadata: {}
@@ -60,7 +67,7 @@
   triggers:
   - trigger: mqtt
     options:
-      topic: home/nodes/3/scanned
+      topic: home/nodes/3/authentication
   conditions:
   - condition: state
     entity_id: input_boolean.armed_disarmed
@@ -90,7 +97,7 @@
   triggers:
   - trigger: mqtt
     options:
-      topic: home/nodes/3/scanned
+      topic: home/nodes/3/authentication
   conditions:
   - condition: state
     entity_id: input_boolean.armed_disarmed
