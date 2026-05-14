@@ -21,9 +21,15 @@ MFRC522 rfid(RFID_SS, RFID_RST);
 #define LORA_RX 32
 #define LORA_TX 33
 
+// LED feedback pins
+#define GREEN_LED_PIN 25
+#define RED_LED_PIN 26
+#define LED_ON_DURATION_MS 3000
+
 // Timing
 #define HEARTBEAT_INTERVAL_MS 25000
 #define RFID_COOLDOWN_MS 1000
+#define AUTH_RESPONSE_TIMEOUT_MS 8000
 
 HardwareSerial loraSerial(2);
 LoraP2P lora(LORA_RST, LORA_RX, LORA_TX, loraSerial);
@@ -31,6 +37,18 @@ LoraP2P lora(LORA_RST, LORA_RX, LORA_TX, loraSerial);
 static uint32_t msgCounter = 0;
 static uint32_t nextHeartbeatAt = 0;
 static uint32_t rfidCooldownUntil = 0;
+static uint32_t ledOffAt = 0;
+
+// =====================================================
+// LED HELPERS
+// =====================================================
+
+static void showAuthResult(bool success)
+{
+  digitalWrite(GREEN_LED_PIN, success ? HIGH : LOW);
+  digitalWrite(RED_LED_PIN, success ? LOW : HIGH);
+  ledOffAt = millis() + LED_ON_DURATION_MS;
+}
 
 // =====================================================
 // HEARTBEAT
@@ -119,6 +137,32 @@ static void sendRFIDEvent(uint32_t uid)
                   NODE_ID,
                   (unsigned long)msgCounter,
                   (unsigned long)uid);
+
+    // Wait for the server's authentication verdict
+    uint32_t deadline = millis() + AUTH_RESPONSE_TIMEOUT_MS;
+    bool gotResponse = false;
+
+    while ((int32_t)(millis() - deadline) < 0)
+    {
+      LoRaPayload rx;
+      if (lora.receivePayload(rx) &&
+          rx.nodeId == NODE_ID &&
+          rx.msgType == LORA_MSG_COMMAND)
+      {
+        bool granted = (rx.data.commandData.authenticationResult == AUTH_SUCCESS);
+        showAuthResult(granted);
+        Serial.printf("[RFID Node %d] AUTH %s\n",
+                      NODE_ID, granted ? "GRANTED" : "DENIED");
+        gotResponse = true;
+        break;
+      }
+      delay(10);
+    }
+
+    if (!gotResponse)
+    {
+      Serial.printf("[RFID Node %d] Auth response timeout\n", NODE_ID);
+    }
   }
   else
   {
@@ -140,6 +184,11 @@ void setup()
 {
   Serial.begin(115200);
   randomSeed(esp_random());
+
+  pinMode(GREEN_LED_PIN, OUTPUT);
+  pinMode(RED_LED_PIN, OUTPUT);
+  digitalWrite(GREEN_LED_PIN, LOW);
+  digitalWrite(RED_LED_PIN, LOW);
 
   SPI.begin();
   rfid.PCD_Init();
@@ -190,6 +239,15 @@ void loop()
   {
     sendHeartbeat();
     scheduleNextHeartbeat();
+  }
+
+  // ---------------- LED TIMER ----------------
+
+  if (ledOffAt && (int32_t)(millis() - ledOffAt) >= 0)
+  {
+    digitalWrite(GREEN_LED_PIN, LOW);
+    digitalWrite(RED_LED_PIN, LOW);
+    ledOffAt = 0;
   }
 
   delay(10);
