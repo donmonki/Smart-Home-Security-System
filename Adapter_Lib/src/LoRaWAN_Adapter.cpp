@@ -137,9 +137,15 @@ void LoRaWAN::reset()
 
 bool LoRaWAN::init()
 {
-    // Initialize serial communication
+    // Initialize serial communication — end() first ensures a clean driver install
+    // whether or not the port was previously running (avoids double-init crash)
+    _loraSerial.end();
     _loraSerial.begin(57600, SERIAL_8N1, _rx_pin, _tx_pin);
     _loraSerial.setTimeout(2000);
+
+    // Flush any garbage the module sent during startup
+    while (_loraSerial.available())
+        _loraSerial.read();
 
     // Hardware reset
     reset();
@@ -379,6 +385,7 @@ void LoRaWAN::shutdown()
     pinMode(_rst_pin, OUTPUT);
     digitalWrite(_rst_pin, LOW);
     _isJoined = false;
+    _loraSerial.end(); // Release UART driver so init() can begin() cleanly on next wake
 }
 
 void LoRaWAN::wakeup()
@@ -386,7 +393,5 @@ void LoRaWAN::wakeup()
     pinMode(_rst_pin, OUTPUT);
     digitalWrite(_rst_pin, HIGH);
     delay(500);
-
-    while (_loraSerial.available())
-        _loraSerial.read();
+    // Serial not yet re-initialized here — buffer flush is handled in init() after begin()
 }
