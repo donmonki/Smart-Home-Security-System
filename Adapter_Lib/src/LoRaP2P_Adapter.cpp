@@ -111,8 +111,14 @@ bool LoraP2P::transmitHex(const String &hexData) {
     stopRx(); // abort any active RX before transmitting
 
     String cmd = "radio tx " + hexData;
-    if (!sendCmd(cmd.c_str(), "ok")) return false;
-    
+    if (!sendCmd(cmd.c_str(), "ok")) {
+        // "busy" means the module is still in RX mode (state tracking drifted).
+        // Force it back to idle so the next call is not also stuck.
+        _radioInRx = true;
+        stopRx();
+        return false;
+    }
+
     // When "ok" is received, the module will transmit, and then return "radio_tx_ok"
     String txStatus = _loraSerial.readStringUntil('\n');
     txStatus.trim();
@@ -301,6 +307,9 @@ bool LoraP2P::sendAck(uint8_t targetNodeId, uint32_t ackedCounter) {
     ack.nodeId  = targetNodeId;
     ack.msgType = LORA_MSG_ACK;
     ack.data.ackData.ackedMessageCounter = ackedCounter;
-    return transmitWithLBT(ack, 3);
+    // Skip LBT: the channel is clear — the node just finished TX and switched to RX
+    // waiting for this ACK. Adding a 120ms LBT probe here delays the ACK past the
+    // node's timeout, causing it to retransmit and collide with our own ACK attempt.
+    return transmitPayload(ack);
 }
 
