@@ -14,18 +14,18 @@
 // Pin Definitions - LoRaWAN fallback module (UART1)
 // ----------------------------------------------------------------
 #define LORAWAN_RST_PIN 22
-#define LORAWAN_RX_PIN  2
-#define LORAWAN_TX_PIN  4
+#define LORAWAN_RX_PIN  16
+#define LORAWAN_TX_PIN  17
 
 // HIGH = external power present, LOW = running on battery backup
-#define POWER_SENSE_PIN 34
+#define POWER_SENSE_PIN 5
 
 // ----------------------------------------------------------------
 // WiFi / MQTT Credentials — update before deployment
 // ----------------------------------------------------------------
 #define WIFI_SSID      "Pixel 7 Pro"
 #define WIFI_PASSWORD  "lookontherouter"
-#define MQTT_SERVER    "10.128.202.9"
+#define MQTT_SERVER    "10.81.138.9"
 #define MQTT_PORT      8883
 #define MQTT_CLIENT_ID "gateway-1"
 
@@ -42,9 +42,9 @@
 #define MAX_NODES                8
 #define HEARTBEAT_TIMEOUT_MS     30000  // 30s without heartbeat → node considered offline
 #define HEALTH_CHECK_INTERVAL_MS 5000
-#define TELEMETRY_INTERVAL_MS    60000  // publish gateway telemetry every 60s
+#define TELEMETRY_INTERVAL_MS    20000  // publish gateway telemetry every 20s
 
-#define GATEWAY_BATTERY_LEVEL    90    // TODO: replace with real ADC reading
+#define BATTERY_UPDATE_INTERVAL_MS 10000
 
 // ----------------------------------------------------------------
 // LoRaWAN Alert Thresholds
@@ -79,6 +79,7 @@ static uint8_t mqttFailCount      = 0;
 static bool    backendAlertSent   = false;
 static bool    externalPower      = true;   // tracks last known power state
 static bool    blackoutAlertSent  = false;
+static uint8_t gatewayBatteryLevel = 90;
 
 // Sliding 1 h ring buffer of LoRa TX timestamps for duty-cycle accounting.
 static uint32_t airtimeLog[AIRTIME_SLOT_COUNT] = {0};
@@ -189,30 +190,43 @@ enum LoRaWANAlert { ALERT_BLACKOUT, ALERT_BACKEND_UNREACHABLE, ALERT_POWER_RESTO
 
 bool sendLoRaWANAlert(LoRaWANAlert alert)
 {
+    Serial.println("Waking LoRaWAN module for alert transmission...");
     lorawan.wakeup();
+    Serial.println("Passed wakeup, attempting init...");
 
-    if (!lorawan.init() || !lorawan.join())
+
+    if (!lorawan.init())
     {
         Serial.println("[LoRaWAN] Failed to re-join TTN for alert");
         lorawan.shutdown();
         return false;
     }
+    Serial.println("Passed init, sending alert...");
+
+    if (!lorawan.join())
+    {
+        Serial.println("[LoRaWAN] Failed to re-join TTN for alert");
+        lorawan.shutdown();
+        return false;
+    }
+    Serial.println("Passed join, sending alert...");
 
     bool sent = false;
     switch (alert)
     {
     case ALERT_BLACKOUT:
-        sent = lorawan.sendBlackoutAlert(GATEWAY_BATTERY_LEVEL);
+        sent = lorawan.sendBlackoutAlert(gatewayBatteryLevel);
         break;
     case ALERT_BACKEND_UNREACHABLE:
-        sent = lorawan.sendBackendUnreachableAlert(GATEWAY_BATTERY_LEVEL);
+        sent = lorawan.sendBackendUnreachableAlert(gatewayBatteryLevel);
         break;
     case ALERT_POWER_RESTORED:
-        sent = lorawan.sendPowerRestored(GATEWAY_BATTERY_LEVEL);
+        sent = lorawan.sendPowerRestored(gatewayBatteryLevel);
         break;
     }
-
+    Serial.println("Alert sent successfully.");
     lorawan.shutdown();
+    Serial.println("LoRaWAN module shut down after alert.");
     return sent;
 }
 
@@ -407,10 +421,20 @@ void loop()
         lastHealthCheck = millis();
     }
 
+    static uint32_t lastBatteryUpdate = 0;
+    if (millis() - lastBatteryUpdate >= BATTERY_UPDATE_INTERVAL_MS)
+    {
+        if (externalPower && gatewayBatteryLevel < 100)
+            gatewayBatteryLevel++;
+        else if (!externalPower && gatewayBatteryLevel > 0)
+            gatewayBatteryLevel--;
+        lastBatteryUpdate = millis();
+    }
+
     static uint32_t lastTelemetry = 0;
     if (millis() - lastTelemetry >= TELEMETRY_INTERVAL_MS)
     {
-        mqtt.publishGatewayTelemetry(GATEWAY_BATTERY_LEVEL);
+        mqtt.publishGatewayTelemetry(gatewayBatteryLevel);
         lastTelemetry = millis();
     }
 
