@@ -33,12 +33,16 @@ views:
             icon: mdi:shield-lock
 
           - type: tile
-            entity: binary_sensor.view_alarm_armed
-            name: System alarm
-            icon: mdi:alarm-light
+            entity: input_boolean.armed_disarmed
+            name: System armed
+            icon: mdi:shield-home
             color: red
             vertical: true
+            state_content: state
             tap_action:
+              action: call-service
+              service: script.toggle_arm_disarm
+            hold_action:
               action: more-info
 
           - type: tile
@@ -64,18 +68,6 @@ views:
           # scans).  Tapping routes through script.toggle_arm_disarm,
           # which dispatches to script.arm or script.disarm depending
           # on the current state.
-          - type: tile
-            entity: input_boolean.armed_disarmed
-            name: System armed
-            icon: mdi:shield-home
-            color: red
-            vertical: true
-            state_content: state
-            tap_action:
-              action: call-service
-              service: script.toggle_arm_disarm
-            hold_action:
-              action: more-info
 
       # =============================================================
       # SECTION 2 — RFID ACCESS
