@@ -28,14 +28,14 @@ template: !include templates.yaml
 input_text:
   rfid_valid_ids:
     name: Valid RFID IDs
-    initial: "AABBCCDD,11223344"
+    initial: "9217BF1A"
   # ---- Demo-mode overlays (used when input_boolean.demo_mode is on) -
   demo_gateway_id:
     name: Demo gateway HW ID
     initial: "A4:CF:12:8B:7E:01"
   demo_last_rfid_id:
     name: Demo last RFID scanned
-    initial: "AABBCCDD"
+    initial: "9217BF1A"
   demo_last_rfid_result:
     name: Demo last RFID result
     initial: "accepted"

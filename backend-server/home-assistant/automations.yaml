@@ -50,7 +50,7 @@
     metadata: {}
     data:
       entity_id:
-      - notify.home_security_alert_bot_mairo_trump
+      - notify.home_security_alert_bot_smart_home_security_system
       title: Alert!
       message: Motion detected in your home!
   mode: single
@@ -133,7 +133,7 @@
     metadata: {}
     data:
       entity_id:
-      - notify.home_security_alert_bot_mairo_trump
+      - notify.home_security_alert_bot_smart_home_security_system
       title: Node offline
       message: Your RFID reader has gone offline.
   mode: single
@@ -156,7 +156,7 @@
     metadata: {}
     data:
       entity_id:
-      - notify.home_security_alert_bot_mairo_trump
+      - notify.home_security_alert_bot_smart_home_security_system
       title: Node offline
       message: Your motion sensor node has gone offline.
   mode: single
@@ -179,7 +179,7 @@
     metadata: {}
     data:
       entity_id:
-      - notify.home_security_alert_bot_mairo_trump
+      - notify.home_security_alert_bot_smart_home_security_system
       title: Node offline
       message: Your buzzer node has gone offline.
   mode: single
@@ -200,7 +200,7 @@
     metadata: {}
     data:
       entity_id:
-      - notify.home_security_alert_bot_mairo_trump
+      - notify.home_security_alert_bot_smart_home_security_system
       title: Gateway offline!
       message: Your gateway has gone offline.
   mode: single
