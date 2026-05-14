@@ -250,6 +250,10 @@ bool LoraP2P::channelBusy(uint16_t listenMs) {
     }
 
     sendCmd("radio set wdt 60000", "ok");
+    // Brief drain so any residual bytes from the LBT window don't
+    // corrupt the next command/response exchange.
+    delay(5);
+    while (_loraSerial.available()) _loraSerial.read();
     return busy;
 }
 
@@ -257,7 +261,9 @@ bool LoraP2P::transmitWithLBT(const LoRaPayload &payload, uint8_t maxAttempts) {
     if (maxAttempts == 0) maxAttempts = 1;
     for (uint8_t attempt = 0; attempt < maxAttempts; attempt++) {
         if (!channelBusy(120)) {
-            return transmitPayload(payload);
+            if (transmitPayload(payload)) return true;
+            // radio tx returned "busy" despite a clear LBT probe — the module is
+            // still settling from a prior operation. Treat as busy and retry.
         }
         // Exponential backoff with jitter: 50–800 ms, growing per attempt.
         uint32_t cap = (uint32_t)50 << attempt; // 50, 100, 200, 400, 800...
