@@ -93,6 +93,11 @@ This project integrates a diverse stack of hardware, communication protocols, an
     - `home-assistant/` — Home Assistant configuration and integrations
     - `mosquitto/` — MQTT broker (Mosquitto) configuration for TLS-encrypted message handling
 
+### `/nodes`
+**ESP32 Nodes Firmware** — PlatformIO projects
+- `alarm-node` - Alarm node implementation
+- `authentication-node`- RFID authentication node implementation
+- `motion-node` - Motion sensor node implementation
 
 ---
 
@@ -103,7 +108,7 @@ This project integrates a diverse stack of hardware, communication protocols, an
 | Contributor | Contributed Files | Topics / Areas |
 |---|---|---|
 | Mark Toth | `/Adapter_Lib/*`, `/backend-server/mosquitto` | LoRaP2P Protocol, MQTT protocol, Encryption implementation |
-
+| Kristian Greif | `/Adapter_Lib/src/LoRaWAN_Adapter.h & .cpp`, `/backend-server/*` | Backend server (HomeAssistant + mosquitto) docker setup, Backend MQTT integration with TLS, LoRaWAN protocol, TTN -> Pipedream -> Telegram bot setup |
 
 
 # Github Development guide
