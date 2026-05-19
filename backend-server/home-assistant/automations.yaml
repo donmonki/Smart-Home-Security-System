@@ -27,6 +27,10 @@
       - paused
       - unavailable
       - unknown
+    - condition: state
+      entity_id: siren.buzzer_buzzer_control
+      state:
+      - 'off'
   actions:
   - action: timer.start
     metadata: {}
@@ -210,4 +214,27 @@
       - notify.home_security_alert_bot_smart_home_security_system
       title: Gateway offline!
       message: Your gateway has gone offline.
+  mode: single
+- id: '1778765777705'
+  alias: Low gateway battery
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.gateway_gateway_battery_level
+  conditions:
+  - type: is_battery_level
+    condition: device
+    device_id: 17b0fb1c99c7494095a490702e1e128b
+    entity_id: 129c22c2e12f55f4fb5f93bbfbc6c3b4
+    domain: sensor
+    below: 20
+  actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_smart_home_security_system
+      title: Gateway battery low!
+      message: Your gateway battery level has dropped below 20%.
   mode: single

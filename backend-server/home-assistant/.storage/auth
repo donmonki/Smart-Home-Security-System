@@ -198,9 +198,9 @@
         "access_token_expiration": 1800.0,
         "token": "08feebf5ee8edbd9665cf963b6f9ed7d13e6979ee2736ece6b5ccd1ad572da95a980875a186750e627e10e36d9ee3bde44bf61a88eb2900adbd786bc529ed2bc",
         "jwt_key": "762b986508fd75caf3561b42868b879ef3aa45847a2c64d35830eeb6473aa6d9dc7ceb57931393c6f1da92abc908706382b528f01a6b336829c85be7da3e495e",
-        "last_used_at": "2026-05-14T08:17:17.874263+00:00",
+        "last_used_at": "2026-05-19T12:36:51.744814+00:00",
         "last_used_ip": "172.18.0.1",
-        "expire_at": 1786522637.874263,
+        "expire_at": 1786970211.744814,
         "credential_id": "f013d2a518f142e49cf446e1c36510d3",
         "version": "2026.4.1"
       },
@@ -215,9 +215,9 @@
         "access_token_expiration": 1800.0,
         "token": "987c954afccacde7a4b55e4b06d9bc6f977d8ea70697505556d3f454c4f93fdd57116250c05eb2ba9de82baf207d40df373b477219e96784203d141652dd207f",
         "jwt_key": "610a04de8fbc730ffa27dae2d424265109006208479e6b7d7749c622f01dc757ee4b92d32a41f353923816c65a5807101241d80bc39c98185030c9b4b645daf5",
-        "last_used_at": "2026-05-14T12:52:10.491451+00:00",
+        "last_used_at": "2026-05-14T08:37:42.598022+00:00",
         "last_used_ip": "172.18.0.1",
-        "expire_at": 1786539130.491451,
+        "expire_at": 1786523862.598022,
         "credential_id": "5cbb34b91ac645e79771d9e568ba589b",
         "version": "2026.4.1"
       },
@@ -235,6 +235,23 @@
         "last_used_at": "2026-05-14T08:37:22.075493+00:00",
         "last_used_ip": "172.18.0.1",
         "expire_at": 1786523842.075493,
+        "credential_id": "5cbb34b91ac645e79771d9e568ba589b",
+        "version": "2026.4.1"
+      },
+      {
+        "id": "ab41c4a4901845debc56f0f160e0898f",
+        "user_id": "9bb9626551ac4c55a83014aaf8dc28fb",
+        "client_id": "https://home-assistant.io/android",
+        "client_name": null,
+        "client_icon": null,
+        "token_type": "normal",
+        "created_at": "2026-05-14T14:17:12.292827+00:00",
+        "access_token_expiration": 1800.0,
+        "token": "f5286d0b1963a6e319e897c02cc58cfc3a905b2e1d46b77be4bd8b672252070e37a009cba1c56fffb9dff0e65585ee759c6920d8672d8051a8badabfad5476e4",
+        "jwt_key": "c5e1726484ee3d2f8f8cc6666cb85b564b84db15948ca039af20f33b33ce586f4f549d06591f53b14864bf55109b8dd99433dfc05c87a21b3c1919cd27d47f31",
+        "last_used_at": "2026-05-14T16:01:06.828715+00:00",
+        "last_used_ip": "172.18.0.1",
+        "expire_at": 1786550466.828715,
         "credential_id": "5cbb34b91ac645e79771d9e568ba589b",
         "version": "2026.4.1"
       }
