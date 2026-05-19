@@ -2,17 +2,45 @@
   alias: Start timer on motion detected
   description: ''
   triggers:
-  - trigger: mqtt
-    options:
-      payload: 'PLACEHOLDER: motion detected'
-      topic: 'PLACEHOLDER: motion'
-  conditions: []
+  - trigger: state
+    entity_id:
+    - binary_sensor.motion_sensor_node_motion_sensor_alarm
+    from:
+    to:
+    - 'on'
+  conditions:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.armed_disarmed
+      state:
+      - 'on'
+    - condition: state
+      entity_id: timer.armsystemtimer
+      state:
+      - idle
+      - paused
+    - condition: state
+      entity_id: timer.disarmtimer
+      state:
+      - idle
+      - paused
+      - unavailable
+      - unknown
+    - condition: state
+      entity_id: siren.buzzer_buzzer_control
+      state:
+      - 'off'
   actions:
   - action: timer.start
     metadata: {}
     target:
       entity_id: timer.disarmtimer
-    data: {}
+    data:
+      duration:
+        hours: 0
+        minutes: 0
+        seconds: 30
   mode: single
 - id: '1776329076297'
   alias: Start alarm when timer finishes
@@ -24,39 +52,18 @@
     event_type: timer.finished
   conditions: []
   actions:
-  - action: script.start_alarm
-    metadata: {}
-    data: {}
-  mode: single
-- id: '1776895453165'
-  alias: Node 1 heartbeat check
-  description: ''
-  triggers:
-  - trigger: mqtt
-    options:
-      topic: home/nodes/NODEID/status
-  conditions: []
-  actions:
-  - action: timer.start
+  - action: siren.turn_on
     metadata: {}
     target:
-      entity_id: timer.heartbeattimernode1
+      entity_id: siren.buzzer_buzzer_control
     data: {}
-  mode: single
-- id: '1777537244405'
-  alias: Motion Sensor heartbeat update
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - sensor.motion_sensor_node_motion_sensor_heartbeat
-  conditions: []
-  actions:
-  - action: timer.start
+  - action: telegram_bot.send_message
     metadata: {}
-    target:
-      entity_id: timer.motion_sensor_heartbeat_timer
-    data: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_smart_home_security_system
+      title: Alert!
+      message: Motion detected in your home!
   mode: single
 - id: '1777998260451'
   alias: RFID Scan Handler
@@ -64,8 +71,12 @@
   triggers:
   - trigger: mqtt
     options:
-      topic: home/nodes/3/scanned
-  conditions: []
+      topic: home/nodes/3/authentication
+  conditions:
+  - condition: state
+    entity_id: input_boolean.armed_disarmed
+    state:
+    - 'on'
   actions:
   - variables:
       scanned_id: '{{ trigger.payload_json.value | upper }}'
@@ -76,4 +87,154 @@
       entity_id: notify.rfid_reader_rfid_authenticated
     data:
       message: '{{ 2 if scanned_id in valid_ids else 1 }}'
+  - if:
+    - condition: template
+      value_template: '{{ scanned_id in valid_ids }}'
+    then:
+    - action: script.disarm
+      metadata: {}
+      data: {}
+  mode: single
+- id: '1778148497275'
+  alias: RFID arm system
+  description: ''
+  triggers:
+  - trigger: mqtt
+    options:
+      topic: home/nodes/3/authentication
+  conditions:
+  - condition: state
+    entity_id: input_boolean.armed_disarmed
+    state:
+    - 'off'
+  actions:
+  - variables:
+      scanned_id: '{{ trigger.payload_json.value | upper }}'
+      valid_ids: '{{ states(''input_text.rfid_valid_ids'').split('','') }}'
+  - action: notify.send_message
+    metadata: {}
+    target:
+      entity_id: notify.rfid_reader_rfid_authenticated
+    data:
+      message: '{{ 2 if scanned_id in valid_ids else 1 }}'
+  - if:
+    - condition: template
+      value_template: '{{ scanned_id in valid_ids }}'
+    then:
+    - action: script.arm
+      metadata: {}
+      data: {}
+  mode: single
+- id: '1778266999836'
+  alias: RFID offline
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.rfid_reader_rfid_heartbeat
+    from:
+    - 'on'
+    to:
+    - unavailable
+    - 'off'
+    - unknown
+  conditions: []
+  actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_smart_home_security_system
+      title: Node offline
+      message: Your RFID reader has gone offline.
+  mode: single
+- id: '1778267119053'
+  alias: Motion sensor offline
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.motion_sensor_node_motion_sensor_heartbeat
+    from:
+    - 'on'
+    to:
+    - unavailable
+    - 'off'
+    - unknown
+  conditions: []
+  actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_smart_home_security_system
+      title: Node offline
+      message: Your motion sensor node has gone offline.
+  mode: single
+- id: '1778267192235'
+  alias: Buzzer offline
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.buzzer_buzzer_heartbeat
+    from:
+    - 'on'
+    to:
+    - unavailable
+    - 'off'
+    - unknown
+  conditions: []
+  actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_smart_home_security_system
+      title: Node offline
+      message: Your buzzer node has gone offline.
+  mode: single
+- id: '1778275327108'
+  alias: Gateway offline
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.gateway_gateway_battery_level
+    from:
+    to:
+    - unavailable
+    - unknown
+  conditions: []
+  actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_smart_home_security_system
+      title: Gateway offline!
+      message: Your gateway has gone offline.
+  mode: single
+- id: '1778765777705'
+  alias: Low gateway battery
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.gateway_gateway_battery_level
+  conditions:
+  - type: is_battery_level
+    condition: device
+    device_id: 17b0fb1c99c7494095a490702e1e128b
+    entity_id: 129c22c2e12f55f4fb5f93bbfbc6c3b4
+    domain: sensor
+    below: 20
+  actions:
+  - action: telegram_bot.send_message
+    metadata: {}
+    data:
+      entity_id:
+      - notify.home_security_alert_bot_smart_home_security_system
+      title: Gateway battery low!
+      message: Your gateway battery level has dropped below 20%.
   mode: single

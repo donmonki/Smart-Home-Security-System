@@ -2,5 +2,2330 @@
   "version": 1,
   "minor_version": 1,
   "key": "trace.saved_traces",
-  "data": {}
+  "data": {
+    "script.toggle_arm_disarm": [
+      {
+        "extended_dict": {
+          "last_step": "sequence/0/choose/0/sequence/0",
+          "run_id": "f51ee03cefa2694e1e15b5c9e2a9743a",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:16.701409+00:00",
+            "finish": "2026-05-14T08:47:16.702816+00:00"
+          },
+          "domain": "script",
+          "item_id": "toggle_arm_disarm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:16.701631+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.toggle_arm_disarm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:47:16.076955+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Toggle arm/disarm"
+                    },
+                    "last_changed": "2026-05-14T08:47:16.079398+00:00",
+                    "last_reported": "2026-05-14T08:47:16.079398+00:00",
+                    "last_updated": "2026-05-14T08:47:16.079398+00:00",
+                    "context": {
+                      "id": "01KRJTPBKCY4GMK69CFJTK8MJ2",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPC6XHE75Z3S1356W7X8Z",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "choice": 0
+                }
+              }
+            ],
+            "sequence/0/choose/0": [
+              {
+                "path": "sequence/0/choose/0",
+                "timestamp": "2026-05-14T08:47:16.701684+00:00",
+                "result": {
+                  "result": true
+                }
+              }
+            ],
+            "sequence/0/choose/0/conditions/0": [
+              {
+                "path": "sequence/0/choose/0/conditions/0",
+                "timestamp": "2026-05-14T08:47:16.701710+00:00",
+                "result": {
+                  "result": true
+                }
+              }
+            ],
+            "sequence/0/choose/0/conditions/0/entity_id/0": [
+              {
+                "path": "sequence/0/choose/0/conditions/0/entity_id/0",
+                "timestamp": "2026-05-14T08:47:16.701723+00:00",
+                "result": {
+                  "result": true,
+                  "state": "off",
+                  "wanted_state": "off"
+                }
+              }
+            ],
+            "sequence/0/choose/0/sequence/0": [
+              {
+                "path": "sequence/0/choose/0/sequence/0",
+                "timestamp": "2026-05-14T08:47:16.701810+00:00",
+                "child_id": {
+                  "domain": "script",
+                  "item_id": "arm",
+                  "run_id": "4ef5b9c1e1eb38c71c572bdd17b086b2"
+                },
+                "result": {
+                  "params": {
+                    "domain": "script",
+                    "service": "arm",
+                    "service_data": {},
+                    "target": {}
+                  },
+                  "running_script": true
+                }
+              }
+            ]
+          },
+          "config": {
+            "alias": "Toggle arm/disarm",
+            "description": "Calls script.arm when system is disarmed, script.disarm when armed.",
+            "sequence": [
+              {
+                "choose": [
+                  {
+                    "conditions": [
+                      {
+                        "condition": "state",
+                        "entity_id": "input_boolean.armed_disarmed",
+                        "state": "off"
+                      }
+                    ],
+                    "sequence": [
+                      {
+                        "action": "script.arm",
+                        "metadata": {},
+                        "data": {}
+                      }
+                    ]
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "condition": "state",
+                        "entity_id": "input_boolean.armed_disarmed",
+                        "state": "on"
+                      }
+                    ],
+                    "sequence": [
+                      {
+                        "action": "script.disarm",
+                        "metadata": {},
+                        "data": {}
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPC6XHE75Z3S1356W7X8Z",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/0/choose/0/sequence/0",
+          "run_id": "f51ee03cefa2694e1e15b5c9e2a9743a",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:16.701409+00:00",
+            "finish": "2026-05-14T08:47:16.702816+00:00"
+          },
+          "domain": "script",
+          "item_id": "toggle_arm_disarm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/0/choose/1/sequence/0",
+          "run_id": "c30dc4955fc4d586e886eeda12c05c4d",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.049518+00:00",
+            "finish": "2026-05-14T08:47:17.052934+00:00"
+          },
+          "domain": "script",
+          "item_id": "toggle_arm_disarm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:17.049774+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.toggle_arm_disarm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:47:16.701493+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Toggle arm/disarm"
+                    },
+                    "last_changed": "2026-05-14T08:47:16.702793+00:00",
+                    "last_reported": "2026-05-14T08:47:16.702793+00:00",
+                    "last_updated": "2026-05-14T08:47:16.702793+00:00",
+                    "context": {
+                      "id": "01KRJTPC6XHE75Z3S1356W7X8Z",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPCHSGHDXA13DQFFFC2B8",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "choice": 1
+                }
+              }
+            ],
+            "sequence/0/choose/0": [
+              {
+                "path": "sequence/0/choose/0",
+                "timestamp": "2026-05-14T08:47:17.049851+00:00",
+                "result": {
+                  "result": false
+                }
+              }
+            ],
+            "sequence/0/choose/0/conditions/0": [
+              {
+                "path": "sequence/0/choose/0/conditions/0",
+                "timestamp": "2026-05-14T08:47:17.049885+00:00",
+                "result": {
+                  "result": false
+                }
+              }
+            ],
+            "sequence/0/choose/0/conditions/0/entity_id/0": [
+              {
+                "path": "sequence/0/choose/0/conditions/0/entity_id/0",
+                "timestamp": "2026-05-14T08:47:17.049961+00:00",
+                "result": {
+                  "result": false,
+                  "state": "on",
+                  "wanted_state": "off"
+                }
+              }
+            ],
+            "sequence/0/choose/1": [
+              {
+                "path": "sequence/0/choose/1",
+                "timestamp": "2026-05-14T08:47:17.050033+00:00",
+                "result": {
+                  "result": true
+                }
+              }
+            ],
+            "sequence/0/choose/1/conditions/0": [
+              {
+                "path": "sequence/0/choose/1/conditions/0",
+                "timestamp": "2026-05-14T08:47:17.050055+00:00",
+                "result": {
+                  "result": true
+                }
+              }
+            ],
+            "sequence/0/choose/1/conditions/0/entity_id/0": [
+              {
+                "path": "sequence/0/choose/1/conditions/0/entity_id/0",
+                "timestamp": "2026-05-14T08:47:17.050073+00:00",
+                "result": {
+                  "result": true,
+                  "state": "on",
+                  "wanted_state": "on"
+                }
+              }
+            ],
+            "sequence/0/choose/1/sequence/0": [
+              {
+                "path": "sequence/0/choose/1/sequence/0",
+                "timestamp": "2026-05-14T08:47:17.050188+00:00",
+                "child_id": {
+                  "domain": "script",
+                  "item_id": "disarm",
+                  "run_id": "2aeb453b87bbf1274da00a5ffdf843df"
+                },
+                "result": {
+                  "params": {
+                    "domain": "script",
+                    "service": "disarm",
+                    "service_data": {},
+                    "target": {}
+                  },
+                  "running_script": true
+                }
+              }
+            ]
+          },
+          "config": {
+            "alias": "Toggle arm/disarm",
+            "description": "Calls script.arm when system is disarmed, script.disarm when armed.",
+            "sequence": [
+              {
+                "choose": [
+                  {
+                    "conditions": [
+                      {
+                        "condition": "state",
+                        "entity_id": "input_boolean.armed_disarmed",
+                        "state": "off"
+                      }
+                    ],
+                    "sequence": [
+                      {
+                        "action": "script.arm",
+                        "metadata": {},
+                        "data": {}
+                      }
+                    ]
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "condition": "state",
+                        "entity_id": "input_boolean.armed_disarmed",
+                        "state": "on"
+                      }
+                    ],
+                    "sequence": [
+                      {
+                        "action": "script.disarm",
+                        "metadata": {},
+                        "data": {}
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPCHSGHDXA13DQFFFC2B8",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/0/choose/1/sequence/0",
+          "run_id": "c30dc4955fc4d586e886eeda12c05c4d",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.049518+00:00",
+            "finish": "2026-05-14T08:47:17.052934+00:00"
+          },
+          "domain": "script",
+          "item_id": "toggle_arm_disarm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/0/choose/0/sequence/0",
+          "run_id": "6b41f0e1b31a83972a5f0dd9993337f1",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.313536+00:00",
+            "finish": "2026-05-14T08:47:17.315668+00:00"
+          },
+          "domain": "script",
+          "item_id": "toggle_arm_disarm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:17.313944+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.toggle_arm_disarm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:47:17.049618+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Toggle arm/disarm"
+                    },
+                    "last_changed": "2026-05-14T08:47:17.052820+00:00",
+                    "last_reported": "2026-05-14T08:47:17.052820+00:00",
+                    "last_updated": "2026-05-14T08:47:17.052820+00:00",
+                    "context": {
+                      "id": "01KRJTPCHSGHDXA13DQFFFC2B8",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPCT1CSMK6AXHZWA63HRJ",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "choice": 0
+                }
+              }
+            ],
+            "sequence/0/choose/0": [
+              {
+                "path": "sequence/0/choose/0",
+                "timestamp": "2026-05-14T08:47:17.314050+00:00",
+                "result": {
+                  "result": true
+                }
+              }
+            ],
+            "sequence/0/choose/0/conditions/0": [
+              {
+                "path": "sequence/0/choose/0/conditions/0",
+                "timestamp": "2026-05-14T08:47:17.314125+00:00",
+                "result": {
+                  "result": true
+                }
+              }
+            ],
+            "sequence/0/choose/0/conditions/0/entity_id/0": [
+              {
+                "path": "sequence/0/choose/0/conditions/0/entity_id/0",
+                "timestamp": "2026-05-14T08:47:17.314161+00:00",
+                "result": {
+                  "result": true,
+                  "state": "off",
+                  "wanted_state": "off"
+                }
+              }
+            ],
+            "sequence/0/choose/0/sequence/0": [
+              {
+                "path": "sequence/0/choose/0/sequence/0",
+                "timestamp": "2026-05-14T08:47:17.314399+00:00",
+                "child_id": {
+                  "domain": "script",
+                  "item_id": "arm",
+                  "run_id": "b72bf245704bd9f8460ecf90ba10e192"
+                },
+                "result": {
+                  "params": {
+                    "domain": "script",
+                    "service": "arm",
+                    "service_data": {},
+                    "target": {}
+                  },
+                  "running_script": true
+                }
+              }
+            ]
+          },
+          "config": {
+            "alias": "Toggle arm/disarm",
+            "description": "Calls script.arm when system is disarmed, script.disarm when armed.",
+            "sequence": [
+              {
+                "choose": [
+                  {
+                    "conditions": [
+                      {
+                        "condition": "state",
+                        "entity_id": "input_boolean.armed_disarmed",
+                        "state": "off"
+                      }
+                    ],
+                    "sequence": [
+                      {
+                        "action": "script.arm",
+                        "metadata": {},
+                        "data": {}
+                      }
+                    ]
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "condition": "state",
+                        "entity_id": "input_boolean.armed_disarmed",
+                        "state": "on"
+                      }
+                    ],
+                    "sequence": [
+                      {
+                        "action": "script.disarm",
+                        "metadata": {},
+                        "data": {}
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPCT1CSMK6AXHZWA63HRJ",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/0/choose/0/sequence/0",
+          "run_id": "6b41f0e1b31a83972a5f0dd9993337f1",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.313536+00:00",
+            "finish": "2026-05-14T08:47:17.315668+00:00"
+          },
+          "domain": "script",
+          "item_id": "toggle_arm_disarm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/0/choose/1/sequence/0",
+          "run_id": "57c696f1d2875e1a845a128bf8901dcf",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.834990+00:00",
+            "finish": "2026-05-14T08:47:17.836855+00:00"
+          },
+          "domain": "script",
+          "item_id": "toggle_arm_disarm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:17.835194+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.toggle_arm_disarm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:47:17.313697+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Toggle arm/disarm"
+                    },
+                    "last_changed": "2026-05-14T08:47:17.315636+00:00",
+                    "last_reported": "2026-05-14T08:47:17.315636+00:00",
+                    "last_updated": "2026-05-14T08:47:17.315636+00:00",
+                    "context": {
+                      "id": "01KRJTPCT1CSMK6AXHZWA63HRJ",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPDAAV1259DJQ9EHGPMW0",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "choice": 1
+                }
+              }
+            ],
+            "sequence/0/choose/0": [
+              {
+                "path": "sequence/0/choose/0",
+                "timestamp": "2026-05-14T08:47:17.835248+00:00",
+                "result": {
+                  "result": false
+                }
+              }
+            ],
+            "sequence/0/choose/0/conditions/0": [
+              {
+                "path": "sequence/0/choose/0/conditions/0",
+                "timestamp": "2026-05-14T08:47:17.835269+00:00",
+                "result": {
+                  "result": false
+                }
+              }
+            ],
+            "sequence/0/choose/0/conditions/0/entity_id/0": [
+              {
+                "path": "sequence/0/choose/0/conditions/0/entity_id/0",
+                "timestamp": "2026-05-14T08:47:17.835284+00:00",
+                "result": {
+                  "result": false,
+                  "state": "on",
+                  "wanted_state": "off"
+                }
+              }
+            ],
+            "sequence/0/choose/1": [
+              {
+                "path": "sequence/0/choose/1",
+                "timestamp": "2026-05-14T08:47:17.835340+00:00",
+                "result": {
+                  "result": true
+                }
+              }
+            ],
+            "sequence/0/choose/1/conditions/0": [
+              {
+                "path": "sequence/0/choose/1/conditions/0",
+                "timestamp": "2026-05-14T08:47:17.835356+00:00",
+                "result": {
+                  "result": true
+                }
+              }
+            ],
+            "sequence/0/choose/1/conditions/0/entity_id/0": [
+              {
+                "path": "sequence/0/choose/1/conditions/0/entity_id/0",
+                "timestamp": "2026-05-14T08:47:17.835369+00:00",
+                "result": {
+                  "result": true,
+                  "state": "on",
+                  "wanted_state": "on"
+                }
+              }
+            ],
+            "sequence/0/choose/1/sequence/0": [
+              {
+                "path": "sequence/0/choose/1/sequence/0",
+                "timestamp": "2026-05-14T08:47:17.835437+00:00",
+                "child_id": {
+                  "domain": "script",
+                  "item_id": "disarm",
+                  "run_id": "33d79aaab0981771cda6a87930b4fe02"
+                },
+                "result": {
+                  "params": {
+                    "domain": "script",
+                    "service": "disarm",
+                    "service_data": {},
+                    "target": {}
+                  },
+                  "running_script": true
+                }
+              }
+            ]
+          },
+          "config": {
+            "alias": "Toggle arm/disarm",
+            "description": "Calls script.arm when system is disarmed, script.disarm when armed.",
+            "sequence": [
+              {
+                "choose": [
+                  {
+                    "conditions": [
+                      {
+                        "condition": "state",
+                        "entity_id": "input_boolean.armed_disarmed",
+                        "state": "off"
+                      }
+                    ],
+                    "sequence": [
+                      {
+                        "action": "script.arm",
+                        "metadata": {},
+                        "data": {}
+                      }
+                    ]
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "condition": "state",
+                        "entity_id": "input_boolean.armed_disarmed",
+                        "state": "on"
+                      }
+                    ],
+                    "sequence": [
+                      {
+                        "action": "script.disarm",
+                        "metadata": {},
+                        "data": {}
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPDAAV1259DJQ9EHGPMW0",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/0/choose/1/sequence/0",
+          "run_id": "57c696f1d2875e1a845a128bf8901dcf",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.834990+00:00",
+            "finish": "2026-05-14T08:47:17.836855+00:00"
+          },
+          "domain": "script",
+          "item_id": "toggle_arm_disarm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/0/choose/0/sequence/0",
+          "run_id": "3fb7460f3c0b46636ad1d75eda6ae79f",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:18.522894+00:00",
+            "finish": "2026-05-14T08:47:18.524354+00:00"
+          },
+          "domain": "script",
+          "item_id": "toggle_arm_disarm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:18.523101+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.toggle_arm_disarm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:47:17.835075+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Toggle arm/disarm"
+                    },
+                    "last_changed": "2026-05-14T08:47:17.836802+00:00",
+                    "last_reported": "2026-05-14T08:47:17.836802+00:00",
+                    "last_updated": "2026-05-14T08:47:17.836802+00:00",
+                    "context": {
+                      "id": "01KRJTPDAAV1259DJQ9EHGPMW0",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPDZTJJ6J8PT9N8DE0CFF",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "choice": 0
+                }
+              }
+            ],
+            "sequence/0/choose/0": [
+              {
+                "path": "sequence/0/choose/0",
+                "timestamp": "2026-05-14T08:47:18.523157+00:00",
+                "result": {
+                  "result": true
+                }
+              }
+            ],
+            "sequence/0/choose/0/conditions/0": [
+              {
+                "path": "sequence/0/choose/0/conditions/0",
+                "timestamp": "2026-05-14T08:47:18.523179+00:00",
+                "result": {
+                  "result": true
+                }
+              }
+            ],
+            "sequence/0/choose/0/conditions/0/entity_id/0": [
+              {
+                "path": "sequence/0/choose/0/conditions/0/entity_id/0",
+                "timestamp": "2026-05-14T08:47:18.523192+00:00",
+                "result": {
+                  "result": true,
+                  "state": "off",
+                  "wanted_state": "off"
+                }
+              }
+            ],
+            "sequence/0/choose/0/sequence/0": [
+              {
+                "path": "sequence/0/choose/0/sequence/0",
+                "timestamp": "2026-05-14T08:47:18.523290+00:00",
+                "child_id": {
+                  "domain": "script",
+                  "item_id": "arm",
+                  "run_id": "20bd4fecbafbb9717f9c3c749d8dd486"
+                },
+                "result": {
+                  "params": {
+                    "domain": "script",
+                    "service": "arm",
+                    "service_data": {},
+                    "target": {}
+                  },
+                  "running_script": true
+                }
+              }
+            ]
+          },
+          "config": {
+            "alias": "Toggle arm/disarm",
+            "description": "Calls script.arm when system is disarmed, script.disarm when armed.",
+            "sequence": [
+              {
+                "choose": [
+                  {
+                    "conditions": [
+                      {
+                        "condition": "state",
+                        "entity_id": "input_boolean.armed_disarmed",
+                        "state": "off"
+                      }
+                    ],
+                    "sequence": [
+                      {
+                        "action": "script.arm",
+                        "metadata": {},
+                        "data": {}
+                      }
+                    ]
+                  },
+                  {
+                    "conditions": [
+                      {
+                        "condition": "state",
+                        "entity_id": "input_boolean.armed_disarmed",
+                        "state": "on"
+                      }
+                    ],
+                    "sequence": [
+                      {
+                        "action": "script.disarm",
+                        "metadata": {},
+                        "data": {}
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "mode": "single"
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPDZTJJ6J8PT9N8DE0CFF",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/0/choose/0/sequence/0",
+          "run_id": "3fb7460f3c0b46636ad1d75eda6ae79f",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:18.522894+00:00",
+            "finish": "2026-05-14T08:47:18.524354+00:00"
+          },
+          "domain": "script",
+          "item_id": "toggle_arm_disarm"
+        }
+      }
+    ],
+    "script.disarm": [
+      {
+        "extended_dict": {
+          "last_step": "sequence/3",
+          "run_id": "f7f9bae1f98bd8e03228ab668c40f5b8",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:46:47.095441+00:00",
+            "finish": "2026-05-14T08:46:47.096810+00:00"
+          },
+          "domain": "script",
+          "item_id": "disarm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:46:47.095535+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.disarm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:46:27.604580+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Disarm"
+                    },
+                    "last_changed": "2026-05-14T08:46:27.606634+00:00",
+                    "last_reported": "2026-05-14T08:46:27.606634+00:00",
+                    "last_updated": "2026-05-14T08:46:27.606634+00:00",
+                    "context": {
+                      "id": "01KRJTMW8JXDRXY2XP3S4AZY4S",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTNF9P6WW7YQZ8MGPKJJW0",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "input_boolean",
+                    "service": "turn_off",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "input_boolean.armed_disarmed"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/1": [
+              {
+                "path": "sequence/1",
+                "timestamp": "2026-05-14T08:46:47.095849+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "cancel",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.disarmtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/2": [
+              {
+                "path": "sequence/2",
+                "timestamp": "2026-05-14T08:46:47.096041+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "cancel",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.armsystemtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/3": [
+              {
+                "path": "sequence/3",
+                "timestamp": "2026-05-14T08:46:47.096212+00:00",
+                "result": {
+                  "params": {
+                    "domain": "siren",
+                    "service": "turn_off",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "siren.buzzer_buzzer_control"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "sequence": [
+              {
+                "action": "input_boolean.turn_off",
+                "metadata": {},
+                "target": {
+                  "entity_id": "input_boolean.armed_disarmed"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.cancel",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.disarmtimer"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.cancel",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.armsystemtimer"
+                },
+                "data": {}
+              },
+              {
+                "action": "siren.turn_off",
+                "metadata": {},
+                "target": {
+                  "entity_id": "siren.buzzer_buzzer_control"
+                },
+                "data": {}
+              }
+            ],
+            "alias": "Disarm",
+            "description": ""
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTNF9P6WW7YQZ8MGPKJJW0",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/3",
+          "run_id": "f7f9bae1f98bd8e03228ab668c40f5b8",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:46:47.095441+00:00",
+            "finish": "2026-05-14T08:46:47.096810+00:00"
+          },
+          "domain": "script",
+          "item_id": "disarm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/3",
+          "run_id": "483c0ed210701780364920dc6b9122e1",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:46:59.396374+00:00",
+            "finish": "2026-05-14T08:46:59.397567+00:00"
+          },
+          "domain": "script",
+          "item_id": "disarm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:46:59.396475+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.disarm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:46:47.095480+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Disarm"
+                    },
+                    "last_changed": "2026-05-14T08:46:47.096743+00:00",
+                    "last_reported": "2026-05-14T08:46:47.096743+00:00",
+                    "last_updated": "2026-05-14T08:46:47.096743+00:00",
+                    "context": {
+                      "id": "01KRJTNF9P6WW7YQZ8MGPKJJW0",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTNVA3QDHAY09NBT8YC2FZ",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "input_boolean",
+                    "service": "turn_off",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "input_boolean.armed_disarmed"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/1": [
+              {
+                "path": "sequence/1",
+                "timestamp": "2026-05-14T08:46:59.396839+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "cancel",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.disarmtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/2": [
+              {
+                "path": "sequence/2",
+                "timestamp": "2026-05-14T08:46:59.397020+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "cancel",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.armsystemtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/3": [
+              {
+                "path": "sequence/3",
+                "timestamp": "2026-05-14T08:46:59.397177+00:00",
+                "result": {
+                  "params": {
+                    "domain": "siren",
+                    "service": "turn_off",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "siren.buzzer_buzzer_control"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "sequence": [
+              {
+                "action": "input_boolean.turn_off",
+                "metadata": {},
+                "target": {
+                  "entity_id": "input_boolean.armed_disarmed"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.cancel",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.disarmtimer"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.cancel",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.armsystemtimer"
+                },
+                "data": {}
+              },
+              {
+                "action": "siren.turn_off",
+                "metadata": {},
+                "target": {
+                  "entity_id": "siren.buzzer_buzzer_control"
+                },
+                "data": {}
+              }
+            ],
+            "alias": "Disarm",
+            "description": ""
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTNVA3QDHAY09NBT8YC2FZ",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/3",
+          "run_id": "483c0ed210701780364920dc6b9122e1",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:46:59.396374+00:00",
+            "finish": "2026-05-14T08:46:59.397567+00:00"
+          },
+          "domain": "script",
+          "item_id": "disarm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/3",
+          "run_id": "0ce660e46b26bbdfc6c9d04d5485ce86",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:16.077692+00:00",
+            "finish": "2026-05-14T08:47:16.079324+00:00"
+          },
+          "domain": "script",
+          "item_id": "disarm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:16.077841+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.disarm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:46:59.396415+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Disarm"
+                    },
+                    "last_changed": "2026-05-14T08:46:59.397512+00:00",
+                    "last_reported": "2026-05-14T08:46:59.397512+00:00",
+                    "last_updated": "2026-05-14T08:46:59.397512+00:00",
+                    "context": {
+                      "id": "01KRJTNVA3QDHAY09NBT8YC2FZ",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPBKCY4GMK69CFJTK8MJ2",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "input_boolean",
+                    "service": "turn_off",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "input_boolean.armed_disarmed"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/1": [
+              {
+                "path": "sequence/1",
+                "timestamp": "2026-05-14T08:47:16.078346+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "cancel",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.disarmtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/2": [
+              {
+                "path": "sequence/2",
+                "timestamp": "2026-05-14T08:47:16.078595+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "cancel",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.armsystemtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/3": [
+              {
+                "path": "sequence/3",
+                "timestamp": "2026-05-14T08:47:16.078766+00:00",
+                "result": {
+                  "params": {
+                    "domain": "siren",
+                    "service": "turn_off",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "siren.buzzer_buzzer_control"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "sequence": [
+              {
+                "action": "input_boolean.turn_off",
+                "metadata": {},
+                "target": {
+                  "entity_id": "input_boolean.armed_disarmed"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.cancel",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.disarmtimer"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.cancel",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.armsystemtimer"
+                },
+                "data": {}
+              },
+              {
+                "action": "siren.turn_off",
+                "metadata": {},
+                "target": {
+                  "entity_id": "siren.buzzer_buzzer_control"
+                },
+                "data": {}
+              }
+            ],
+            "alias": "Disarm",
+            "description": ""
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPBKCY4GMK69CFJTK8MJ2",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/3",
+          "run_id": "0ce660e46b26bbdfc6c9d04d5485ce86",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:16.077692+00:00",
+            "finish": "2026-05-14T08:47:16.079324+00:00"
+          },
+          "domain": "script",
+          "item_id": "disarm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/3",
+          "run_id": "2aeb453b87bbf1274da00a5ffdf843df",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.050343+00:00",
+            "finish": "2026-05-14T08:47:17.052649+00:00"
+          },
+          "domain": "script",
+          "item_id": "disarm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:17.050571+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.disarm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:47:16.077762+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Disarm"
+                    },
+                    "last_changed": "2026-05-14T08:47:16.079253+00:00",
+                    "last_reported": "2026-05-14T08:47:16.079253+00:00",
+                    "last_updated": "2026-05-14T08:47:16.079253+00:00",
+                    "context": {
+                      "id": "01KRJTPBKCY4GMK69CFJTK8MJ2",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPCHSGHDXA13DQFFFC2B8",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "input_boolean",
+                    "service": "turn_off",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "input_boolean.armed_disarmed"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/1": [
+              {
+                "path": "sequence/1",
+                "timestamp": "2026-05-14T08:47:17.051271+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "cancel",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.disarmtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/2": [
+              {
+                "path": "sequence/2",
+                "timestamp": "2026-05-14T08:47:17.051631+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "cancel",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.armsystemtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/3": [
+              {
+                "path": "sequence/3",
+                "timestamp": "2026-05-14T08:47:17.051945+00:00",
+                "result": {
+                  "params": {
+                    "domain": "siren",
+                    "service": "turn_off",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "siren.buzzer_buzzer_control"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "sequence": [
+              {
+                "action": "input_boolean.turn_off",
+                "metadata": {},
+                "target": {
+                  "entity_id": "input_boolean.armed_disarmed"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.cancel",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.disarmtimer"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.cancel",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.armsystemtimer"
+                },
+                "data": {}
+              },
+              {
+                "action": "siren.turn_off",
+                "metadata": {},
+                "target": {
+                  "entity_id": "siren.buzzer_buzzer_control"
+                },
+                "data": {}
+              }
+            ],
+            "alias": "Disarm",
+            "description": ""
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPCHSGHDXA13DQFFFC2B8",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/3",
+          "run_id": "2aeb453b87bbf1274da00a5ffdf843df",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.050343+00:00",
+            "finish": "2026-05-14T08:47:17.052649+00:00"
+          },
+          "domain": "script",
+          "item_id": "disarm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/3",
+          "run_id": "33d79aaab0981771cda6a87930b4fe02",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.835503+00:00",
+            "finish": "2026-05-14T08:47:17.836747+00:00"
+          },
+          "domain": "script",
+          "item_id": "disarm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:17.835682+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.disarm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:47:17.050427+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Disarm"
+                    },
+                    "last_changed": "2026-05-14T08:47:17.052562+00:00",
+                    "last_reported": "2026-05-14T08:47:17.052562+00:00",
+                    "last_updated": "2026-05-14T08:47:17.052562+00:00",
+                    "context": {
+                      "id": "01KRJTPCHSGHDXA13DQFFFC2B8",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPDAAV1259DJQ9EHGPMW0",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "input_boolean",
+                    "service": "turn_off",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "input_boolean.armed_disarmed"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/1": [
+              {
+                "path": "sequence/1",
+                "timestamp": "2026-05-14T08:47:17.835998+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "cancel",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.disarmtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/2": [
+              {
+                "path": "sequence/2",
+                "timestamp": "2026-05-14T08:47:17.836263+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "cancel",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.armsystemtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/3": [
+              {
+                "path": "sequence/3",
+                "timestamp": "2026-05-14T08:47:17.836414+00:00",
+                "result": {
+                  "params": {
+                    "domain": "siren",
+                    "service": "turn_off",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "siren.buzzer_buzzer_control"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "sequence": [
+              {
+                "action": "input_boolean.turn_off",
+                "metadata": {},
+                "target": {
+                  "entity_id": "input_boolean.armed_disarmed"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.cancel",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.disarmtimer"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.cancel",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.armsystemtimer"
+                },
+                "data": {}
+              },
+              {
+                "action": "siren.turn_off",
+                "metadata": {},
+                "target": {
+                  "entity_id": "siren.buzzer_buzzer_control"
+                },
+                "data": {}
+              }
+            ],
+            "alias": "Disarm",
+            "description": ""
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPDAAV1259DJQ9EHGPMW0",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/3",
+          "run_id": "33d79aaab0981771cda6a87930b4fe02",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.835503+00:00",
+            "finish": "2026-05-14T08:47:17.836747+00:00"
+          },
+          "domain": "script",
+          "item_id": "disarm"
+        }
+      }
+    ],
+    "script.arm": [
+      {
+        "extended_dict": {
+          "last_step": "sequence/1",
+          "run_id": "2dcd59b83a224630a79bdc56560d3746",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:46:58.189327+00:00",
+            "finish": "2026-05-14T08:46:58.190296+00:00"
+          },
+          "domain": "script",
+          "item_id": "arm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:46:58.189428+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.arm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:46:28.339955+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Arm"
+                    },
+                    "last_changed": "2026-05-14T08:46:28.340801+00:00",
+                    "last_reported": "2026-05-14T08:46:28.340801+00:00",
+                    "last_updated": "2026-05-14T08:46:28.340801+00:00",
+                    "context": {
+                      "id": "01KRJTMWZKGXC72GTFFSM33EF9",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTNT4CXPABYZ5BW35PMG7Y",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "input_boolean",
+                    "service": "turn_on",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "input_boolean.armed_disarmed"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/1": [
+              {
+                "path": "sequence/1",
+                "timestamp": "2026-05-14T08:46:58.189848+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "start",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.armsystemtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "sequence": [
+              {
+                "action": "input_boolean.turn_on",
+                "metadata": {},
+                "target": {
+                  "entity_id": "input_boolean.armed_disarmed"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.start",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.armsystemtimer"
+                },
+                "data": {}
+              }
+            ],
+            "alias": "Arm",
+            "description": ""
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTNT4CXPABYZ5BW35PMG7Y",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/1",
+          "run_id": "2dcd59b83a224630a79bdc56560d3746",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:46:58.189327+00:00",
+            "finish": "2026-05-14T08:46:58.190296+00:00"
+          },
+          "domain": "script",
+          "item_id": "arm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/1",
+          "run_id": "6931471df6e0e45f74ebca51a1fba396",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:00.077359+00:00",
+            "finish": "2026-05-14T08:47:00.078416+00:00"
+          },
+          "domain": "script",
+          "item_id": "arm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:00.077516+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.arm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:46:58.189367+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Arm"
+                    },
+                    "last_changed": "2026-05-14T08:46:58.190248+00:00",
+                    "last_reported": "2026-05-14T08:46:58.190248+00:00",
+                    "last_updated": "2026-05-14T08:46:58.190248+00:00",
+                    "context": {
+                      "id": "01KRJTNT4CXPABYZ5BW35PMG7Y",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTNVZC4CESX6Z0ENB3J7N5",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "input_boolean",
+                    "service": "turn_on",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "input_boolean.armed_disarmed"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/1": [
+              {
+                "path": "sequence/1",
+                "timestamp": "2026-05-14T08:47:00.077977+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "start",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.armsystemtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "sequence": [
+              {
+                "action": "input_boolean.turn_on",
+                "metadata": {},
+                "target": {
+                  "entity_id": "input_boolean.armed_disarmed"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.start",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.armsystemtimer"
+                },
+                "data": {}
+              }
+            ],
+            "alias": "Arm",
+            "description": ""
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTNVZC4CESX6Z0ENB3J7N5",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/1",
+          "run_id": "6931471df6e0e45f74ebca51a1fba396",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:00.077359+00:00",
+            "finish": "2026-05-14T08:47:00.078416+00:00"
+          },
+          "domain": "script",
+          "item_id": "arm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/1",
+          "run_id": "4ef5b9c1e1eb38c71c572bdd17b086b2",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:16.701876+00:00",
+            "finish": "2026-05-14T08:47:16.702742+00:00"
+          },
+          "domain": "script",
+          "item_id": "arm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:16.701967+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.arm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:47:00.077419+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Arm"
+                    },
+                    "last_changed": "2026-05-14T08:47:00.078377+00:00",
+                    "last_reported": "2026-05-14T08:47:00.078377+00:00",
+                    "last_updated": "2026-05-14T08:47:00.078377+00:00",
+                    "context": {
+                      "id": "01KRJTNVZC4CESX6Z0ENB3J7N5",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPC6XHE75Z3S1356W7X8Z",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "input_boolean",
+                    "service": "turn_on",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "input_boolean.armed_disarmed"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/1": [
+              {
+                "path": "sequence/1",
+                "timestamp": "2026-05-14T08:47:16.702304+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "start",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.armsystemtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "sequence": [
+              {
+                "action": "input_boolean.turn_on",
+                "metadata": {},
+                "target": {
+                  "entity_id": "input_boolean.armed_disarmed"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.start",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.armsystemtimer"
+                },
+                "data": {}
+              }
+            ],
+            "alias": "Arm",
+            "description": ""
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPC6XHE75Z3S1356W7X8Z",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/1",
+          "run_id": "4ef5b9c1e1eb38c71c572bdd17b086b2",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:16.701876+00:00",
+            "finish": "2026-05-14T08:47:16.702742+00:00"
+          },
+          "domain": "script",
+          "item_id": "arm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/1",
+          "run_id": "b72bf245704bd9f8460ecf90ba10e192",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.314608+00:00",
+            "finish": "2026-05-14T08:47:17.315570+00:00"
+          },
+          "domain": "script",
+          "item_id": "arm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:17.314783+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.arm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:47:16.701916+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Arm"
+                    },
+                    "last_changed": "2026-05-14T08:47:16.702705+00:00",
+                    "last_reported": "2026-05-14T08:47:16.702705+00:00",
+                    "last_updated": "2026-05-14T08:47:16.702705+00:00",
+                    "context": {
+                      "id": "01KRJTPC6XHE75Z3S1356W7X8Z",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPCT1CSMK6AXHZWA63HRJ",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "input_boolean",
+                    "service": "turn_on",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "input_boolean.armed_disarmed"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/1": [
+              {
+                "path": "sequence/1",
+                "timestamp": "2026-05-14T08:47:17.315165+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "start",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.armsystemtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "sequence": [
+              {
+                "action": "input_boolean.turn_on",
+                "metadata": {},
+                "target": {
+                  "entity_id": "input_boolean.armed_disarmed"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.start",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.armsystemtimer"
+                },
+                "data": {}
+              }
+            ],
+            "alias": "Arm",
+            "description": ""
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPCT1CSMK6AXHZWA63HRJ",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/1",
+          "run_id": "b72bf245704bd9f8460ecf90ba10e192",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:17.314608+00:00",
+            "finish": "2026-05-14T08:47:17.315570+00:00"
+          },
+          "domain": "script",
+          "item_id": "arm"
+        }
+      },
+      {
+        "extended_dict": {
+          "last_step": "sequence/1",
+          "run_id": "20bd4fecbafbb9717f9c3c749d8dd486",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:18.523362+00:00",
+            "finish": "2026-05-14T08:47:18.524170+00:00"
+          },
+          "domain": "script",
+          "item_id": "arm",
+          "trace": {
+            "sequence/0": [
+              {
+                "path": "sequence/0",
+                "timestamp": "2026-05-14T08:47:18.523454+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "script.arm",
+                    "state": "off",
+                    "attributes": {
+                      "last_triggered": "2026-05-14T08:47:17.314680+00:00",
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "Arm"
+                    },
+                    "last_changed": "2026-05-14T08:47:17.315524+00:00",
+                    "last_reported": "2026-05-14T08:47:17.315524+00:00",
+                    "last_updated": "2026-05-14T08:47:17.315524+00:00",
+                    "context": {
+                      "id": "01KRJTPCT1CSMK6AXHZWA63HRJ",
+                      "parent_id": null,
+                      "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                    }
+                  },
+                  "context": {
+                    "id": "01KRJTPDZTJJ6J8PT9N8DE0CFF",
+                    "parent_id": null,
+                    "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+                  }
+                },
+                "result": {
+                  "params": {
+                    "domain": "input_boolean",
+                    "service": "turn_on",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "input_boolean.armed_disarmed"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ],
+            "sequence/1": [
+              {
+                "path": "sequence/1",
+                "timestamp": "2026-05-14T08:47:18.523743+00:00",
+                "result": {
+                  "params": {
+                    "domain": "timer",
+                    "service": "start",
+                    "service_data": {},
+                    "target": {
+                      "entity_id": [
+                        "timer.armsystemtimer"
+                      ]
+                    }
+                  },
+                  "running_script": false
+                }
+              }
+            ]
+          },
+          "config": {
+            "sequence": [
+              {
+                "action": "input_boolean.turn_on",
+                "metadata": {},
+                "target": {
+                  "entity_id": "input_boolean.armed_disarmed"
+                },
+                "data": {}
+              },
+              {
+                "action": "timer.start",
+                "metadata": {},
+                "target": {
+                  "entity_id": "timer.armsystemtimer"
+                },
+                "data": {}
+              }
+            ],
+            "alias": "Arm",
+            "description": ""
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KRJTPDZTJJ6J8PT9N8DE0CFF",
+            "parent_id": null,
+            "user_id": "9bb9626551ac4c55a83014aaf8dc28fb"
+          }
+        },
+        "short_dict": {
+          "last_step": "sequence/1",
+          "run_id": "20bd4fecbafbb9717f9c3c749d8dd486",
+          "state": "stopped",
+          "script_execution": "finished",
+          "timestamp": {
+            "start": "2026-05-14T08:47:18.523362+00:00",
+            "finish": "2026-05-14T08:47:18.524170+00:00"
+          },
+          "domain": "script",
+          "item_id": "arm"
+        }
+      }
+    ]
+  }
 }

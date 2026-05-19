@@ -1,22 +1,66 @@
-start_alarm:
+disarm:
   sequence:
-  - action: mqtt.publish
+  - action: input_boolean.turn_off
     metadata: {}
-    data:
-      evaluate_payload: false
-      qos: '1'
-      topic: 'PLACEHOLDER: LED'
-      payload: 'PLACEHOLDER: flash red'
-      retain: false
-    alias: MQTT Publish LED flashing
-  - alias: MQTT Publish buzzer
-    action: mqtt.publish
+    target:
+      entity_id: input_boolean.armed_disarmed
+    data: {}
+  - action: timer.cancel
     metadata: {}
-    data:
-      evaluate_payload: false
-      qos: '1'
-      topic: 'PLACEHOLDER: buzzer'
-      payload: 'PLACEHOLDER: start'
-      retain: false
-  alias: Start alarm
+    target:
+      entity_id: timer.disarmtimer
+    data: {}
+  - action: timer.cancel
+    metadata: {}
+    target:
+      entity_id: timer.armsystemtimer
+    data: {}
+  - action: siren.turn_off
+    metadata: {}
+    target:
+      entity_id: siren.buzzer_buzzer_control
+    data: {}
+  alias: Disarm
   description: ''
+arm:
+  sequence:
+  - action: input_boolean.turn_on
+    metadata: {}
+    target:
+      entity_id: input_boolean.armed_disarmed
+    data: {}
+  - action: timer.start
+    metadata: {}
+    target:
+      entity_id: timer.armsystemtimer
+    data: {}
+  alias: Arm
+  description: ''
+
+# ---------------------------------------------------------------------
+#  Router script used by the dashboard arm/disarm tile.
+#  Picks Arm or Disarm based on the current armed_disarmed state so a
+#  single Lovelace tap can flip the system either direction.
+# ---------------------------------------------------------------------
+toggle_arm_disarm:
+  alias: Toggle arm/disarm
+  description: 'Calls script.arm when system is disarmed, script.disarm when armed.'
+  sequence:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.armed_disarmed
+        state: 'off'
+      sequence:
+      - action: script.arm
+        metadata: {}
+        data: {}
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.armed_disarmed
+        state: 'on'
+      sequence:
+      - action: script.disarm
+        metadata: {}
+        data: {}
+  mode: single

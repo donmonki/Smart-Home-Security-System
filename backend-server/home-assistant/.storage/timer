@@ -21,6 +21,12 @@
         "name": "Motion Sensor heartbeat timer",
         "duration": "0:02:00",
         "restore": false
+      },
+      {
+        "id": "armsystemtimer",
+        "name": "ArmSystemTimer",
+        "restore": false,
+        "duration": "0:00:00"
       }
     ]
   }
