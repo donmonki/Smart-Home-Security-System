@@ -34,7 +34,9 @@
       {
         "id": "zivota",
         "name": "zivota",
-        "device_trackers": [],
+        "device_trackers": [
+          "device_tracker.zivota_s_phone"
+        ],
         "user_id": "9bb9626551ac4c55a83014aaf8dc28fb",
         "picture": null
       },
