@@ -25,3 +25,5 @@ backend-server/mosquitto/certs/*.srl
 # NOTE: .storage/ is now SHARED for team collaboration
 # This includes user accounts and integration configs
 CLAUDE.local.md
+
+.DS_Store
