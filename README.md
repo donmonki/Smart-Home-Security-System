@@ -105,10 +105,10 @@ This project integrates a diverse stack of hardware, communication protocols, an
 # Contribution Table
 
 
-| Contributor | Contributed Files | Topics / Areas |
-|---|---|---|
-| Mark Toth | `/Adapter_Lib/*`, `/backend-server/mosquitto` | LoRaP2P Protocol, MQTT protocol, Encryption implementation |
-| Kristian Greif | `/Adapter_Lib/src/LoRaWAN_Adapter.h & .cpp`, `/backend-server/*` | Backend server (HomeAssistant + mosquitto) docker setup, Backend MQTT integration with TLS, LoRaWAN protocol, TTN -> Pipedream -> Telegram bot setup |
+| Contributor |Github name| Contributed Files | Topics / Areas |
+|---|---|---|---|
+| Mark Toth - s252839|donmonki| `/Adapter_Lib/*`, `/backend-server/mosquitto` | LoRaP2P Protocol, MQTT protocol, Encryption implementation |
+| Kristian Greif - s257578 |kristiangreif| `/Adapter_Lib/src/LoRaWAN_Adapter.h & .cpp`, `/backend-server/*` | Backend server (HomeAssistant + mosquitto) docker setup, Backend MQTT integration with TLS, LoRaWAN protocol, TTN -> Pipedream -> Telegram bot setup |
 
 
 # Github Development guide

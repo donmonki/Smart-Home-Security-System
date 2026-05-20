@@ -260,9 +260,6 @@ Creates an MQTT adapter instance with the following parameters:
   - Populates `outPayload` struct with command data for transmission to nodes
   - Expected topic format: `home/gateway/commands/node/{nodeId}`
 
-- `bool getPendingCommand(uint8_t requestingNodeId, LoRaPayload &outPayload)`: Retrieves pending commands for a specific node.
-  - Checks for commands addressed to the requesting node
-  - `return`: `true` if a pending command exists, `false` otherwise
 
 #### **Message Types and Device Status**
 
