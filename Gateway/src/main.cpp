@@ -23,8 +23,8 @@
 // ----------------------------------------------------------------
 // WiFi / MQTT Credentials — update before deployment
 // ----------------------------------------------------------------
-#define WIFI_SSID      "Pixel 7 Pro"
-#define WIFI_PASSWORD  "lookontherouter"
+#define WIFI_SSID      "ssid"
+#define WIFI_PASSWORD  "password"
 #define MQTT_SERVER    "10.81.138.9"
 #define MQTT_PORT      8883
 #define MQTT_CLIENT_ID "gateway-1"
