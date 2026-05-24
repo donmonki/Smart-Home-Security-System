@@ -112,6 +112,8 @@ This project integrates a diverse stack of hardware, communication protocols, an
 | Lex Van Cauter - s234556 | Trilex214 | `/Adapter_Lib/LoRaP2P_Adapter.cpp`, `/Gateway/*` | Gateway implementation and orchestration, LBT + ACK methods in LoRa P2P |
 | Mairo Trump - s234544 | LilMirts | `/backend-server/home-assistant/*` | Backend logic implementation, MQTT and Telegram integrations in HA |
 
+| Zivota Milinkovic - s225102 | MiliTheGoat | `/backend-server/home-assistant/*` | UI and integration in HA |
+
 
 # Github Development guide
 
